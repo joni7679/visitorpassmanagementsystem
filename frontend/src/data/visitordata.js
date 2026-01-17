@@ -4,7 +4,7 @@ export const visitorData = [
     {
         icon: LayoutDashboardIcon,
         label:"Dashboard",
-        path:"dashboard"
+        path:"/dashboard/visitor"
     },
     {
         icon:GitPullRequestCreate,

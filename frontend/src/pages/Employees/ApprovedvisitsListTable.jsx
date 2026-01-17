@@ -1,18 +1,13 @@
 import React from 'react'
 import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import InvitedVisitor from './InvitedVisitor'
-
 const ApprovedvisitsListTable = () => {
-
     return (
         <>
             <div classNameName='w-full'>
                 <div className='flex items-center justify-between  mt-8'>
                     <h4 className='mt-5 font-semibold capitalize '>Approved visit list</h4>
                     <Button title="new invite" icon={<Plus />} />
-
                 </div>
                 <div className="overflow-x-auto p-6">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
@@ -91,7 +86,6 @@ const ApprovedvisitsListTable = () => {
                     </table>
                 </div>
             </div>
-
         </>
     )
 }

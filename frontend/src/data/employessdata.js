@@ -4,7 +4,7 @@ export const employessData = [
     {
         icon: LayoutDashboard,
         label: "Dashboard",
-        path: "/employess",
+        path: "/dashboard/employee",
     },
     {
         icon: CircleDotDashed ,

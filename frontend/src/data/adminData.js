@@ -4,7 +4,7 @@ export const adminData = [
     {
         icon: LayoutDashboard,
         label: "Dashboard",
-        path: "/admin",
+        path: "/dashboard/admin",
     },
     {
         icon:User2Icon,

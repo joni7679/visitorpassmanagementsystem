@@ -39,8 +39,8 @@ export const router = createBrowserRouter([
 
     },
     {
-        path: 'admin',
-        element: <Dashboard />,
+        path: 'dashboard/admin',
+        element:( <Dashboard />),
         children: [
             {
                 index: true,
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "employess",
+        path: "dashboard/employee",
         element: <EmployesDashboard />,
         children: [
             {
@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "securitystaff",
+        path: "dashboard/securitystaff",
         element: <SecurityStaffDashboard />,
         children: [
             {
@@ -113,7 +113,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "visitor",
+        path: "dashboard/visitor",
         element: <VisitorDashboard />,
         children: [
             {

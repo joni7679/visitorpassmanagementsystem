@@ -8,7 +8,7 @@ const AdminSidebar = () => {
 
   return (
     <>
-      <div className='z-30 p-5  min-h-screen w-[20%]'>
+      <div className='z-30 p-5 mt-14  min-h-screen w-[20%]'>
         <nav class="bg-white shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <div class="relative flex flex-col h-full">
             {adminData.map((val, index) => {

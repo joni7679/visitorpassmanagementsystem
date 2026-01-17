@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InputFiled from '../../components/InputField'
 import { Clock } from 'lucide-react'
+import axios from 'axios';
 
 const CreateVisitRequested = () => {
+    const [empData, setEmpData] = useState([]);
+    const api = import.meta.env.VITE_BACKEND_URL;
+
+    const getEmpData = async () => {
+        try {
+            const res = await axios.get(`${api}/employees`, { withCredentials: true });
+            setEmpData(res.data.data)
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+
+    useEffect(() => {
+        getEmpData()
+    }, [])
+
     return (
         <>
             <div className='bg-white w-[50rem] p-5 mt-11 shadow-lg rounded-2xl '>
@@ -37,6 +54,19 @@ const CreateVisitRequested = () => {
                     </div>
                     <div className='flex items-center justify-between mt-5 gap-2.5'>
                         <div className='w-1/2'>
+                            <label htmlFor="" className=''>Host Name</label>
+                            <select className='px-4   mt-3 py-3 pr-10 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border border-gray-200 focus:border-black outline-0 rounded-md transition-all'>
+                                <option value="">Slect option</option>
+                                {
+                                    empData.map((val) => {
+                                        return (
+                                            <option key={val._id} value={val._id} className='capitalize'>{val.name}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className='w-1/2'>
                             <label htmlFor="" className=''>Purpose</label>
                             <select className='px-4   mt-3 py-3 pr-10 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border border-gray-200 focus:border-black outline-0 rounded-md transition-all'>
                                 <option value="">Slect option</option>
@@ -47,6 +77,8 @@ const CreateVisitRequested = () => {
                                 <option value="" className='capitalize'>Other</option>
                             </select>
                         </div>
+                    </div>
+                    <div className='flex items-center justify-between mt-5 gap-2.5'>
                         <div className='w-1/2'>
                             <label htmlFor="" >Location</label>
                             <select disabled="true" className='px-4   mt-3 py-3 pr-10 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border border-gray-200 focus:border-black outline-0 rounded-md transition-all w-full'>

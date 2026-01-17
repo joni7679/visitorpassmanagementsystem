@@ -14,11 +14,23 @@ const Login = () => {
     // submit logic
     const handleLogin = async (e) => {
         e.preventDefault();
-        const data = await LoginUser({ email, password })
+        const data = await LoginUser({ email, password });
+        console.log("data", data)
         if (data) {
             alert("Login success fully");
-            setEmail("");
-            setPassword("")
+            const role = data.role;
+            if (role === "admin") {
+                navigate(`/dashboard/admin`)
+            }
+            if (role === "security") {
+                navigate(`/dashboard/securitystaff`)
+            }
+            if (role === "employee") {
+                navigate(`/dashboard/employee`)
+            }
+            if (role === "visitor") {
+                navigate(`/dashboard/visitor`)
+            }
         }
     }
 
@@ -31,7 +43,7 @@ const Login = () => {
                     <form onSubmit={handleLogin}>
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
                         <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" error={error} />
-                        <button type='submit' className={`px-4 py-3 rounded-2xl text-white cursor-pointer w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150"}`} >
+                        <button type='submit' className={`px-4 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
 
                             {
                                 loading ? "Login...." : "Login"

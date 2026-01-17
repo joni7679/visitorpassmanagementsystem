@@ -63,7 +63,9 @@ exports.userRegister = async (req, res) => {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
-            maxAge: 2 * 24 * 60 * 60 * 10000
+            maxAge: 2 * 24 * 60 * 60 * 1000,
+            path: "/"
+
         })
         res.status(201).json({
             success: true,
@@ -109,7 +111,10 @@ exports.userLogin = async (req, res) => {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
-            maxAge: 2 * 24 * 60 * 60 * 10000
+            maxAge: 2 * 24 * 60 * 60 * 1000,
+            path: "/"
+
+
         })
         res.status(200).json({
             success: true,
@@ -156,7 +161,7 @@ exports.dashboard = (req, res) => {
         return res.status(200).json({
             success: true,
             message: "wellcome admin",
-           
+
         })
     }
 
@@ -184,6 +189,7 @@ exports.userLogOut = async (req, res) => {
             httpOnly: true,
             secure: false,
             sameSite: "lax",
+            path: "/"
         })
         res.status(200).json({
             success: true,
