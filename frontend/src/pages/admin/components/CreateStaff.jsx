@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputFiled from '../../../components/InputField'
-import { AuthConext } from '../../../context/AutContext'
+import { AuthConext } from '../../../context/AuthContext'
 
 const CreateStaff = () => {
     const [name, setName] = useState("");
@@ -33,7 +33,7 @@ const CreateStaff = () => {
                         <InputFiled type='text' label="Name " value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Your Name Here..." />
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
                         <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" error={error} />
-                        <select value={role} onChange={(e)=>setRole(e.target.value)} id="" className='w-full cursor-pointer capitalize mt-2 pl-10 pr-4 py-3 border shadow-md border-gray-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none'>
+                        <select value={role} onChange={(e) => setRole(e.target.value)} id="" className='w-full cursor-pointer capitalize mt-2 pl-10 pr-4 py-3 border shadow-md border-gray-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none'>
                             <option value="">Slect Any Role</option>
                             <option value="admin">admin</option>
                             <option value="employee">employee</option>

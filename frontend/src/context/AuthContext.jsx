@@ -2,7 +2,6 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthConext = createContext();
-
 function AuthConextProvider({ children }) {
     const [loading, setLoading] = useState(false);
     const [Error, setError] = useState(null);
@@ -80,7 +79,7 @@ function AuthConextProvider({ children }) {
 
     useEffect(() => {
         userProfile()
-    }, [user])
+    }, [])
 
 
 

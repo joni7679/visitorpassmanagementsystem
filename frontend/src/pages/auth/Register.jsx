@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import InputFiled from '../../components/InputField'
 import { useContext } from 'react'
-import { AuthConext } from '../../context/AutContext'
+import { AuthConext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 

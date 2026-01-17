@@ -1,6 +1,6 @@
 import { Bell, BellRing, House, LogOut, UserPen, UserRound } from 'lucide-react'
 import React, { useContext } from 'react'
-import { AuthConext } from '../../../context/AutContext'
+import { AuthConext } from '../../../context/AuthContext'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

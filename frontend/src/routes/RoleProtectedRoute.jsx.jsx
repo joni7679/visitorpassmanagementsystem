@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AuthConext } from "../context/AutContext"
+import { AuthConext } from "../context/AuthContext"
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const RoleProtectedRoute = ({ allowRole, children }) => {
     if (!user) {
         return <Navigate to="/" replace />
     }
-    
+
 }
 
 export default RoleProtectedRoute
