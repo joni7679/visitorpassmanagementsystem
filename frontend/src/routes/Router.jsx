@@ -13,6 +13,10 @@ import VisiterRequestedTable from "../pages/Employees/VisiterRequestedTable";
 import ApprovedvisitsListTable from "../pages/Employees/ApprovedvisitsListTable";
 import InvitedVisitor from "../pages/Employees/InvitedVisitor";
 import SecurityStaffDashboard from "../pages/SecurityStaff/SecurityStaffDashboard";
+import EntryAndExist from "../pages/SecurityStaff/EntryAndExist";
+import VisiterCheckinAndCheckoutTable from "../pages/SecurityStaff/VisiterCheckinAndCheckoutTable";
+import VisitorDashboard from "../pages/Visitors/VisitorDashboard";
+import CreateVisitRequested from "../pages/Visitors/CreateVisitRequested";
 
 export const router = createBrowserRouter([
     {
@@ -96,16 +100,34 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <h1>wellcome secut</h1>
+                element: <EntryAndExist />
             },
             {
                 path: "Entry Logs",
-                element: <h1>wellcome entry logs</h1>
+                element: <VisiterCheckinAndCheckoutTable />
             },
             {
-               path:"Alerts",
+                path: "Alerts",
                 element: <h1>wellcome alerts</h1>
             },
+        ]
+    },
+    {
+        path: "visitor",
+        element: <VisitorDashboard />,
+        children: [
+            {
+                index: true,
+                element: <h1>i am visitor</h1>
+            },
+            {
+                path: "createvisitrequested",
+                element: <CreateVisitRequested />
+            },
+            {
+                path: "viewstatus",
+                element:<h1>view status</h1>
+            }
         ]
     }
 ])
