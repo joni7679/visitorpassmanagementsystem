@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Register from "../pages/Auth/Register";
 import Home from "../pages/Home";
-import Login from "../pages/auth/Login";
+import Login from "../pages/Auth/Login";
 import Dashboard from "../pages/admin/components/Dashboard";
 import EmployeesTable from "../pages/admin/components/EmployeesTable";
 import DashBoardHome from "../pages/admin/components/DashBoardHome";
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
                 element: <h1>visiter list</h1>
             },
             {
-                path: "security staff",
+                path: "security-staff",
                 element: <h1>security staff list</h1>
             },
             {
@@ -80,11 +80,11 @@ export const router = createBrowserRouter([
                 element: <Employesshome />
             },
             {
-                path: "visiter Requested",
+                path: "visiter-Requested",
                 element: <VisiterRequestedTable />
             },
             {
-                path: "approved visits",
+                path: "approved-visits",
                 element: <ApprovedvisitsListTable />
             },
             {
@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
                 element: <EntryAndExist />
             },
             {
-                path: "Entry Logs",
+                path: "Entry-Logs",
                 element: <VisiterCheckinAndCheckoutTable />
             },
             {
