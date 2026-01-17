@@ -36,7 +36,6 @@ export const router = createBrowserRouter([
                 element: <Login />
             },
         ]
-
     },
     {
         path: 'dashboard/admin',
@@ -64,7 +63,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "reports",
-                element: <h1>reports     page</h1>
+                element: <h1>reportspage</h1>
             },
             {
                 path: "setting",
