@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import InputFiled from '../../components/InputField'
 import { Clock } from 'lucide-react'
 import axios from 'axios';
+import Checkbox from '../../components/Checkbox';
 
 const CreateVisitRequested = () => {
     const [empData, setEmpData] = useState([]);
@@ -93,8 +94,7 @@ const CreateVisitRequested = () => {
                         </div>
                     </div>
                     <div className='mt-5 flex items-center gap-1.5'>
-                        <input type="checkbox" name="" id="" />
-                        <span className='capitalize'>i am confirm the information provided is correct</span>
+                        <Checkbox/>
                     </div>
                     <button className='px-6 py-2.5 min-w-[200px] rounded-md cursor-pointer text-slate-900 text-sm tracking-wider font-medium border border-blue-600 outline-0 bg-transparent hover:bg-blue-800 mt-5 hover:text-white  duration-200'>Send Requested</button>
                 </form>

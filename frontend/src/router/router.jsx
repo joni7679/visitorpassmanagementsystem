@@ -17,6 +17,8 @@ import EntryAndExist from "../pages/SecurityStaff/EntryAndExist";
 import VisiterCheckinAndCheckoutTable from "../pages/SecurityStaff/VisiterCheckinAndCheckoutTable";
 import VisitorDashboard from "../pages/Visitors/VisitorDashboard";
 import CreateVisitRequested from "../pages/Visitors/CreateVisitRequested";
+import Profiles from "../components/Profiles";
+import RoleProtectedRoute from "./RoleProtectedRoute.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +41,11 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard/admin',
-        element:( <Dashboard />),
+        element: (
+            <RoleProtectedRoute allowRole="admin">
+                <Dashboard />
+            </RoleProtectedRoute>
+        ),
         children: [
             {
                 index: true,
@@ -48,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path: "employees",
                 element: <EmployeesTable />
+            },
+            {
+                path: "myprofile",
+                element: <Profiles />
             },
             {
                 path: "addempandsecurity",
@@ -73,7 +83,10 @@ export const router = createBrowserRouter([
     },
     {
         path: "dashboard/employee",
-        element: <EmployesDashboard />,
+        element: (
+            <RoleProtectedRoute allowRole="employee">
+                <EmployesDashboard />,
+            </RoleProtectedRoute>),
         children: [
             {
                 index: true,
@@ -90,12 +103,20 @@ export const router = createBrowserRouter([
             {
                 path: "inviter_visitor",
                 element: <InvitedVisitor />
-            }
+            },
+            {
+                path: "myprofile",
+                element: <Profiles />
+            },
         ]
     },
     {
         path: "dashboard/securitystaff",
-        element: <SecurityStaffDashboard />,
+        element: (
+            <RoleProtectedRoute allowRole="security">
+                <SecurityStaffDashboard />
+            </RoleProtectedRoute>
+        ),
         children: [
             {
                 index: true,
@@ -109,11 +130,19 @@ export const router = createBrowserRouter([
                 path: "Alerts",
                 element: <h1>wellcome alerts</h1>
             },
+            {
+                path: "myprofile",
+                element: <Profiles />
+            },
         ]
     },
     {
         path: "dashboard/visitor",
-        element: <VisitorDashboard />,
+        element: (
+            <RoleProtectedRoute allowRole="visitor">
+                <VisitorDashboard />
+            </RoleProtectedRoute>
+        ),
         children: [
             {
                 index: true,
@@ -125,8 +154,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: "viewstatus",
-                element:<h1>view status</h1>
-            }
+                element: <h1>view status</h1>
+            },
+            {
+                path: "myprofile",
+                element: <Profiles />
+            },
         ]
     }
 ])

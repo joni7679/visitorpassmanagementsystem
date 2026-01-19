@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Button from './Button'
+import { AuthConext } from '../context/AuthContext';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
+    const { userProfile, user } = useContext(AuthConext);
     const navitems = [
         {
             label: "Home"
@@ -13,6 +16,10 @@ const Navbar = () => {
             label: "how it works"
         }
     ]
+
+    useEffect(()=>{
+        userProfile()
+    },[])
     return (
         <>
             <nav className=' py-3 px-[5%] w-full shadow-md'>
@@ -29,7 +36,9 @@ const Navbar = () => {
                             })
                         }
                     </div>
-                    <Button title="Get Started" />
+                    {
+                        user ? <UserMenu/> : <Button title="Get Started" />
+                    }
                 </div>
             </nav>
         </>

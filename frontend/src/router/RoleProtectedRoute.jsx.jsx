@@ -4,17 +4,21 @@ import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const RoleProtectedRoute = ({ allowRole, children }) => {
-    const { userProfile, user } = useContext(AuthConext);
-
+    const { userProfile, authLoader, user } = useContext(AuthConext);
     useEffect(() => {
         userProfile()
+    }, [])
 
-    }, [user])
-
+    if (authLoader) {
+        return <h1>loading.........</h1>
+    }
     if (!user) {
         return <Navigate to="/" replace />
     }
-
+    if (allowRole && user.role !== allowRole) {
+        return <Navigate to="/" replace />
+    }
+    return children
 }
 
 export default RoleProtectedRoute

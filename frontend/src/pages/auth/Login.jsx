@@ -9,7 +9,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
-    const { LoginUser, loading, error } = useContext(AuthConext);
+    const { LoginUser, loading, Error } = useContext(AuthConext);
     const navigate = useNavigate()
     // submit logic
     const handleLogin = async (e) => {
@@ -42,8 +42,13 @@ const Login = () => {
                     <h1 className='text-center font-semibold capitalize'>Wellcome login your account</h1>
                     <form onSubmit={handleLogin}>
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
-                        <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" error={error} />
-                        <button type='submit' className={`px-4 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
+                        <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" />
+
+                        {
+                            Error && <div className='bg-red-300 px-4 py-7 rounded'><span className='text-red-500 capitalize'>{Error}</span></div>
+
+                        }
+                        <button type='submit' className={`px-4 py-3 mt-5 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
 
                             {
                                 loading ? "Login...." : "Login"

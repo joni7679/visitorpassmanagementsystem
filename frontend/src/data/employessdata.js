@@ -9,12 +9,12 @@ export const employessData = [
     {
         icon: CircleDotDashed ,
         label: "visiter Requested",
-        path: "visiter Requested",
+        path: "visiter-Requested",
     },
     {
         icon: CircleCheck,
         label: "approved visits",
-        path: "approved visits",
+        path: "approved-visits",
     },
     {
         icon: MessageCircleMore ,
