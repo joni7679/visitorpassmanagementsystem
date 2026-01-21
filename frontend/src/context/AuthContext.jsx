@@ -11,7 +11,7 @@ function AuthConextProvider({ children }) {
     const registerUser = async ({ name, email, password, role }) => {
         setLoading(true);
         try {
-            const res = await axios.post(`${backendApi}/register`, { name, email, password, role }, { withCredentials: true });
+            const res = await axios.post(`${backendApi}/auth/register`, { name, email, password, role }, { withCredentials: true });
             const finalRes = res.data.data;
             return finalRes;
         } catch (error) {
@@ -28,7 +28,7 @@ function AuthConextProvider({ children }) {
     const LoginUser = async ({ email, password }) => {
         setLoading(true);
         try {
-            const res = await axios.post(`${backendApi}/login`, { email, password }, { withCredentials: true });
+            const res = await axios.post(`${backendApi}/auth/login`, { email, password }, { withCredentials: true });
             const finalRes = res.data.data;
             setUser(finalRes)
             return finalRes;
@@ -45,7 +45,7 @@ function AuthConextProvider({ children }) {
     const userDashboard = async () => {
         setLoading(true)
         try {
-            await axios.get(`${backendApi}/dashboard/${user.role}`)
+            await axios.get(`${backendApi}/auth/dashboard/${user.role}`)
         } catch (error) {
             setError(error.response?.data?.message || "Something is wrong")
             return null;
@@ -56,7 +56,7 @@ function AuthConextProvider({ children }) {
 
     const userProfile = async () => {
         try {
-            const res = await axios.get(`${backendApi}/profile`, { withCredentials: true });
+            const res = await axios.get(`${backendApi}/auth/profile`, { withCredentials: true });
             const finalRes = res.data.data;
             setUser(finalRes);
             return finalRes
@@ -70,7 +70,7 @@ function AuthConextProvider({ children }) {
     const LogOutuser = async () => {
         setLoading(true);
         try {
-            await axios.post(`${backendApi}/logout`,{}, { withCredentials: true });
+            await axios.post(`${backendApi}/auth/logout`, {}, { withCredentials: true });
             console.log("logout successfully");
             setUser(null)
         } catch (error) {
@@ -80,6 +80,10 @@ function AuthConextProvider({ children }) {
             setLoading(false)
         }
     }
+
+    useEffect(() => {
+        userProfile()
+    }, [])
     return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard }}>
         {children}
     </AuthConext.Provider>

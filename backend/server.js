@@ -2,7 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectToDb = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
-const empRoutes = require("./src/routes/emp.routes")
+const empRoutes = require("./src/routes/emp.routes");
+const visitRoutes = require("./src/routes/visitor.routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors")
 dotenv.config();
@@ -18,7 +19,8 @@ app.get("/", (req, res) => {
     res.send("backend server is running!")
 })
 app.use("/api/auth", authRoutes)
-app.use("/api/auth", empRoutes)
+app.use("/api/emp", empRoutes)
+app.use("/api/visit", visitRoutes)
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

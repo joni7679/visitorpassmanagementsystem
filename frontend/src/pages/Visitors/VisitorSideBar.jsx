@@ -17,7 +17,7 @@ const VisitorSideBar = () => {
               const { label, icon, path } = val;
               const Icon = icon
               return (
-                <div className='flex gap-1.5'>
+                <div key={index} className='flex gap-1.5'>
                   <Link to={`${path}`} onClick={() => handelclick(index)} key={index} className={`hover:bg-blue-200 capitalize mt-2 w-full px-3 py-4 rounded-2xl flex gap-1.5 ${active === index ? "bg-blue-500  text-white" : ""}`}>
                     <Icon />
                     {label}
@@ -26,7 +26,7 @@ const VisitorSideBar = () => {
               )
             })}
             <hr class="my-6 border-gray-200" />
-                      </div>
+            </div>
         </nav>
       </div>
     </>

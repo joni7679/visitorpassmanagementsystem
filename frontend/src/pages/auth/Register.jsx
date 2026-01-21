@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import InputFiled from '../../components/InputField'
 import { useContext } from 'react'
 import { AuthConext } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
@@ -40,15 +40,11 @@ const Register = () => {
 
                         }
                         <button type='submit' className={`px-4 mt-5 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
-
-
-
-
                             {
                                 loading ? "Regster...." : "Regigster"
                             }
                         </button>
-                        <p className='mt-4 capitalize'>Already have a accoutn  <span className='underline'>Login now</span></p>
+                        <p className='mt-4 capitalize'>Already have a accoutn  <Link to={`/login`} className='underline text-green-600'>Login now</Link></p>
                     </form>
                 </div>
             </section>

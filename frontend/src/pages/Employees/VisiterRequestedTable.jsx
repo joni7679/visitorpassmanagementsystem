@@ -1,6 +1,26 @@
+import axios from 'axios';
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const VisiterRequestedTable = () => {
+    const [visitData, setVisiterData] = useState([])
+    const backendApi = import.meta.env.VITE_BACKEND_URL;
+
+    const fetchVisiterReqData = async () => {
+        try {
+            const res = await axios.get(`${backendApi}/visit/get-all-visit-req`, { withCredentials: true });
+            const finalres = res.data.data;
+            console.log("visiterdata", finalres);
+            setVisiterData(finalres)
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchVisiterReqData()
+    }, [])
     return (
         <>
             <div classNameName='w-full'>
@@ -32,7 +52,10 @@ const VisiterRequestedTable = () => {
                                     Date
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Duration
+                                    Phone Number
+                                </th>
+                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
+                                    Purpose
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                     Accepted
@@ -40,32 +63,50 @@ const VisiterRequestedTable = () => {
                             </tr>
                         </thead>
 
-                        <tbody className="whitespace-nowrap divide-y divide-gray-200">
-                            <tr className="odd:bg-gray-50">
-                                <td className="px-4 py-3 border-r border-gray-200">
-                                    <div className="flex items-center w-max">
-                                        <div className="ml-2">
-                                            <p className="text-[13px] text-slate-900 font-medium">Abhijit halder</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className='px-4 py-3 border-r border-gray-200'>
-                                    12/01/25
-                                </td>
+                        <tbody className="whitespace-nowrap divide-y bg-gray-200">
+                            {
+                                visitData.length === 0 ? <tr className="bg-gray-50">
+                                    <td colSpan={5} className="px-4 py-3 border-r border-gray-200 bg-white">
+                                        <h1 className='font-semibold text-center capitalize'>no data here</h1>
+                                    </td>
 
-                                <td className='px-4 py-3 border-r border-gray-200'>
-                                    <div className="ml-2">
-                                        <p className="text-[13px] text-slate-900 font-medium">1 hour</p>
-                                    </div>
-                                    <div className="ml-2">
-                                        <p className="text-[13px] text-slate-900 font-medium">Resume review</p>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
-                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md">Reject</button>
-                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
-                                </td>
-                            </tr>
+                                </tr> :
+                                    visitData.map((val, index) => {
+                                        const { date, time, name, phone, purpose } = val
+                                        return (
+                                            <tr key={index} className="odd:bg-gray-50">
+                                                <td className="px-4 py-3 border-r border-gray-200">
+                                                    <div className="flex items-center w-max">
+                                                        <div className="ml-2">
+                                                            <p className="text-[13px] text-slate-900 font-medium">{name}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    {date}
+                                                </td>
+
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{phone}</p>
+                                                    </div>
+                                                </td>
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">Time :{time}</p>
+                                                    </div>
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
+                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md">Reject</button>
+                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+
 
                         </tbody>
                     </table>

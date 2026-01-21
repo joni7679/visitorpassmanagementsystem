@@ -13,7 +13,7 @@ export const visitorData = [
     },
     {
         icon:StarOffIcon,
-        label:"View status",
+        label:"my-requested",
         path:"viewstatus"
     }
 ]
