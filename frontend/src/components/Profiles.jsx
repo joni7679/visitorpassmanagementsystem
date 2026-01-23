@@ -22,18 +22,17 @@ const Profiles = () => {
                     <div className="banner-img w-full h-28  ">
                         <img src={bannerImg} className='w-full h-full object-cover' alt="" />
                     </div>
-                    <div className="user-profile-img w-20 h-20 bg-green-600 rounded-full -mt-[58px] -mb-[58px] mx-auto">
+                    <div className="user-profile-img w-20 h-20 rounded-full -mt-[58px] -mb-[58px] mx-auto">
                         <img src={userImg} className='w-full h-full object-cover' alt="" />
                     </div>
                     <div className="user info p-5 mt-14">
                         <p className='text-center font-md capitalize'>{user.name}</p>
                         <p className='text-center font-md capitalize'>{user.role}</p>
-                        <p className='text-center font-semibold'>About me</p>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto amet quidem autem accusantium sit soluta. Inventore mollitia fugiat corrupti quae? Quam, doloribus odio?</p>
+                        <p className='text-center font-semibold '>About me</p>
+                        <p className='mt-5'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto amet quidem autem accusantium sit soluta. Inventore mollitia fugiat corrupti quae? Quam, doloribus odio?</p>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

@@ -38,14 +38,6 @@ const AdminSidebar = () => {
                   </a>
                 </li>
               </ul>
-
-              <div className="flex flex-wrap items-center cursor-pointer border-t border-gray-200 py-2 mt-6">
-                <img src='https://readymadeui.com/team-2.webp' className="w-10 h-10 rounded-md border-2 border-white" />
-                <div className="ml-4">
-                  <p className="text-sm text-slate-900 font-medium">John Doe</p>
-                  <p className="text-xs text-slate-500 mt-0.5">Active free account</p>
-                </div>
-              </div>
             </div>
           </div>
         </nav>

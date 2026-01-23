@@ -9,7 +9,7 @@ export const securityData = [
     {
         icon: EthernetPort,
         label: "Entry Logs",
-        path: "Entry Logs"
+        path: "Entry-Logs"
     },
     {
         icon: AlertTriangle,

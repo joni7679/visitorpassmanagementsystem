@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
+import axios from 'axios'
+import { VisitorContext } from '../../context/DataContext'
 const ApprovedvisitsListTable = () => {
+    const { fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
+    useEffect(() => {
+        fetchApprovedVisitors()
+    }, [])
     return (
         <>
             <div classNameName='w-full'>
@@ -48,40 +54,40 @@ const ApprovedvisitsListTable = () => {
                             </tr>
                         </thead>
                         <tbody className="whitespace-nowrap divide-y divide-gray-200">
-                            <tr className="odd:bg-gray-50">
-                                <td className="px-4 py-3 border-r border-gray-200">
-                                    <div className="flex items-center w-max">
-                                        <div className="ml-2">
-                                            <p className="text-[13px] text-slate-900 font-medium">Abhijit halder</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className='px-4 py-3 border-r border-gray-200'>
-                                    12/01/25
-                                </td>
 
-                                <td className='px-4 py-3 border-r border-gray-200'>
-                                    <div className="ml-2">
-                                        <p className="text-[13px] text-slate-900 font-medium">1 hour</p>
-                                    </div>
-                                    <div className="ml-2">
-                                        <p className="text-[13px] text-slate-900 font-medium">Resume review</p>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
+                            {approvedVisitorsData.map((visiter, index) => {
+                                const { createdAt, date, email, location, name, phone, purpose, status, time } = visiter
+                                return (
+                                    <tr className="bg-gray-50">
+                                        <td className="px-4 py-3 border-r border-gray-200">
+                                            <div className="flex items-center w-max">
+                                                <div className="ml-2">
+                                                    <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className='px-4 py-3 border-r border-gray-200'>
+                                            {date}
+                                        </td>
 
-                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
-
-                                </td>
-                                <td className='px-4 py-3 border-r border-gray-200 fl'>
-
-
-                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium  outline-0 text-black border-[1px] capitalize rounded-md mr-2">resend pass</button>
-
-                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">cencel</button>
-                                </td>
-
-                            </tr>
+                                        <td className='px-4 py-3 border-r border-gray-200'>
+                                            <div className="ml-2">
+                                                <p className="text-[13px] text-slate-900 font-medium">{time}</p>
+                                            </div>
+                                            <div className="ml-2">
+                                                <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
+                                            </div>
+                                        </td>
+                                        <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
+                                            <span className='px-2 py-1 capitalize text-green-700 bg-green-100  rounded-md'>{status}</span>
+                                        </td>
+                                        <td className='px-4 py-3 border-r border-gray-200 fl'>
+                                            <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium  outline-0 text-black border-[1px] capitalize rounded-md mr-2">resend pass</button>
+                                            <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">cencel</button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>

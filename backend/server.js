@@ -5,8 +5,9 @@ const authRoutes = require("./src/routes/auth.routes");
 const empRoutes = require("./src/routes/emp.routes");
 const visitRoutes = require("./src/routes/visitor.routes");
 const cookieParser = require("cookie-parser");
-const cors = require("cors")
 dotenv.config();
+const cors = require("cors")
+
 const app = express();
 connectToDb();
 app.use(cookieParser());

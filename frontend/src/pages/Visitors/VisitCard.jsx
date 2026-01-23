@@ -1,23 +1,13 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { VisitorContext } from '../../context/DataContext';
 
 const VisitCard = () => {
-    const [visitData, setVisiterData] = useState([])
-    const backendApi = import.meta.env.VITE_BACKEND_URL;
-    const myvisitRequest = async () => {
-        try {
-            const res = await axios.get(`${backendApi}/visit/my-visit-req`, { withCredentials: true });
-            const finalres = res.data.data;
-            setVisiterData(finalres)
-        } catch (error) {
-            console.log("error", error);
-        }
-    }
-
+    const { fetchMyVisitorStatus, myVisitorsStatus } = useContext(VisitorContext)
     useEffect(() => {
-        myvisitRequest()
+        fetchMyVisitorStatus()
     }, [])
     const statusColor = {
         pending: "text-yellow-500 bg-yellow-200",
@@ -28,7 +18,7 @@ const VisitCard = () => {
     return (
         <>
             {
-                visitData.map((visit, index) => {
+                myVisitorsStatus.map((visit, index) => {
                     const { email, date, time, purpose, location, employeeid, status, createdAt } = visit
                     return (
                         <div key={index} className='max-w-md w-full bg-white rounded-2xl shadow-lg space-x-5  p-5 mt-10 capitalize'>
@@ -37,7 +27,7 @@ const VisitCard = () => {
                                     <h2 className='text-lg font-semibold text-gray-800 capitalize'></h2>
                                 </div>
                                 <div>
-                                    <span className={`px-3 py-1 text-sm font-medium bg-green-500 capitalize text-white rounded-full ${statusColor[status]}` }>
+                                    <span className={`px-3 py-1 text-sm font-medium bg-green-500 capitalize text-white rounded-full ${statusColor[status]}`}>
                                         {status}
                                     </span>
                                 </div>

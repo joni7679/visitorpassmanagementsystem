@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { VisitorContext } from '../../context/DataContext';
+import { ToastContainer, toast } from 'react-toastify';
 
 const VisiterRequestedTable = () => {
     const [visitData, setVisiterData] = useState([])
@@ -21,8 +23,32 @@ const VisiterRequestedTable = () => {
     useEffect(() => {
         fetchVisiterReqData()
     }, [])
+    const { getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
+
+    // handelapproved 
+    const handelapproved = async (id) => {
+        console.log("id", id);
+        await getApprovedVisitor(id);
+        toast.success("You Approved this visiters")
+        fetchVisiterReqData()
+    }
+
+    const handelRejectedVisitor = async (id) => {
+        console.log("id", id);
+        await rejectedVisitors(id);
+        toast.success("You rejected this visiters")
+        fetchVisiterReqData()
+    }
+
+
+    const statusColor = {
+        pending: "text-yellow-500 bg-yellow-200",
+        approved: "text-green-500 bg-green-200",
+        rejected: "text-red-500 bg-red-200"
+    }
     return (
         <>
+
             <div classNameName='w-full'>
                 <div className="overflow-x-auto p-6">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
@@ -37,11 +63,9 @@ const VisiterRequestedTable = () => {
                         </div>
                         <button type='button'
                             className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer">
-
                             Export
                         </button>
                     </div>
-
                     <table className="min-w-full border border-gray-200">
                         <thead className="bg-white whitespace-nowrap">
                             <tr className="border-b border-gray-200">
@@ -57,35 +81,35 @@ const VisiterRequestedTable = () => {
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                     Purpose
                                 </th>
+                                <th className="px-4 capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
+                                    status
+                                </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                     Accepted
                                 </th>
                             </tr>
                         </thead>
-
                         <tbody className="whitespace-nowrap divide-y bg-gray-200">
                             {
                                 visitData.length === 0 ? <tr className="bg-gray-50">
-                                    <td colSpan={5} className="px-4 py-3 border-r border-gray-200 bg-white">
+                                    <td colSpan={5} className="px-4 py-3 border-r border-gray-200 ">
                                         <h1 className='font-semibold text-center capitalize'>no data here</h1>
                                     </td>
-
                                 </tr> :
                                     visitData.map((val, index) => {
-                                        const { date, time, name, phone, purpose } = val
+                                        const { _id, date, time, name, phone, purpose, status } = val
                                         return (
-                                            <tr key={index} className="odd:bg-gray-50">
+                                            <tr key={index} className="bg-gray-50">
                                                 <td className="px-4 py-3 border-r border-gray-200">
                                                     <div className="flex items-center w-max">
                                                         <div className="ml-2">
-                                                            <p className="text-[13px] text-slate-900 font-medium">{name}</p>
+                                                            <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className='px-4 py-3 border-r border-gray-200'>
                                                     {date}
                                                 </td>
-
                                                 <td className='px-4 py-3 border-r border-gray-200'>
                                                     <div className="ml-2">
                                                         <p className="text-[13px] text-slate-900 font-medium">{phone}</p>
@@ -99,22 +123,38 @@ const VisiterRequestedTable = () => {
                                                         <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
                                                     </div>
                                                 </td>
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    <span className={`px-2 py-1 capitalize text-green-700  bg-green-100  rounded-md ${statusColor[status]}`}>{status}</span>
+                                                </td>
                                                 <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
-                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md">Reject</button>
-                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
+
+                                                    {
+                                                        status === "approved" ? (
+                                                            <h3>you approved this visiotor</h3>
+                                                        )
+                                                            :
+                                                            status === "rejected" ?
+                                                                (
+                                                                    <h3>you reject this visitor</h3>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <>
+                                                                        <button onClick={() => handelRejectedVisitor(_id)} className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">
+                                                                            rejected
+                                                                        </button>
+                                                                        <button onClick={() => handelapproved(_id)} className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
+                                                                    </>
+                                                                )
+                                                    }
                                                 </td>
                                             </tr>
                                         )
                                     })}
-
-
                         </tbody>
                     </table>
-
-
                 </div>
-            </div>
-
+            </div >
         </>
     )
 }

@@ -81,9 +81,7 @@ function AuthConextProvider({ children }) {
         }
     }
 
-    useEffect(() => {
-        userProfile()
-    }, [])
+
     return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard }}>
         {children}
     </AuthConext.Provider>

@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@media screen and (max-width:450px) {
+    .btn-group {
+        flex-direction: column;
+    }
+}

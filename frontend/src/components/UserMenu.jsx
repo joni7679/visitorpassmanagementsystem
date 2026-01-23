@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { userHeaderInfo } from '../data/userHeaderInfo'
 import { AuthConext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
+import userImg from '../assets/user.png'
 const UserMenu = () => {
     const [userName, setUserName] = useState(null)
     const { LogOutuser, user, userProfile } = useContext(AuthConext);
@@ -26,7 +27,7 @@ const UserMenu = () => {
         const confifm = window.confirm("Are U Confirm U Went To LogOut !");
         if (confifm) {
             await LogOutuser();
-            alert("Logout successfully");
+            toast.success("Logout successfully");
             navigate(`/`)
         }
     }
@@ -36,7 +37,7 @@ const UserMenu = () => {
             <div className="dropdown-menu relative flex shrink-0 group">
                 <div className="flex items-center gap-4">
                     <p className="text-slate-500 text-sm capitalize">Hi, {userName} </p>
-                    <img src="https://readymadeui.com/team-1.webp" alt="profile-pic"
+                    <img src={userImg} alt="profile-pic"
                         className="w-[38px] h-[38px] rounded-full border-2 border-gray-300 cursor-pointer" />
                 </div>
 

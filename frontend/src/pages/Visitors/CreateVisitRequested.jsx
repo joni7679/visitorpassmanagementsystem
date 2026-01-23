@@ -5,6 +5,7 @@ import axios from 'axios';
 import Checkbox from '../../components/Checkbox';
 import { useContext } from 'react';
 import { AuthConext } from '../../context/AuthContext';
+import { toast } from 'react-toastify'
 
 const CreateVisitRequested = () => {
     const backendApi = import.meta.env.VITE_BACKEND_URL;
@@ -15,7 +16,7 @@ const CreateVisitRequested = () => {
     const [date, setDate] = useState("");
     const [purpose, setPurpose] = useState("");
     const [location, setLocation] = useState("");
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const { user, userProfile } = useContext(AuthConext);
     useEffect(() => {
         userProfile()
@@ -49,7 +50,7 @@ const CreateVisitRequested = () => {
         try {
             const visiter = await axios.post(`${backendApi}/visit/create-visit-req`, visiterData, { withCredentials: true })
             console.log("visiter", visiter);
-            alert("visit requested send successfully")
+            toast.success("visit requested send successfully")
             setPhoneNumber("");
             setEmpid("");
             setDate("");

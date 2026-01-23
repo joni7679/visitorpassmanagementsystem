@@ -3,6 +3,7 @@ import InputFiled from '../../components/InputField'
 import { useContext } from 'react'
 import { AuthConext } from '../../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 
 const Register = () => {
@@ -16,10 +17,11 @@ const Register = () => {
         e.preventDefault();
         const data = await registerUser({ name, email, password })
         if (data) {
-            alert("Register success fully");
+            toast.success("Register success fully");
             setName("");
             setEmail("");
             setPassword("")
+            navigate("/login")
         }
     }
 
@@ -34,10 +36,8 @@ const Register = () => {
                         <InputFiled type='text' label="Name " value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Your Name Here..." />
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
                         <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" />
-
                         {
                             Error && <div className='bg-red-300 px-4 py-7 rounded'><span className='text-red-500 capitalize'>{Error}</span></div>
-
                         }
                         <button type='submit' className={`px-4 mt-5 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
                             {

@@ -19,7 +19,6 @@ import VisitorDashboard from "../pages/Visitors/VisitorDashboard";
 import CreateVisitRequested from "../pages/Visitors/CreateVisitRequested";
 import Profiles from "../components/Profiles";
 import RoleProtectedRoute from "./RoleProtectedRoute.jsx";
-import VisitCard from "../pages/Visitors/VisitCard.jsx";
 import VisitCardList from "../pages/Visitors/VisitCardList.jsx";
 
 export const router = createBrowserRouter([

@@ -3,6 +3,7 @@ import InputFiled from '../../components/InputField'
 import { useContext } from 'react'
 import { AuthConext } from '../../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 
 const Login = () => {
@@ -14,9 +15,8 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         const data = await LoginUser({ email, password });
-        console.log("data", data)
         if (data) {
-            alert("Login success fully");
+            toast.success("Login success fully");
             const role = data.role;
             if (role === "admin") {
                 navigate(`/dashboard/admin`)
