@@ -47,7 +47,6 @@ exports.getAllVisitorsRequests = async (req, res) => {
     }
 }
 
-
 exports.visiterRequest = async (req, res) => {
     const userid = req.user.id;
     if (!userid) {
@@ -56,7 +55,7 @@ exports.visiterRequest = async (req, res) => {
             message: "userid id not found"
         })
     }
-    console.log("user id", userid)
+   
     try {
         const data = await visiterModel.find({ userid });
         return res.status(200).json({

@@ -61,7 +61,7 @@ exports.userRegister = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
             maxAge: 2 * 24 * 60 * 60 * 1000,
             path: "/"
@@ -109,7 +109,7 @@ exports.userLogin = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
             maxAge: 2 * 24 * 60 * 60 * 1000,
             path: "/"
@@ -187,7 +187,7 @@ exports.userLogOut = async (req, res) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
             path: "/"
         })

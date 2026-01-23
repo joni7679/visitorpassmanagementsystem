@@ -25,7 +25,6 @@ const CreateStaff = () => {
     }
 
     return (
-
         <>
             <section className='w-full min-h-screen flex items-start justify-center'>
                 <div className="register-form p-4 bg-white rounded-2xl shadow-lg max-w-md w-full mt-10">
