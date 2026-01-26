@@ -17,7 +17,7 @@ async function authmiddleware(req, res, next) {
             })
         }
         req.user = decode;
-        next()
+        next();
     } catch (error) {
         res.json({
             data: false,

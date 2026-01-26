@@ -9,6 +9,7 @@ dotenv.config();
 const cors = require("cors")
 const app = express();
 connectToDb();
+console.log(process.env.CLIENT_URL);
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
