@@ -9,7 +9,7 @@ dotenv.config();
 const cors = require("cors")
 const app = express();
 connectToDb();
-console.log(process.env.CLIENT_URL);
+console.log(process.env.CLIENT_URL|| "http://localhost:5173");
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes)
 app.use("/api/emp", empRoutes)
 app.use("/api/visit", visitRoutes)
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 })
