@@ -26,9 +26,6 @@ const verifyPass = async (req, res) => {
             success: true,
             message: "visitor pass verified successfully"
         })
-
-
-
     } catch (error) {
 
     }
