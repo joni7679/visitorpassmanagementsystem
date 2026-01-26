@@ -6,33 +6,24 @@ import Checkbox from '../../components/Checkbox';
 import { useContext } from 'react';
 import { AuthConext } from '../../context/AuthContext';
 import { toast } from 'react-toastify'
+import { VisitorContext } from '../../context/DataContext';
 
 const CreateVisitRequested = () => {
     const backendApi = import.meta.env.VITE_BACKEND_URL;
-    const [empData, setEmpData] = useState([]);
+    // const [empData, setEmpData] = useState([]);
     const [phoneNumber, setPhoneNumber] = useState("");
     const [empId, setEmpid] = useState("");
     const [time, setTime] = useState("");
     const [date, setDate] = useState("");
     const [purpose, setPurpose] = useState("");
-    const [location, setLocation] = useState("");
     const [loading, setLoading] = useState(false)
     const { user, userProfile } = useContext(AuthConext);
+    const { getEmpData, empData } = useContext(VisitorContext)
     useEffect(() => {
         userProfile()
-    }, [])
-    const api = import.meta.env.VITE_BACKEND_URL;
-    const getEmpData = async () => {
-        try {
-            const res = await axios.get(`${api}/emp/employees`, { withCredentials: true });
-            setEmpData(res.data.data)
-        } catch (error) {
-            console.log("error", error);
-        }
-    }
-    useEffect(() => {
         getEmpData()
     }, [])
+
     const createVisitReq = async (e) => {
         const visiterData = {
             name: user.name,
@@ -43,7 +34,7 @@ const CreateVisitRequested = () => {
             date,
             time,
             purpose,
-            location
+
         }
         e.preventDefault();
         setLoading(true)
@@ -56,7 +47,7 @@ const CreateVisitRequested = () => {
             setDate("");
             setTime("");
             setPurpose("");
-            setLocation("")
+
             setLoading(false)
         } catch (error) {
             console.log(error);
@@ -120,19 +111,7 @@ const CreateVisitRequested = () => {
                             </select>
                         </div>
                     </div>
-                    <div className='flex items-center justify-between mt-5 gap-2.5'>
-                        <div className='w-1/2'>
-                            <label htmlFor="" >Location</label>
-                            <select className='px-4   mt-3 py-3 pr-10 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border border-gray-200 focus:border-black outline-0 rounded-md transition-all w-full' value={location} onChange={(e) => setLocation(e.target.value)}>
-                                <option value="">Slect option</option>
-                                <option value="Main Office-Floor 1" className='capitalize'>Main Office-Floor 1</option>
-                                <option value="Main Office-Floor 2" className='capitalize'>Main Office-Floor 2</option>
-                                <option value="Main Office-Floor 3" className='capitalize'>Main Office-Floor 3</option>
-                                <option value="Main Office-Floor 4" className='capitalize'>Main Office-Floor 4</option>
-                                <option value="Conference Office A" className='capitalize'>Conference Office A</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div className='mt-5 flex items-center gap-1.5'>
                         <Checkbox />
                     </div>

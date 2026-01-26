@@ -23,8 +23,10 @@ const VisiterRequestedTable = () => {
     useEffect(() => {
         fetchVisiterReqData()
     }, [])
-    const { getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
-
+    const { loading, actionLoadingId, rejectactionLoadingId, getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
+    // if (loading) {
+    //     return <h1>loading...</h1>
+    // }
     // handelapproved 
     const handelapproved = async (id) => {
         console.log("id", id);
@@ -79,7 +81,7 @@ const VisiterRequestedTable = () => {
                                     Phone Number
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Purpose
+                                    Time & Purpose
                                 </th>
                                 <th className="px-4 capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                     status
@@ -108,7 +110,11 @@ const VisiterRequestedTable = () => {
                                                     </div>
                                                 </td>
                                                 <td className='px-4 py-3 border-r border-gray-200'>
-                                                    {date}
+                                                    {new Date(date).toLocaleDateString("en-IN", {
+                                                        day: "2-digit",
+                                                        month: "long",
+                                                        year: "numeric"
+                                                    })}
                                                 </td>
                                                 <td className='px-4 py-3 border-r border-gray-200'>
                                                     <div className="ml-2">
@@ -130,20 +136,24 @@ const VisiterRequestedTable = () => {
 
                                                     {
                                                         status === "approved" ? (
-                                                            <h3>you approved this visiotor</h3>
+                                                            <h3 className='text-me capitalize  text-green-500'>you approved this visiotor</h3>
                                                         )
                                                             :
                                                             status === "rejected" ?
                                                                 (
-                                                                    <h3>you reject this visitor</h3>
+                                                                    <h3 className='text-me capitalize  text-red-500'>you reject this visitor</h3>
                                                                 )
                                                                 :
                                                                 (
                                                                     <>
-                                                                        <button onClick={() => handelRejectedVisitor(_id)} className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">
-                                                                            rejected
+                                                                        <button disabled={rejectactionLoadingId === _id} onClick={() => handelRejectedVisitor(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100  rounded-md capitalize ${rejectactionLoadingId === _id ? "cursor-not-allowed" : "hover:bg-red-200 cursor-pointer"}`}>
+                                                                            {rejectactionLoadingId === _id ? "Rejecting..." : "Rejected"}
                                                                         </button>
-                                                                        <button onClick={() => handelapproved(_id)} className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md">Approved</button>
+                                                                        <button disabled={actionLoadingId === _id} onClick={() => handelapproved(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md ${actionLoadingId === _id ? "coursor-not-allowed" : ""}`}>
+                                                                            {
+                                                                                actionLoadingId === _id ? "Approved Request.." : "Approved"
+                                                                            }
+                                                                        </button>
                                                                     </>
                                                                 )
                                                     }

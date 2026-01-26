@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const visiterSchema = new mongoose.Schema({
+    visitorId: {
+        type: String,
+        required: false,
+        unique: true
+    },
     name: {
         type: String,
         required: true
@@ -40,9 +45,17 @@ const visiterSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["approved", "rejected", "pending"],
+        enum: ["approved", "rejected", "pending", "check-in", "check-out"],
         default: "pending"
     }
+    , checkInTime: {
+        type: Date,
+        required: false,
+    },
+    checkOutTime: {
+        type: Date,
+        required: false,
+    },
 }, {
     timestamps: true
 })

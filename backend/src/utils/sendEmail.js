@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: process.env.EMAIL_GMAIL,
+        user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
 });
@@ -21,28 +21,36 @@ transporter.verify((err, success) => {
 });
 
 
-const sendMail = async ({ to, status, name, }) => {
+const sendMail = async ({ to, status, name, pdfBuffer }) => {
     try {
         let subject, html;
         if (status === "approved") {
-            subject = "Congratulations! Your Request Has Been Approved";
-            html = `<p>Dear ,${name} </p>
-            <p>we are informed that your request has been approved , by your Host. you can now proceed with the next stpes. </p>
+            subject = "Congratulations Your Request Has Been Approved";
+            html = `<p>Dear , ${name} </p>
+            <p>Good News! Your Request Has Been Approve By Your Host. Please Find Your Visitor Pass Below. </p>
             <p>Best regards, </p>
-            <p> Then Vms Team </p>`
+            <p> The Vms Team </p>`
         }
         else if (status === "rejected") {
             subject = "Important Update:Your Request Has Been Rejected";
-            html = `<p>Dear user,${name} </p>
-            <p>we are informed that your request has been Rejected Your Host , if your any doubts please contact your host</p>
+            html = `<p>Dear user , ${name} </p>
+            <p>we are informed that your request has been Rejected  By Your Host , if your any doubts please contact your host</p>
             <p>Best regards, </p>
-            <p> Then Vms Team </p>`
+            <p> The Vms Team </p>`
         }
         const info = await transporter.sendMail({
             from: `VMS TEAM <${process.env.EMAIL_GMAIL}>`,
             to: to,
             subject: subject,
-            html: html
+            html: html,
+            attachments: status === "approved" ? [
+                {
+                    filename:`${name}-visitor-pass.pdf`,
+                    content: pdfBuffer,
+                    contentType: "application/pdf"
+                }
+            ]
+                : []
         });
         console.log("Mail sent successfully ,", info.messageId)
     } catch (error) {

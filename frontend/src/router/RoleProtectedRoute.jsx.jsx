@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { AuthConext } from "../context/AuthContext"
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const RoleProtectedRoute = ({ allowRole, children }) => {
     const { userProfile, authLoader, user } = useContext(AuthConext);
@@ -10,7 +11,7 @@ const RoleProtectedRoute = ({ allowRole, children }) => {
     }, [])
 
     if (authLoader) {
-        return <h1>loading.........</h1>
+        return <h1>Loader...</h1>
     }
     if (!user) {
         return <Navigate to="/" replace />

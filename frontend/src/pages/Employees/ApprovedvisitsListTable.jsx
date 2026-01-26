@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
-import axios from 'axios'
 import { VisitorContext } from '../../context/DataContext'
 const ApprovedvisitsListTable = () => {
-    const { fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
+    const { loading, fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
+    // if(loading){
+    //     return <h1>loading...</h1>
+    // }
     useEffect(() => {
         fetchApprovedVisitors()
     }, [])
@@ -43,13 +45,13 @@ const ApprovedvisitsListTable = () => {
                                     Date
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Duration
+                                    Time & Purpose
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                     Status
                                 </th>
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    ddd
+                                <th className="px-4 py-3 capitalize text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
+                                    controls
                                 </th>
                             </tr>
                         </thead>
@@ -67,7 +69,11 @@ const ApprovedvisitsListTable = () => {
                                             </div>
                                         </td>
                                         <td className='px-4 py-3 border-r border-gray-200'>
-                                            {date}
+                                            {new Date(date).toLocaleDateString("en-IN", {
+                                                day: "2-digit",
+                                                month: "long",
+                                                year: "numeric"
+                                            })}
                                         </td>
 
                                         <td className='px-4 py-3 border-r border-gray-200'>

@@ -61,8 +61,7 @@ function AuthConextProvider({ children }) {
             setUser(finalRes);
             return finalRes
         } catch (error) {
-            setError(error.response?.data?.message || "Something is wrong")
-            return null;
+            throw new error(error.response?.data?.message || "Something is wrong")
         } finally {
             setAuthLoader(false)
         }

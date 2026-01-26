@@ -12,17 +12,16 @@ const ProblemSection = () => {
                     </p>
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-9 mt-10">
                         {problems.map((p, i) => {
-                            const { icon, title, description } = p;
-
+                            const { icon, img, title, description } = p;
+                            const Icon = icon
                             return (
                                 <div key={i}
                                     className="bg-white border border-gray-200 shadow-md w-full max-w-sm rounded-lg overflow-hidden mx-auto mt-4">
                                     <div className="aspect-[3/2]">
-
+                                        <img src={img} className='w-full h-full object-cover' alt="" />
                                     </div>
-
                                     <div className="p-6">
-                                        <h3 className="text-slate-900 text-xl font-semibold">{title}</h3>
+                                        <h3 className="text-slate-900 text-xl font-semibold"><Icon className='inline-block text-blue-600' /> {title}  </h3>
                                         <p className="mt-3 text-sm text-slate-500 leading-relaxed">
                                             {description}
                                         </p>
