@@ -9,12 +9,14 @@ dotenv.config();
 const cors = require("cors")
 const app = express();
 connectToDb();
-app.use(cookieParser());
-app.use(express.json());
+
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true
 }))
+
+app.use(cookieParser());
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("backend server is running!")
