@@ -9,6 +9,6 @@ router.get("/profile", authmiddleware, userProfile);
 router.get("/admin/dashboard", authmiddleware, authorizeRoles("admin"), dashboard);
 router.get("/employee/dashboard", authmiddleware, authorizeRoles("employee"), dashboard);
 router.get("/security/dashboard", authmiddleware, authorizeRoles("security"), dashboard);
-router.get("/visiter/dashboard", authmiddleware, authorizeRoles("visiter"), dashboard);
+router.get("/visitor/dashboard", authmiddleware, authorizeRoles("visitor"), dashboard);
 router.post("/logout",authmiddleware, userLogOut)
 module.exports = router;
