@@ -3,6 +3,9 @@ const userModel = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const allowedRole = ["admin", "employee", "security", "visitor"]
+
+const isProduction = process.env.NODE_ENV === "production"
+
 const getExpiryByRole = (role) => {
     switch (role) {
         case "admin":
@@ -61,8 +64,8 @@ exports.userRegister = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
             maxAge: 2 * 24 * 60 * 60 * 1000,
             path: "/"
 
@@ -109,11 +112,10 @@ exports.userLogin = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
             maxAge: 2 * 24 * 60 * 60 * 1000,
             path: "/"
-
 
         })
         res.status(200).json({
@@ -187,8 +189,8 @@ exports.userLogOut = async (req, res) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
             path: "/"
         })
         res.status(200).json({

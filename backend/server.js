@@ -4,6 +4,7 @@ const connectToDb = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
 const empRoutes = require("./src/routes/emp.routes");
 const visitRoutes = require("./src/routes/visitor.routes");
+const secutityRoutes=require("./src/routes/pass.routes")
 const cookieParser = require("cookie-parser");
 dotenv.config();
 const cors = require("cors")

@@ -27,10 +27,37 @@ const verifyPass = async (req, res) => {
             message: "visitor pass verified successfully"
         })
     } catch (error) {
-
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
     }
 }
 
+const checkInVisitor = async (req, res) => {
+    const visitorId = req.params.visitorId;
+    try {
+
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
+    }
+}
+
+const checkOutVisitor = async (req, res) => {
+    const visitorId = req.params.visitorId;
+    try {
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
+    }
+}
 
 
 

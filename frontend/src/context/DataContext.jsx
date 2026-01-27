@@ -8,8 +8,6 @@ function VisitorContextProvider({ children }) {
     const [actionLoadingId, setActionLoadingId] = useState(null)
     const [rejectactionLoadingId, setrejectActionLoadingId] = useState(null);
     const [loading, setLoading] = useState(false)
-
-
     const backendApi = import.meta.env.VITE_BACKEND_URL;
     const fetchApprovedVisitors = async () => {
         try {
