@@ -74,7 +74,7 @@ exports.userRegister = async (req, res) => {
             success: true,
             message: "user registered successfully",
             data: safeuser,
-            token
+            
         })
     } catch (error) {
         res.status(500).json({
@@ -122,7 +122,7 @@ exports.userLogin = async (req, res) => {
             success: true,
             message: "login successfully",
             data: safeuser,
-            token
+          
         })
     } catch (error) {
         res.status(500).json({

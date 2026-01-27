@@ -45,7 +45,8 @@ function AuthConextProvider({ children }) {
     const userDashboard = async () => {
         setLoading(true)
         try {
-            await axios.get(`${backendApi}/auth/dashboard/${user.role}`, { withCredentials: true })
+            const res = await axios.get(`${backendApi}/auth/${user.role}/dashboard`, { withCredentials: true })
+            return res.data
         } catch (error) {
             setError(error.response?.data?.message || "Something is wrong")
             return null;
