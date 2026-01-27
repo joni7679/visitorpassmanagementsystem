@@ -5,8 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import AuthConextProvider from './context/AuthContext'
 import { router } from './router/router'
 import VisitorContextProvider from './context/DataContext'
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-
+import { Bounce, ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

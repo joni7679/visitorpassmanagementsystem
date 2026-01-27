@@ -119,13 +119,11 @@ exports.userLogin = async (req, res) => {
             maxAge: 2 * 24 * 60 * 60 * 1000,
             domain: ".onrender.com",
             path: "/"
-
         })
         res.status(200).json({
             success: true,
             message: "login successfully",
             data: safeuser,
-
         })
     } catch (error) {
         res.status(500).json({

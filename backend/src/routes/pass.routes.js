@@ -1,64 +1,19 @@
 const express = require("express");
 const visiterModel = require("../models/visitor.model");
+const authmiddleware = require("../middlewares/auth.middleware");
+const authorizeRoles = require("../middlewares/role.middleware");
+const { visiterPassVerify, checkInVisitor, checkOutVisitor } = require("../controllers/pass.controller");
 const router = express.Router();
+router.get("/verify/:visitorId", authmiddleware, authorizeRoles("security"), visiterPassVerify);
 
-const verifyPass = async (req, res) => {
-    try {
-        const visitorId = req.params.visitorId;
-        console.log("visitorid", visitorId);
-
-        if (!visitorId) {
-            return res.status(400).json({
-                success: false,
-                message: "visitor id is required"
-            })
-        }
-
-        const visitorData = await visiterModel.findOne({ visitorId, status: "approved" });
-        if (!visitorData) {
-            return res.status(404).json({
-                success: false,
-                message: "visitor id not found or not approved"
-            })
-        }
-
-        return res.status(200).json({
-            success: true,
-            message: "visitor pass verified successfully"
-        })
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "internal server error"
-        })
-    }
-}
-
-const checkInVisitor = async (req, res) => {
-    const visitorId = req.params.visitorId;
-    try {
-
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "internal server error"
-        })
-    }
-}
-
-const checkOutVisitor = async (req, res) => {
-    const visitorId = req.params.visitorId;
-    try {
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "internal server error"
-        })
-    }
-}
-
+router.patch("/check-in/:visitorId", authmiddleware,
+    authorizeRoles("security"),
+    checkInVisitor
+)
+router.patch("/check-out/:visitorId", authmiddleware,
+    authorizeRoles("security"),
+    checkOutVisitor
+)
 
 
 

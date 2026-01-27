@@ -4,7 +4,7 @@ const connectToDb = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
 const empRoutes = require("./src/routes/emp.routes");
 const visitRoutes = require("./src/routes/visitor.routes");
-const secutityRoutes=require("./src/routes/pass.routes")
+const secutityRoutes = require("./src/routes/pass.routes")
 const cookieParser = require("cookie-parser");
 dotenv.config();
 const cors = require("cors")
@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes)
 app.use("/api/emp", empRoutes)
 app.use("/api/visit", visitRoutes)
+app.use("/api/security", secutityRoutes)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
