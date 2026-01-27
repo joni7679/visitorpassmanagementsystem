@@ -2,6 +2,7 @@ const validator = require('validator');
 const userModel = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { default: Domain } = require('twilio/lib/base/Domain');
 const allowedRole = ["admin", "employee", "security", "visitor"]
 
 const isProduction = process.env.NODE_ENV === "production"
@@ -64,9 +65,10 @@ exports.userRegister = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 2 * 24 * 60 * 60 * 1000,
+            domain: ".onrender.com",
             path: "/"
 
         })
@@ -74,7 +76,7 @@ exports.userRegister = async (req, res) => {
             success: true,
             message: "user registered successfully",
             data: safeuser,
-            
+
         })
     } catch (error) {
         res.status(500).json({
@@ -112,9 +114,10 @@ exports.userLogin = async (req, res) => {
         const token = generateToken(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 2 * 24 * 60 * 60 * 1000,
+            domain: ".onrender.com",
             path: "/"
 
         })
@@ -122,7 +125,7 @@ exports.userLogin = async (req, res) => {
             success: true,
             message: "login successfully",
             data: safeuser,
-          
+
         })
     } catch (error) {
         res.status(500).json({
@@ -189,8 +192,9 @@ exports.userLogOut = async (req, res) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
+            secure: true,
+            sameSite: "none",
+            domain: ".onrender.com",
             path: "/"
         })
         res.status(200).json({
