@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken")
 
 async function authmiddleware(req, res, next) {
     try {
-        let token;
-        if (req.cookies || req.cookies.token) {
+        let token = null;
+        if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
         }
 
-        if(!token && req.headers.authorization){
-            token=req.headers.authorization.split(
+        if (!token && req.headers.authorization) {
+            token = req.headers.authorization.split(
                 " "
             )[1]
 

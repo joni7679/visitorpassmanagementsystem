@@ -43,6 +43,7 @@ function AuthConextProvider({ children }) {
         }
     };
     const userDashboard = async () => {
+        if (!user || user.role === null) return
         setLoading(true)
         try {
             const res = await axios.get(`${backendApi}/auth/${user.role}/dashboard`, { withCredentials: true })
