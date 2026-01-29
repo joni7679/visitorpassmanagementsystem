@@ -83,7 +83,18 @@ function AuthConextProvider({ children }) {
     }
 
     useEffect(() => {
-        userProfile()
+        const checkAuthStatus = async () => {
+            try {
+                if (user) {
+                    await userProfile()
+                }
+            } catch (error) {
+                console.log("user not founded", error)
+            }
+            finally {
+                setAuthLoader(false)
+            }
+        }
     }, [])
 
     return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard }}>
