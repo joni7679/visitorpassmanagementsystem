@@ -22,13 +22,16 @@ const VisiterCheckinAndCheckoutTable = () => {
                                 visitor details
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                host
+                                host Name
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                 event type
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                Status
+                                Check-in Time
+                            </th>
+                            <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
+                                Check-out Time
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                 actions
@@ -53,15 +56,15 @@ const VisiterCheckinAndCheckoutTable = () => {
                                 </div>
                             </td>
                             <td className='px-4 py-3 border-r border-gray-200'>
+                                10:00 am
+                            </td>
+                            <td className='px-4 py-3 border-r border-gray-200'>
+                                11:00 am
+                            </td>
+                            <td className='px-4 py-3 border-r border-gray-200'>
                                 <div className="ml-2">
                                     <button className="px-3 py-1 rounded-lg  text-sm tracking-wider font-medium border-0 outline-0 text-blue-700 bg-blue-100  capitalize">complete</button>
                                 </div>
-                            </td>
-                            <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
-                                <button type="button" className="flex items-center gap-2 rounded-lg text-red-600 bg-red-50 border border-gray-200 px-3 py-1 cursor-pointer">
-                                    <Trash />
-                                    Delete
-                                </button>
                             </td>
                         </tr>
                     </tbody>
