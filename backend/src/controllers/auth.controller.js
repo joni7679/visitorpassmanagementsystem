@@ -2,7 +2,6 @@ const validator = require('validator');
 const userModel = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { default: Domain } = require('twilio/lib/base/Domain');
 const allowedRole = ["admin", "employee", "security", "visitor"]
 
 const isProduction = process.env.NODE_ENV === "production"
