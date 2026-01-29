@@ -2,7 +2,7 @@ const express = require("express");
 const visiterModel = require("../models/visitor.model");
 const authmiddleware = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
-const { visiterPassVerify, checkInVisitor, checkOutVisitor } = require("../controllers/pass.controller");
+const { visiterPassVerify, checkInVisitor, checkOutVisitor, getAllCheckInAndCheckOutVisitor } = require("../controllers/pass.controller");
 const router = express.Router();
 router.get("/verify/:visitorId", authmiddleware, authorizeRoles("security"), visiterPassVerify);
 
@@ -14,7 +14,7 @@ router.patch("/check-out/:visitorId", authmiddleware,
     authorizeRoles("security"),
     checkOutVisitor
 )
-
+router.get("/all-visitor-status", authmiddleware,   authorizeRoles("security"), getAllCheckInAndCheckOutVisitor)
 
 
 module.exports = router;

@@ -30,8 +30,6 @@ exports.visiterPassVerify = async (req, res) => {
     }
 }
 
-
-
 exports.checkInVisitor = async (req, res) => {
     try {
         const visitorId = req.params.visitorId;
@@ -91,6 +89,27 @@ exports.checkOutVisitor = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "visitor check-out successfully",
+            data: visitorData
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
+    }
+}
+exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
+    try {
+        const visitorData = await visiterModel.find({ status: { $in: ["check-in", "check-out"] } })
+        if (!visitorData) {
+            return res.status(400).json({
+                success: false,
+                message: "data not found "
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "fetch all visitor chek-in and check-out data",
             data: visitorData
         })
     } catch (error) {

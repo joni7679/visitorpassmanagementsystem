@@ -10,11 +10,16 @@ dotenv.config();
 const cors = require("cors")
 const app = express();
 connectToDb();
-console.log(process.env.CLIENT_URL || "http://localhost:5173");
+console.log(process.env.CLIENT_URL);
 app.set("trust proxy", 1)
 app.use(cors({
     origin: process.env.CLIENT_URL,
-    credentials: true
+    credentials: true,
+    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+    ],
 }))
 
 app.use(cookieParser());
