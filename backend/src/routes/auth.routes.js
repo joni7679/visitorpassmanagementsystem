@@ -10,5 +10,5 @@ router.get("/admin/dashboard", authmiddleware, authorizeRoles("admin"), dashboar
 router.get("/employee/dashboard", authmiddleware, authorizeRoles("employee"), dashboard);
 router.get("/security/dashboard", authmiddleware, authorizeRoles("security"), dashboard);
 router.get("/visitor/dashboard", authmiddleware, authorizeRoles("visitor"), dashboard);
-router.post("/logout", userLogOut)
+router.post("/logout", authmiddleware, userLogOut)
 module.exports = router;
