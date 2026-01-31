@@ -12,3 +12,4 @@ router.get("/security/dashboard", authmiddleware, authorizeRoles("security"), da
 router.get("/visitor/dashboard", authmiddleware, authorizeRoles("visitor"), dashboard);
 router.post("/logout", authmiddleware, userLogOut)
 module.exports = router;
+   

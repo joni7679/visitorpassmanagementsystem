@@ -20,6 +20,7 @@ import CreateVisitRequested from "../pages/Visitors/CreateVisitRequested";
 import Profiles from "../components/Profiles";
 import RoleProtectedRoute from "./RoleProtectedRoute.jsx";
 import VisitCardList from "../pages/Visitors/VisitCardList.jsx";
+import PublicRoute from "./PublicRoute.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -32,11 +33,20 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/register",
-                element: <Register />
+                element: (
+                    <PublicRoute>
+                        <Register />
+                    </PublicRoute>
+
+                )
             },
             {
                 path: "/login",
-                element: <Login />
+                element: (
+                    <PublicRoute>
+                        <Login />
+                    </PublicRoute>
+                )
             },
         ]
     },
@@ -112,7 +122,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: "dashboard/securitystaff",
+        path: "dashboard/security",
         element: (
             <RoleProtectedRoute allowRole="security">
                 <SecurityStaffDashboard />
@@ -155,7 +165,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "viewstatus",
-                element:<VisitCardList/>
+                element: <VisitCardList />
             },
             {
                 path: "myprofile",

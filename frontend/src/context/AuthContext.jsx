@@ -63,7 +63,7 @@ function AuthConextProvider({ children }) {
             setUser(finalRes);
             return finalRes
         } catch (error) {
-            throw new Error(error.response?.data?.message || "Something is wrong")
+           console.warn(error.response?.data?.message || "Something is wrong")
         } finally {
             setAuthLoader(false)
         }
@@ -95,6 +95,7 @@ function AuthConextProvider({ children }) {
                 setAuthLoader(false)
             }
         }
+        checkAuthStatus()
     }, [])
 
     return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard }}>

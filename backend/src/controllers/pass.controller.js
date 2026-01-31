@@ -10,11 +10,11 @@ exports.visiterPassVerify = async (req, res) => {
                 message: "visitor is required"
             })
         }
-        const visitorData = await visiterModel.findOne({ visitorId, status: "approved" });
+        const visitorData = await visiterModel.findOne({ visitorId });
         if (!visitorData) {
             return res.status(404).json({
                 success: false,
-                message: "visitor id not found or not approved"
+                message: "visitor id not found "
             })
         }
         return res.status(200).json({
@@ -98,6 +98,7 @@ exports.checkOutVisitor = async (req, res) => {
         })
     }
 }
+
 exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
     try {
         const visitorData = await visiterModel.find({ status: { $in: ["check-in", "check-out"] } })
@@ -112,6 +113,29 @@ exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
             message: "fetch all visitor chek-in and check-out data",
             data: visitorData
         })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "internal server error"
+        })
+    }
+}
+
+exports.rejectVisitor = async (req, res) => {
+    try {
+        const visitorId = req.params.visitorId;
+        const visitorData = await visiterModel.findOne({ visitorId })
+
+        if (!visitorData) {
+            return res.status(404).json({
+                success: false,
+                message: "visitor  not found!"
+            })
+        }
+
+        
+
+
     } catch (error) {
         return res.status(500).json({
             success: false,

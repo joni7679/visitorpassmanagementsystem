@@ -14,10 +14,9 @@ const PublicRoute = ({ children }) => {
         return <h1>Loader...</h1>
     }
     if (user) {
-        return children
-
+        return <Navigate to="/" replace />
     }
-    return <Navigate to="/" replace />
+    return children
 }
 
 export default PublicRoute

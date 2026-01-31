@@ -1,7 +1,17 @@
 import { Search, Trash } from 'lucide-react'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { VisitorContext } from '../../context/DataContext'
 
 const VisiterCheckinAndCheckoutTable = () => {
+    const { fetchCheckInAndCheckOutVisitor, visitHistory, loading, 
+    } = useContext(VisitorContext);
+
+    useEffect(() => {
+        fetchCheckInAndCheckOutVisitor();
+    }, [])
+    if (loading) {
+        return <p>Loading...</p>
+    }
     return (
         <>
             <div className="overflow-x-auto p-6">
@@ -22,7 +32,7 @@ const VisiterCheckinAndCheckoutTable = () => {
                                 visitor details
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                host Name
+                                Phone
                             </th>
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                 event type
@@ -33,40 +43,65 @@ const VisiterCheckinAndCheckoutTable = () => {
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                 Check-out Time
                             </th>
-                            <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                actions
-                            </th>
+
                         </tr>
                     </thead>
                     <tbody className="whitespace-nowrap divide-y divide-gray-200">
-                        <tr className="odd:bg-gray-50">
-                            <td className="px-4 py-3 border-r border-gray-200">
-                                <div className="flex items-center w-max">
-                                    <div className="ml-2">
-                                        <p className="text-[13px] text-slate-900 font-medium">Abhijit halder</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className='px-4 py-3 border-r border-gray-200'>
-                                Mr.Rahul Das
-                            </td>
-                            <td className='px-4 py-3 border-r border-gray-200'>
-                                <div className="ml-2">
-                                    <p>check out</p>
-                                </div>
-                            </td>
-                            <td className='px-4 py-3 border-r border-gray-200'>
-                                10:00 am
-                            </td>
-                            <td className='px-4 py-3 border-r border-gray-200'>
-                                11:00 am
-                            </td>
-                            <td className='px-4 py-3 border-r border-gray-200'>
-                                <div className="ml-2">
-                                    <button className="px-3 py-1 rounded-lg  text-sm tracking-wider font-medium border-0 outline-0 text-blue-700 bg-blue-100  capitalize">complete</button>
-                                </div>
-                            </td>
-                        </tr>
+                        {visitHistory.map((visitor ,index) => {
+                            const { name, phone, checkInTime, checkOutTime, employeeid, status } = visitor
+                            return (
+                                <tr key={index} className="bg-gray-50">
+                                    <td className="px-4 py-3 border-r border-gray-100">
+                                        <div className="flex items-center w-max">
+                                            <div className="ml-2">
+                                                <p className="text-[13px] text-slate-900 font-medium">{name || "unknow"}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-4 py-3 border-r border-gray-100">
+                                        <div className="flex items-center w-max">
+                                            <div className="ml-2">
+                                                <p className="text-[13px] text-slate-900 font-medium">{phone || "unknow"}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className='px-4 py-3 border-r border-gray-200'>
+                                        <div className="ml-2">
+                                            <p>{status || ""}</p>
+                                        </div>
+                                    </td>
+                                    <td className='px-4 py-3 border-r border-gray-200'>
+                                        {new Date(checkInTime).toLocaleString("en-IN",
+                                            {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                                hour12: true
+                                            }
+                                        )}
+                                    </td>
+                                    <td className='px-4 py-3 border-r border-gray-200'>
+                                        {
+                                            checkOutTime ?
+                                                new Date(checkOutTime).toLocaleString("en-IN",
+                                                    {
+                                                        day: "2-digit",
+                                                        month: "short",
+                                                        year: "numeric",
+                                                        hour: "2-digit",
+                                                        minute: "2-digit",
+                                                        hour12: true
+                                                    }
+                                                )
+                                                :
+                                                <span className='font-sm capitalize'>not check-out</span>
+                                        }
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

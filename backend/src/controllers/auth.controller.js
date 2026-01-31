@@ -54,7 +54,7 @@ exports.userRegister = async (req, res) => {
         if (isuseralreadyExist) {
             return res.status(409).json({
                 success: false,
-                message: "user already exist please login"
+                message: "user already exist please login in"
             })
         }
         const salt = await bcrypt.genSalt(10);
@@ -93,7 +93,6 @@ exports.userLogin = async (req, res) => {
                 success: false,
                 message: "please all fields are required",
             })
-
         }
         const user = await userModel.findOne({ email });
         if (!user) {

@@ -17,7 +17,6 @@ const VisitCard = () => {
     const getEmpData = async () => {
         try {
             const res = await axios.get(`${api}/emp/employees`, { withCredentials: true });
-            console.log(res.data.data);
             setShowHostName(res.data.data || [])
         } catch (error) {
             console.log("error", error);

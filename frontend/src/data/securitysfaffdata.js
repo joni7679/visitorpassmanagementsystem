@@ -4,7 +4,7 @@ export const securityData = [
     {
         icon: ScanQrCode,
         label: "scanner & Entry",
-        path: "/dashboard/securitystaff"
+        path: "/dashboard/security"
     },
     {
         icon: EthernetPort,

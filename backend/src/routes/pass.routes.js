@@ -14,8 +14,5 @@ router.patch("/check-out/:visitorId", authmiddleware,
     authorizeRoles("security"),
     checkOutVisitor
 )
-router.get("/all-visitor-status", authmiddleware,   authorizeRoles("security"), getAllCheckInAndCheckOutVisitor)
-
-
+router.get("/all-visitor-status", authmiddleware, authorizeRoles("security"), getAllCheckInAndCheckOutVisitor)
 module.exports = router;
-

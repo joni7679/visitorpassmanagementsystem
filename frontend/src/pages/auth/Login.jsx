@@ -22,7 +22,7 @@ const Login = () => {
                 navigate(`/dashboard/admin`)
             }
             if (role === "security") {
-                navigate(`/dashboard/securitystaff`)
+                navigate(`/dashboard/security`)
             }
             if (role === "employee") {
                 navigate(`/dashboard/employee`)

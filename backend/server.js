@@ -10,18 +10,17 @@ dotenv.config();
 const cors = require("cors")
 const app = express();
 connectToDb();
-console.log(process.env.CLIENT_URL);
 app.set("trust proxy", 1)
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+    methods: ["GET", "PUT", "POST", "DELETE","PUT","PATCH", "OPTIONS"],
     allowedHeaders: [
         "Content-Type",
         "Authorization",
     ],
 }))
-app.options("*", cors());
+// app.options("*", cors());
 app.use(cookieParser());
 app.use(express.json());
 
@@ -36,3 +35,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 })
+
+
