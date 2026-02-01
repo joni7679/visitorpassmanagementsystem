@@ -16,7 +16,7 @@ const ApprovedvisitsListTable = () => {
     return (
         <>
             <div classNameName='w-full '>
-                <div className='flex items-center justify-between   mt-[10%]'>
+                <div className='flex items-center justify-between '>
                     <h4 className='mt-5 font-semibold capitalize '>Approved visit list</h4>
                     <Button title="new invite" icon={<Plus />} />
                 </div>

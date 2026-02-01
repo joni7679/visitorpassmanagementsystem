@@ -27,7 +27,7 @@ const VisiterRequestedTable = () => {
     useEffect(() => {
         fetchVisiterReqData()
     }, [])
-    
+
     const { actionLoadingId, rejectactionLoadingId, getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
     if (loading) {
         return <ShimmEffectTable />
@@ -52,7 +52,7 @@ const VisiterRequestedTable = () => {
     return (
         <>
             <div className='w-full'>
-                <div className="overflow-x-auto  p-6  mt-[10%]">
+                <div className="overflow-x-auto  p-6  ">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
                         <div className="flex items-center px-4 py-2 rounded-md bg-white border border-gray-300 overflow-hidden max-w-xs w-full">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
