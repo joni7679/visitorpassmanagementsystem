@@ -11,11 +11,10 @@ function EntryAndExist() {
                         <p>Verify Pss</p>
                     </div>
                     <div className='flex items-center justify-center gap-3.5 mt-5'>
-                        <div className='max-w-md w-full  shadow-lg rounded-2xl h-64'>
+                        <div className='max-w-md w-full  p-2 overflow-hidden shadow-lg rounded-2xl h-90'>
                             <ScanQRCode />
                         </div>
                         <div className='max-w-md w-full  shadow-lg rounded-2xl h-90'>
-                            
                             {/* employeeid */}
                            <VisitorData/>
                         </div>

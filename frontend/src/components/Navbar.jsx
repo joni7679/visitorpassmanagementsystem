@@ -8,19 +8,18 @@ const Navbar = () => {
     const { userProfile, user } = useContext(AuthConext);
     const navitems = [
         {
-            label: "features"
+            label: "Features"
         },
         {
             label: "How it Works"
         },
         {
-            label: "solutions"
+            label: "Solutions"
         },
         {
-            label: "pricing"
+            label: "Pricing"
         }
     ]
-
     useEffect(() => {
         userProfile()
     }, [])
@@ -43,7 +42,7 @@ const Navbar = () => {
                     {
                         user ? <UserMenu /> : 
                             <div className=' flex items-center gap-1.5'>
-                                <Link to={`/login`} className='px-4 py-3 cursor-pointer hover:bg-blue-600 hover:text-white duration-300 rounded border-gray-500 border capitalize'>
+                                <Link to={`/login`} className='px-4  capitalize py-3 cursor-pointer hover:bg-blue-600 hover:text-white duration-300 rounded border-gray-500 border capitalize'>
                                     login
                                 </Link>
                                 <Button title="Get Started" />

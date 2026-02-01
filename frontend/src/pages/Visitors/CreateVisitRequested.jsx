@@ -19,6 +19,7 @@ const CreateVisitRequested = () => {
     const [loading, setLoading] = useState(false)
     const { user, userProfile } = useContext(AuthConext);
     const { getEmpData, empData } = useContext(VisitorContext)
+    const [errorSms, setError] = useState(null)
     useEffect(() => {
         userProfile()
         getEmpData()
@@ -47,10 +48,12 @@ const CreateVisitRequested = () => {
             setDate("");
             setTime("");
             setPurpose("");
-
             setLoading(false)
         } catch (error) {
-            console.log(error);
+            console.log(error?.response.data?.message);
+            const msg=error?.response.data?.message
+            setError(msg);
+            toast.error(msg)
         } finally {
             setLoading(false)
         }

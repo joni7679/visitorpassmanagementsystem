@@ -10,7 +10,9 @@ const VisitorDashboard = () => {
         <Header />
         <div className='flex items-start  gap-2.5'>
           <VisitorSideBar />
-          <Outlet />
+          <div className='work-space'>
+            <Outlet />
+          </div>
         </div>
       </main>
     </>

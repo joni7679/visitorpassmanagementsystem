@@ -10,7 +10,7 @@ const SecurityStaffDashboard = () => {
                 <Header />
                 <div className='flex items-start  gap-2.5 w-full'>
                     <SecurityStaffSidebar />
-                    <div className='w-[80%] p-5'>
+                    <div className='w-[80%] p-5 mt-11  work-space'>
                         <Outlet />
                     </div>
                 </div>

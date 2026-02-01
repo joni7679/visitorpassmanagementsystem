@@ -10,7 +10,7 @@ const EmployesDashboard = () => {
                 <Header />
                 <div className='flex items-start  gap-2.5 w-full'>
                     <EmployeeSidebar />
-                    <div className='w-[80%] p-5'>
+                    <div className='w-[80%] p-5 work-space'>
                         <Outlet />
                     </div>
                 </div>

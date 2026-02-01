@@ -10,6 +10,7 @@ function VisitorContextProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [verifyPassUser, setVieryfyPassUser] = useState(null)
     const [visitHistory, setVisitHistory] = useState([]);
+    const [error, setError] = useState(null)
     axios.defaults.withCredentials = true
     const backendApi = import.meta.env.VITE_BACKEND_URL;
 
@@ -115,7 +116,7 @@ function VisitorContextProvider({ children }) {
             setLoading(false)
         }
     }
-    return <VisitorContext.Provider value={{ loading, actionLoadingId, rejectactionLoadingId, fetchApprovedVisitors, getApprovedVisitor, rejectedVisitors, fetchMyVisitorStatus, approvedVisitorsData, myVisitorsStatus, getEmpData, empData, verifyPassVisitor, verifyPassUser, checkInVisitor, fetchCheckInAndCheckOutVisitor, visitHistory }}>
+    return <VisitorContext.Provider value={{ loading, actionLoadingId, rejectactionLoadingId, fetchApprovedVisitors, getApprovedVisitor, rejectedVisitors, fetchMyVisitorStatus, approvedVisitorsData, myVisitorsStatus, getEmpData, empData, verifyPassVisitor, verifyPassUser, checkInVisitor, checkOutVisitor, fetchCheckInAndCheckOutVisitor, visitHistory }}>
         {children}
     </VisitorContext.Provider>
 }

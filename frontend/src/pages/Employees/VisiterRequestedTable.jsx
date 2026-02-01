@@ -23,10 +23,8 @@ const VisiterRequestedTable = () => {
     useEffect(() => {
         fetchVisiterReqData()
     }, [])
-    const { loading, actionLoadingId, rejectactionLoadingId, getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
-    // if (loading) {
-    //     return <h1>loading...</h1>
-    // }
+    const { actionLoadingId, rejectactionLoadingId, getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
+
     // handelapproved 
     const handelapproved = async (id) => {
         console.log("id", id);
@@ -46,7 +44,7 @@ const VisiterRequestedTable = () => {
     const statusColor = {
         pending: "text-yellow-500 bg-yellow-200",
         approved: "text-green-500 bg-green-200",
-        rejected: "text-red-500 bg-red-200"
+        rejected: "text-red-500 bg-red-200",
     }
     return (
         <>
@@ -133,30 +131,9 @@ const VisiterRequestedTable = () => {
                                                     <span className={`px-2 py-1 capitalize text-green-700  bg-green-100  rounded-md ${statusColor[status]}`}>{status}</span>
                                                 </td>
                                                 <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
-
-                                                    {
-                                                        status === "approved" ? (
-                                                            <h3 className='text-me capitalize  text-green-500'>you approved this visiotor</h3>
-                                                        )
-                                                            :
-                                                            status === "rejected" ?
-                                                                (
-                                                                    <h3 className='text-me capitalize  text-red-500'>you reject this visitor</h3>
-                                                                )
-                                                                :
-                                                                (
-                                                                    <>
-                                                                        <button disabled={rejectactionLoadingId === _id} onClick={() => handelRejectedVisitor(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100  rounded-md capitalize ${rejectactionLoadingId === _id ? "cursor-not-allowed" : "hover:bg-red-200 cursor-pointer"}`}>
-                                                                            {rejectactionLoadingId === _id ? "Rejecting..." : "Rejected"}
-                                                                        </button>
-                                                                        <button disabled={actionLoadingId === _id} onClick={() => handelapproved(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100 hover:bg-green-200 rounded-md ${actionLoadingId === _id ? "coursor-not-allowed" : ""}`}>
-                                                                            {
-                                                                                actionLoadingId === _id ? "Approved Request.." : "Approved"
-                                                                            }
-                                                                        </button>
-                                                                    </>
-                                                                )
-                                                    }
+                                                    <StatusSmsRender status={status} _id={_id} actionLoadingId={actionLoadingId} rejectactionLoadingId={rejectactionLoadingId} handelRejectedVisitor={handelRejectedVisitor}
+                                                        handelapproved={handelapproved}
+                                                    />
                                                 </td>
                                             </tr>
                                         )
@@ -170,3 +147,45 @@ const VisiterRequestedTable = () => {
 }
 
 export default VisiterRequestedTable
+
+function StatusSmsRender({ status,
+    _id,
+    actionLoadingId,
+    rejectactionLoadingId,
+    handelapproved,
+    handelRejectedVisitor }) {
+    if (status === "check-in") {
+        return (
+            <h3 className='text-md capitalize  text-blue-500'>this visitor check-in</h3>
+        )
+    }
+
+    if (status === "check-out") {
+        return (
+            <h3 className='text-md capitalize  text-blue-500'>this visitor check-out</h3>
+        )
+    }
+
+    if (status === "approved") {
+        return (
+            <h3 className='text-md capitalize  text-green-500'>you approved this visiotor</h3>
+        )
+    }
+    if (status === "rejected") {
+        return (
+            <h3 className='text-md capitalize  text-red-500'>you reject this visitor</h3>
+        )
+    }
+    return (
+        <>
+            <button disabled={rejectactionLoadingId === _id} onClick={() => handelRejectedVisitor(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100  rounded-md capitalize ${rejectactionLoadingId === _id ? "cursor-not-allowed" : "hover:bg-red-200 cursor-pointer"}`}>
+                {rejectactionLoadingId === _id ? "Rejecting..." : "Rejected"}
+            </button>
+            <button disabled={actionLoadingId === _id} onClick={() => handelapproved(_id)} className={`px-6 py-2.5  text-sm tracking-wider font-medium border-0 outline-0 text-green-700 bg-green-100  rounded-md ${actionLoadingId === _id ? "cursor-not-allowed" : "cursor-pointer hover:bg-green-200 "}`}>
+                {
+                    actionLoadingId === _id ? "Approved Request.." : "Approved"
+                }
+            </button>
+        </>
+    )
+}

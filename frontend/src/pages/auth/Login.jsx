@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { AuthConext } from '../../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { Eye, EyeClosed } from 'lucide-react'
 
 
 const Login = () => {
@@ -11,6 +12,10 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const { LoginUser, loading, Error } = useContext(AuthConext);
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false);
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword)
+    }
     // submit logic
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -41,7 +46,7 @@ const Login = () => {
                     <h1 className='text-center font-semibold capitalize'>Wellcome login your account</h1>
                     <form onSubmit={handleLogin}>
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
-                        <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" />
+                        <InputFiled type={showPassword ? "text" : "password"} label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" onIconClike={toggleShowPassword} SecIcon={!showPassword ? EyeClosed : Eye} />
                         {
                             Error && <div className='bg-red-300 px-4 py-7 rounded'><span className='text-red-500 capitalize'>{Error}</span></div>
                         }

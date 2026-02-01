@@ -12,14 +12,6 @@ const SecuritySection = () => {
                             <h2 className='text-md font-semibold capitalize text-3xl md:text-5xl'> Enterprise-Grade Security</h2>
                             <p className='mt-5 text-gray-400 text-md'>  Built on a robust MERN stack architecture with security at its core. Your data is encrypted, backed up, and compliant with global standards.</p>
                         </div>
-                        <ul className='mt-5'>
-                            <li>
-                                SOC 2 Type II Compliant
-                            </li>
-                            <li>
-                                SOC 2 Type II Compliant
-                            </li>
-                        </ul>
                     </div>
                     <div className="w-full md:w-1/2 ">
                         <div className="hero-img w-full rounded-2xl overflow-hidden">

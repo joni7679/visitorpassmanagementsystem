@@ -59,26 +59,23 @@ const ScanQRCode = () => {
             }
         }
     }
-
     function onErrorScanner(error) {
         console.log("Somthing is worng please try aging leater...", error);
     }
-
     return (
         <>
-            <div className='p-5 flex items-start justify-center'>
+            <div className='p-2 '>
                 {!isScanning ?
-                    <button onClick={() => setIsScanning(true)} className='px-5 py-4 bg-blue-500 text-white rounded-2xl capitalize'>scan now</button> :
-                    <button onClick={() => setIsScanning(false)} className='px-5 py-4 bg-blue-500 text-white rounded-2xl capitalize'>scan stop</button>
+                    <button onClick={() => setIsScanning(true)} className='px-5 py-4 cursor-pointer hover:bg-blue-700 duration-200 bg-blue-500 text-white rounded-2xl capitalize'>scan now</button> :
+                    <button onClick={() => setIsScanning(false)} className='px-5 py-4 cursor-pointer hover:bg-blue-700 duration-200 bg-blue-500 text-white rounded-2xl capitalize'>scan stop</button>
                 }
             </div>
-
             {
                 loading && <span className='font-medium capitalize text-2xl'>verify or code...</span>
             }
             {
                 isScanning &&
-                <div id='reader' className='w-90'>
+                <div id='reader' style={{ width: 400, borderRadius:22 }} >
                 </div>
             }
         </>

@@ -10,9 +10,9 @@ const Dashboard = () => {
                 <Header />
                 <div className='flex items-start  gap-2.5'>
                     <AdminSidebar />
-                
+                    <div className='work-space'>
                         <Outlet />
-                 
+                    </div>
                 </div>
             </main>
         </>

@@ -69,7 +69,6 @@ exports.userRegister = async (req, res) => {
             partitioned: true,
             maxAge: 2 * 24 * 60 * 60 * 1000,
             path: "/"
-
         })
         res.status(201).json({
             success: true,
@@ -162,7 +161,6 @@ exports.dashboard = (req, res) => {
         return res.status(200).json({
             success: true,
             message: "wellcome admin",
-
         })
     }
 
