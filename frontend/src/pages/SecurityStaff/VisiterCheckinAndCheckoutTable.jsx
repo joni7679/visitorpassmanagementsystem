@@ -1,6 +1,7 @@
 import { Search, Trash } from 'lucide-react'
 import React, { useContext, useEffect } from 'react'
 import { VisitorContext } from '../../context/DataContext'
+import ShimmEffectTable from '../../components/ShimmEffectTable';
 
 const VisiterCheckinAndCheckoutTable = () => {
     const { fetchCheckInAndCheckOutVisitor, visitHistory, loading, 
@@ -10,7 +11,7 @@ const VisiterCheckinAndCheckoutTable = () => {
         fetchCheckInAndCheckOutVisitor();
     }, [])
     if (loading) {
-        return <p>Loading...</p>
+        return <ShimmEffectTable/>
     }
     return (
         <>

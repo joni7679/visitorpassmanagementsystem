@@ -4,42 +4,45 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { VisitorContext } from '../../context/DataContext';
 import { ToastContainer, toast } from 'react-toastify';
+import ShimmEffectTable from '../../components/ShimmEffectTable';
 
 const VisiterRequestedTable = () => {
     const [visitData, setVisiterData] = useState([])
     const backendApi = import.meta.env.VITE_BACKEND_URL;
+    const [loading, setLoading] = useState(false)
 
     const fetchVisiterReqData = async () => {
         try {
+            setLoading(true)
             const res = await axios.get(`${backendApi}/visit/get-all-visit-req`, { withCredentials: true });
             const finalres = res.data.data;
-            console.log("visiterdata", finalres);
             setVisiterData(finalres)
         } catch (error) {
             console.log("error", error);
+        } finally {
+            setLoading(false)
         }
     }
 
     useEffect(() => {
         fetchVisiterReqData()
     }, [])
+    
     const { actionLoadingId, rejectactionLoadingId, getApprovedVisitor, rejectedVisitors } = useContext(VisitorContext)
-
+    if (loading) {
+        return <ShimmEffectTable />
+    }
     // handelapproved 
     const handelapproved = async (id) => {
-        console.log("id", id);
         await getApprovedVisitor(id);
         toast.success("You Approved this visiters")
         fetchVisiterReqData()
     }
-
     const handelRejectedVisitor = async (id) => {
-        console.log("id", id);
         await rejectedVisitors(id);
         toast.success("You rejected this visiters")
         fetchVisiterReqData()
     }
-
 
     const statusColor = {
         pending: "text-yellow-500 bg-yellow-200",
@@ -48,9 +51,8 @@ const VisiterRequestedTable = () => {
     }
     return (
         <>
-
-            <div classNameName='w-full'>
-                <div className="overflow-x-auto p-6">
+            <div className='w-full'>
+                <div className="overflow-x-auto  p-6  mt-[10%]">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
                         <div className="flex items-center px-4 py-2 rounded-md bg-white border border-gray-300 overflow-hidden max-w-xs w-full">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
@@ -92,7 +94,7 @@ const VisiterRequestedTable = () => {
                         <tbody className="whitespace-nowrap divide-y bg-gray-200">
                             {
                                 visitData.length === 0 ? <tr className="bg-gray-50">
-                                    <td colSpan={5} className="px-4 py-3 border-r border-gray-200 ">
+                                    <td colSpan={6} className="px-4 py-3 border-r border-gray-200 ">
                                         <h1 className='font-semibold text-center capitalize'>no data here</h1>
                                     </td>
                                 </tr> :

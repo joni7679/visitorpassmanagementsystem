@@ -8,9 +8,11 @@ const Dashboard = () => {
         <>
             <main className='w-full min-h-screen bg-gray-100'>
                 <Header />
-                <div className='flex items-start  gap-2.5'>
-                    <AdminSidebar />
-                    <div className='work-space'>
+                <div className='flex items-center justify-center  gap-2.5'>
+                    <div className='w-[20%]'>
+                        <AdminSidebar />
+                    </div>
+                    <div className='w-[80%]'>
                         <Outlet />
                     </div>
                 </div>

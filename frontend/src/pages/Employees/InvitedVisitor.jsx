@@ -5,10 +5,7 @@ import { Clock, Users } from 'lucide-react'
 const InvitedVisitor = () => {
     return (
         <>
-            
-
-
-            <div className='bg-white w-[50rem] p-5 mt-11 shadow-lg rounded-2xl '>
+            <div className='bg-white w-[50rem] p-5  shadow-lg rounded-2xl '>
                 <div>
                     <h3 className='font-medium capitalize'>new visitor  invite</h3>
                 </div>

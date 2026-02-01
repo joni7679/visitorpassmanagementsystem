@@ -21,15 +21,20 @@ const VisitorData = () => {
         return <h2 className='font-semibold capitalize p-5'>data not found here</h2>
     }
     const handleCheckInVisitor = async () => {
-        await checkInVisitor(data?.visitorId
-        );
-        toast.success("visitor checked out successfully")
+        await checkInVisitor(data?.visitorId);
+        toast.success("visitor checked in successfully")
+        setTimeout(() => {
+            setData(null)
+        }, 5000);
+
     }
 
     const handleCheckOutVisitor = async () => {
-        await checkOutVisitor(data?.visitorId
-        );
-        toast.success("visitor checked in successfully")
+        await checkOutVisitor(data?.visitorId);
+        toast.success("visitor checked out successfully")
+        setTimeout(() => {
+            setData(null)
+        }, 5000);
     }
 
     return (

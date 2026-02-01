@@ -7,8 +7,8 @@ const SecurityStaffSidebar = () => {
     return (
         <>
             <div className='z-30 p-5  min-h-screen w-[20%]'>
-                <nav className="bg-white shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
-                    <div className="relative flex flex-col h-full">
+                <nav className="bg-white siderbar shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+                    <div className="relative flex flex-col h-full mt-[41%]">
                         {securityData.map((val, index) => {
                             const { label, icon, path } = val;
                             const Icon = icon

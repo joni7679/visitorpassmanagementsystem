@@ -11,7 +11,7 @@ const VisitorSideBar = () => {
   return (
     <>
       <div className='z-50 p-5  min-h-screen w-[20%]'>
-        <nav class="bg-white shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+        <nav class="bg-white  siderbar shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <div class="relative flex flex-col h-full">
             {visitorData.map((val, index) => {
               const { label, icon, path } = val;
@@ -26,7 +26,7 @@ const VisitorSideBar = () => {
               )
             })}
             <hr class="my-6 border-gray-200" />
-            </div>
+          </div>
         </nav>
       </div>
     </>

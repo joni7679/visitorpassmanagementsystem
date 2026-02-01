@@ -6,6 +6,26 @@
     }
 }
 
-.work-space{
+.work-space {
     width: 80%;
+    margin-top: 10%;
+}
+
+.siderbar {
+    position: absolute;
+    left: -1%;
+}
+
+.siderbar::-webkit-scrollbar {
+    display: none;
+}
+
+.close-sidebar {
+    position: absolute;
+    left: -20%;
+    transition: 5s ease;
+}
+
+.work-space::-webkit-scrollbar {
+    display: none;
 }

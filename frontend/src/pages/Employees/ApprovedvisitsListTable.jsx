@@ -2,18 +2,21 @@ import React, { useContext, useEffect } from 'react'
 import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
 import { VisitorContext } from '../../context/DataContext'
+import ShimmEffectTable from '../../components/ShimmEffectTable'
 const ApprovedvisitsListTable = () => {
     const { loading, fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
-    // if(loading){
-    //     return <h1>loading...</h1>
-    // }
+
     useEffect(() => {
         fetchApprovedVisitors()
     }, [])
+
+    if (loading) {
+        return <ShimmEffectTable />
+    }
     return (
         <>
-            <div classNameName='w-full'>
-                <div className='flex items-center justify-between  mt-8'>
+            <div classNameName='w-full '>
+                <div className='flex items-center justify-between   mt-[10%]'>
                     <h4 className='mt-5 font-semibold capitalize '>Approved visit list</h4>
                     <Button title="new invite" icon={<Plus />} />
                 </div>
@@ -57,43 +60,56 @@ const ApprovedvisitsListTable = () => {
                         </thead>
                         <tbody className="whitespace-nowrap divide-y divide-gray-200">
 
-                            {approvedVisitorsData.map((visiter, index) => {
-                                const { createdAt, date, email, location, name, phone, purpose, status, time } = visiter
-                                return (
-                                    <tr className="bg-gray-50">
-                                        <td className="px-4 py-3 border-r border-gray-200">
+                            {
+
+                                approvedVisitorsData.length === 0 ?
+                                    <tr className="bg-gray-200">
+                                        <td className="px-4 py-3 border-r border-gray-200" colSpan={6}>
                                             <div className="flex items-center w-max">
                                                 <div className="ml-2">
-                                                    <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
+                                                   <p className='font-medium capitalize'>not data here</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className='px-4 py-3 border-r border-gray-200'>
-                                            {new Date(date).toLocaleDateString("en-IN", {
-                                                day: "2-digit",
-                                                month: "long",
-                                                year: "numeric"
-                                            })}
-                                        </td>
-
-                                        <td className='px-4 py-3 border-r border-gray-200'>
-                                            <div className="ml-2">
-                                                <p className="text-[13px] text-slate-900 font-medium">{time}</p>
-                                            </div>
-                                            <div className="ml-2">
-                                                <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
-                                            </div>
-                                        </td>
-                                        <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
-                                            <span className='px-2 py-1 capitalize text-green-700 bg-green-100  rounded-md'>{status}</span>
-                                        </td>
-                                        <td className='px-4 py-3 border-r border-gray-200 fl'>
-                                            <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium  outline-0 text-black border-[1px] capitalize rounded-md mr-2">resend pass</button>
-                                            <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">cencel</button>
-                                        </td>
                                     </tr>
-                                )
-                            })}
+                                    :
+                                    approvedVisitorsData.map((visiter, index) => {
+                                        const { createdAt, date, email, location, name, phone, purpose, status, time } = visiter
+                                        return (
+                                            <tr className="bg-gray-50">
+                                                <td className="px-4 py-3 border-r border-gray-200">
+                                                    <div className="flex items-center w-max">
+                                                        <div className="ml-2">
+                                                            <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    {new Date(date).toLocaleDateString("en-IN", {
+                                                        day: "2-digit",
+                                                        month: "long",
+                                                        year: "numeric"
+                                                    })}
+                                                </td>
+
+                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{time}</p>
+                                                    </div>
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
+                                                    </div>
+                                                </td>
+                                                <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
+                                                    <span className='px-2 py-1 capitalize text-green-700 bg-green-100  rounded-md'>{status}</span>
+                                                </td>
+                                                <td className='px-4 py-3 border-r border-gray-200 fl'>
+                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium  outline-0 text-black border-[1px] capitalize rounded-md mr-2">resend pass</button>
+                                                    <button className="px-6 py-2.5 cursor-pointer text-sm tracking-wider font-medium border-0 outline-0 text-red-700 bg-red-100 hover:bg-red-200 rounded-md capitalize">cencel</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
                         </tbody>
                     </table>
                 </div>
