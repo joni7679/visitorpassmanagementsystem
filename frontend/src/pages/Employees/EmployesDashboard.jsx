@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../admin/components/Header'
 import EmployeeSidebar from './EmployeeSidebar'
 import { Outlet } from 'react-router-dom'
 
 const EmployesDashboard = () => {
-    
+    const [isOpen, setIsOpen] = useState(false);
+
+    const togglebar = () => {
+        setIsOpen(!isOpen)
+    }
+
     return (
         <>
             <main className='w-full min-h-screen bg-gray-100'>
-                <Header />
+                <Header togglebar={togglebar}  isOpen={isOpen}/>
                 <div className='flex items-center justify-center  gap-2.5 w-full'>
-                    <div className='w-[20%] '>
-                        <EmployeeSidebar />
+                    <div className={` ${isOpen ? "w-0" : "w-[20%]"}  transition-all duration-100 ease-out`}>
+                        <EmployeeSidebar isOpen={isOpen} />
                     </div>
-                    <div className='w-[80%] p-5 h-[80vh] overflow-scroll work-space'>
+                    <div className={`  ${isOpen ? "w-[100%]" : "w-[80%]"}  p-5 h-[80vh]  transition-all overflow-scroll work-space  duration-100 ease-out`}>
                         <Outlet />
                     </div>
                 </div>
