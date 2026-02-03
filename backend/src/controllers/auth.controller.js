@@ -196,7 +196,23 @@ exports.userLogOut = async (req, res) => {
             message: "User logout successfully !"
         })
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
+            success: false,
+            message: error.message || "internal server error",
+        })
+    }
+}
+
+exports.getUserByRole = async (req, res) => {
+    try {
+        const users =await userModel.find({ role: { $in: ["employee", "security", "visitor"] } }).select("-password ");
+        return res.status(200).json({
+            success: false,
+            message: "fetch all user data",
+            data: users
+        })
+    } catch (error) {
+        return res.status(500).json({
             success: false,
             message: error.message || "internal server error",
         })

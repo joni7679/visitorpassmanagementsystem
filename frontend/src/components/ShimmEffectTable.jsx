@@ -7,7 +7,6 @@ const ShimmEffectTable = () => {
             <div classNameName='w-90'>
                 <div className="max-w-md mt-[20%]">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
-
                     </div>
                     <table className="min-w-full border border-gray-200">
                         <thead className="bg-white whitespace-nowrap">

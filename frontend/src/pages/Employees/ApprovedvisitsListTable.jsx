@@ -3,7 +3,9 @@ import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
 import { VisitorContext } from '../../context/DataContext'
 import ShimmEffectTable from '../../components/ShimmEffectTable'
+import { useNavigate } from 'react-router-dom'
 const ApprovedvisitsListTable = () => {
+    const navigate = useNavigate()
     const { loading, fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
 
     useEffect(() => {
@@ -13,12 +15,15 @@ const ApprovedvisitsListTable = () => {
     if (loading) {
         return <ShimmEffectTable />
     }
+    const handelInviter = () => {
+        navigate(`/dashboard/employee/inviter_visitor`)
+    }
     return (
         <>
             <div classNameName='w-full '>
                 <div className='flex items-center justify-between '>
                     <h4 className='mt-5 font-semibold capitalize '>Approved visit list</h4>
-                    <Button title="new invite" icon={<Plus />} />
+                    <Button title="new invite" onClick={handelInviter} icon={<Plus />} />
                 </div>
                 <div className="overflow-x-auto p-6">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
@@ -67,7 +72,7 @@ const ApprovedvisitsListTable = () => {
                                         <td className="px-4 py-3 border-r border-gray-200" colSpan={6}>
                                             <div className="flex items-center w-max">
                                                 <div className="ml-2">
-                                                   <p className='font-medium capitalize'>not data here</p>
+                                                    <p className='font-medium capitalize'>not data here</p>
                                                 </div>
                                             </div>
                                         </td>

@@ -5,8 +5,10 @@ import { useState } from 'react';
 import { VisitorContext } from '../../context/DataContext';
 import { ToastContainer, toast } from 'react-toastify';
 import ShimmEffectTable from '../../components/ShimmEffectTable';
+import { useNavigate } from 'react-router-dom';
 
 const VisiterRequestedTable = () => {
+    const navigate = useNavigate()
     const [visitData, setVisiterData] = useState([])
     const backendApi = import.meta.env.VITE_BACKEND_URL;
     const [loading, setLoading] = useState(false)
@@ -49,6 +51,7 @@ const VisiterRequestedTable = () => {
         approved: "text-green-500 bg-green-200",
         rejected: "text-red-500 bg-red-200",
     }
+    
     return (
         <>
             <div className='w-full'>

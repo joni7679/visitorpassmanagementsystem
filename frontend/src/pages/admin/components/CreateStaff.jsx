@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputFiled from '../../../components/InputField'
 import { AuthConext } from '../../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const CreateStaff = () => {
     const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const CreateStaff = () => {
         e.preventDefault();
         const data = await registerUser({ name, email, password, role })
         if (data) {
-            alert("Register success fully");
+            toast.success("Register success-fully");
             setName("");
             setEmail("");
             setPassword("");
@@ -26,7 +27,7 @@ const CreateStaff = () => {
 
     return (
         <>
-            <section className='w-full min-h-screen flex items-start justify-center'>
+            <section className='w-full min-h-screen flex items-start mt-11 justify-center'>
                 <div className="register-form p-4 bg-white rounded-2xl shadow-lg max-w-md w-full mt-10">
                     <form onSubmit={handleSubmit}>
                         <InputFiled type='text' label="Name " value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Your Name Here..." />
@@ -34,12 +35,11 @@ const CreateStaff = () => {
                         <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" error={error} />
                         <select value={role} onChange={(e) => setRole(e.target.value)} id="" className='w-full cursor-pointer capitalize mt-2 pl-10 pr-4 py-3 border shadow-md border-gray-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none'>
                             <option value="">Slect Any Role</option>
-                            <option value="admin">admin</option>
                             <option value="employee">employee</option>
                             <option value="security">security</option>
+                            <option value="visitor">visitor</option>
                         </select>
                         <button type='submit' className={`px-4 mt-6 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
-
                             {
                                 loading ? "Regster...." : "Regigster"
                             }

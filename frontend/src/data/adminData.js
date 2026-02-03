@@ -20,12 +20,11 @@ export const adminData = [
         icon: UserCog,
         label: "visiter",
         path: "visiter",
-
     },
     {
         icon: BrickWallShield,
         label: "security staff",
-        path: "security staff",
+        path: "security-staff",
     },
     {
         icon: LayoutDashboard,

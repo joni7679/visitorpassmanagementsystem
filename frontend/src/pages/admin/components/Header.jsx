@@ -18,7 +18,6 @@ const Header = ({ togglebar, isOpen }) => {
                     </div>
                     <div className="flex items-center gap-y-6 max-sm:flex-col z-50 w-full pb-2">
                         <div className="flex items-center justify-end gap-6 ml-auto">
-
                             <div className="w-1 h-10 border-l border-gray-400">
                             </div>
                             <UserMenu />

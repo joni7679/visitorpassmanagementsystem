@@ -4,7 +4,6 @@ import React from 'react'
 const DashBoardHome = () => {
     return (
         <>
-
             <div className='w-full min-h-screen px-[5%] bg-gray-100'>
                 <h2 className='font-semibold capitalize text-2xl'>dashboard</h2>
                 <p className='text-md capitalize'>welcome back , here's what's happing today</p>
@@ -47,7 +46,6 @@ const DashBoardHome = () => {
                                     <h4 className="text-xl font-bold capitalize">employee</h4>
                                     <User className='text-blue-500' />
                                 </div>
-
                                 <div>
                                     <p className='font-semibold capitalize'>122</p>
                                 </div>
@@ -55,9 +53,7 @@ const DashBoardHome = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </>
     )
 }

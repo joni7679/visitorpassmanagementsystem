@@ -21,6 +21,7 @@ import Profiles from "../components/Profiles";
 import RoleProtectedRoute from "./RoleProtectedRoute.jsx";
 import VisitCardList from "../pages/Visitors/VisitCardList.jsx";
 import PublicRoute from "./PublicRoute.jsx";
+import VisitoryData from "../pages/admin/components/VisitoryData.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -76,7 +77,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "visiter",
-                element: <h1>visiter list</h1>
+                element: <VisitoryData/>
             },
             {
                 path: "security-staff",

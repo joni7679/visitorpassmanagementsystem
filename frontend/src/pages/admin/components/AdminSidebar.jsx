@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 
 const AdminSidebar = () => {
   const [acitve, setActive] = useState(0);
-  console.log("acive", acitve);
 
   return (
     <>
       <div className='z-30 p-5 mt-14  min-h-screen w-[20%] '>
-        <nav className="siderbar bg-white shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
+        <nav className="siderbar mt-[7%] bg-white shadow-md border-r border-gray-200 h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 overflow-auto">
           <div className="relative flex flex-col h-full">
             {adminData.map((val, index) => {
               const { label, icon, path } = val;

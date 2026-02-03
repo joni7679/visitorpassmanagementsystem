@@ -4,14 +4,14 @@ import { VisitorContext } from '../../context/DataContext'
 import ShimmEffectTable from '../../components/ShimmEffectTable';
 
 const VisiterCheckinAndCheckoutTable = () => {
-    const { fetchCheckInAndCheckOutVisitor, visitHistory, loading, 
+    const { fetchCheckInAndCheckOutVisitor, visitHistory, loading,
     } = useContext(VisitorContext);
 
     useEffect(() => {
         fetchCheckInAndCheckOutVisitor();
     }, [])
     if (loading) {
-        return <ShimmEffectTable/>
+        return <ShimmEffectTable />
     }
     return (
         <>
@@ -44,49 +44,49 @@ const VisiterCheckinAndCheckoutTable = () => {
                             <th className="px-4  capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
                                 Check-out Time
                             </th>
-
                         </tr>
                     </thead>
                     <tbody className="whitespace-nowrap divide-y divide-gray-200">
-                        {visitHistory.map((visitor ,index) => {
-                            const { name, phone, checkInTime, checkOutTime, employeeid, status } = visitor
-                            return (
-                                <tr key={index} className="bg-gray-50">
-                                    <td className="px-4 py-3 border-r border-gray-100">
-                                        <div className="flex items-center w-max">
-                                            <div className="ml-2">
-                                                <p className="text-[13px] text-slate-900 font-medium">{name || "unknow"}</p>
+                        {
+                            visitHistory.length === 0 ? (
+                                <>
+                                    <tr>
+                                        <td colSpan={6} className="px-4 py-3 border-r bg-white">
+                                            <div className="flex items-center w-max">
+                                                <div className="ml-2 text-center">
+                                                    <p className="text-[13px] text-slate-900 font-medium  text-center capitalize">not data here...</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-3 border-r border-gray-100">
-                                        <div className="flex items-center w-max">
-                                            <div className="ml-2">
-                                                <p className="text-[13px] text-slate-900 font-medium">{phone || "unknow"}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className='px-4 py-3 border-r border-gray-200'>
-                                        <div className="ml-2">
-                                            <p>{status || ""}</p>
-                                        </div>
-                                    </td>
-                                    <td className='px-4 py-3 border-r border-gray-200'>
-                                        {new Date(checkInTime).toLocaleString("en-IN",
-                                            {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                                hour: "2-digit",
-                                                minute: "2-digit",
-                                                hour12: true
-                                            }
-                                        )}
-                                    </td>
-                                    <td className='px-4 py-3 border-r border-gray-200'>
-                                        {
-                                            checkOutTime ?
-                                                new Date(checkOutTime).toLocaleString("en-IN",
+                                        </td>
+                                    </tr>
+
+                                </>
+                            ) :
+                                visitHistory.map((visitor, index) => {
+                                    const { name, phone, checkInTime, checkOutTime, employeeid, status } = visitor
+                                    return (
+                                        <tr key={index} className="bg-gray-50">
+                                            <td className="px-4 py-3 border-r border-gray-100">
+                                                <div className="flex items-center w-max">
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{name || "unknow"}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-4 py-3 border-r border-gray-100">
+                                                <div className="flex items-center w-max">
+                                                    <div className="ml-2">
+                                                        <p className="text-[13px] text-slate-900 font-medium">{phone || "unknow"}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className='px-4 py-3 border-r border-gray-200'>
+                                                <div className="ml-2">
+                                                    <p>{status || ""}</p>
+                                                </div>
+                                            </td>
+                                            <td className='px-4 py-3 border-r border-gray-200'>
+                                                {new Date(checkInTime).toLocaleString("en-IN",
                                                     {
                                                         day: "2-digit",
                                                         month: "short",
@@ -95,14 +95,28 @@ const VisiterCheckinAndCheckoutTable = () => {
                                                         minute: "2-digit",
                                                         hour12: true
                                                     }
-                                                )
-                                                :
-                                                <span className='font-sm capitalize'>not check-out</span>
-                                        }
-                                    </td>
-                                </tr>
-                            )
-                        })}
+                                                )}
+                                            </td>
+                                            <td className='px-4 py-3 border-r border-gray-200'>
+                                                {
+                                                    checkOutTime ?
+                                                        new Date(checkOutTime).toLocaleString("en-IN",
+                                                            {
+                                                                day: "2-digit",
+                                                                month: "short",
+                                                                year: "numeric",
+                                                                hour: "2-digit",
+                                                                minute: "2-digit",
+                                                                hour12: true
+                                                            }
+                                                        )
+                                                        :
+                                                        <span className='font-sm capitalize'>not check-out</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                     </tbody>
                 </table>
             </div>
