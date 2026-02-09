@@ -51,7 +51,7 @@ const DashboardLayout = () => {
                 <Header togglebar={togglebar} isOpen={isOpen} />
                 <div className='flex items-center justify-center  gap-2.5 w-full'>
                     <div className={` ${isOpen ? "w-0" : "w-[20%]"}  transition-all duration-100 ease-out`}>
-                        <Sidebar isOpen={isOpen} data={getSidebarRoleData(role)} />
+                        <Sidebar togglebar={togglebar} isOpen={isOpen} data={getSidebarRoleData(role)} />
                     </div>
                     <div className={`${isOpen ? "w-[100%]" : "w-[80%]"}  p-5 h-[80vh]  transition-all overflow-scroll work-space  duration-100 ease-out`}>
                         <Outlet />

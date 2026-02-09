@@ -46,7 +46,7 @@ const Register = () => {
                         }
                         <button type='submit' className={`px-4 mt-5 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
                             {
-                                loading ? "Regster...." : "Regigster"
+                                loading ? "Regster...." : "Register"
                             }
                         </button>
                         <p className='mt-4 capitalize'>Already have a accoutn  <Link to={`/login`} className='underline text-green-600'>Login now</Link></p>

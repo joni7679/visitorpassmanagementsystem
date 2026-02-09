@@ -14,9 +14,11 @@ const ApprovedvisitsListTable = () => {
         fetchApprovedVisitors()
     }, [])
 
+
     if (loading) {
         return <ShimmEffectTable />
     }
+    
     const handelInviter = () => {
         navigate(`/dashboard/employee/inviter_visitor`)
     }

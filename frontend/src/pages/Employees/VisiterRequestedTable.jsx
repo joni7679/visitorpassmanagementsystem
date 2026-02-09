@@ -40,12 +40,12 @@ const VisiterRequestedTable = () => {
     const handelapproved = async (id) => {
         await getApprovedVisitor(id);
         toast.success("You Approved this visiters")
-        fetchVisiterReqData()
+        // fetchVisiterReqData()
     }
     const handelRejectedVisitor = async (id) => {
         await rejectedVisitors(id);
         toast.success("You rejected this visiters")
-        fetchVisiterReqData()
+        // fetchVisiterReqData()
     }
 
     const statusColor = {
