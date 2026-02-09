@@ -13,6 +13,11 @@ const visiterSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    image: {
+        type: String,
+        required: false,
+    }
+    ,
     phone: {
         type: String,
         required: true,
@@ -47,8 +52,12 @@ const visiterSchema = new mongoose.Schema({
         type: String,
         enum: ["approved", "rejected", "pending", "check-in", "check-out"],
         default: "pending"
-    }
-    , checkInTime: {
+    },
+    qrCode: {
+        type: String,
+        required: false
+    },
+    checkInTime: {
         type: Date,
         required: false,
     },

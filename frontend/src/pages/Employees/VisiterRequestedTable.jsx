@@ -6,6 +6,8 @@ import { VisitorContext } from '../../context/DataContext';
 import { ToastContainer, toast } from 'react-toastify';
 import ShimmEffectTable from '../../components/ShimmEffectTable';
 import { useNavigate } from 'react-router-dom';
+import { CSVLink } from 'react-csv';
+import { formatDate } from '../../data/formatDate';
 
 const VisiterRequestedTable = () => {
     const navigate = useNavigate()
@@ -51,7 +53,17 @@ const VisiterRequestedTable = () => {
         approved: "text-green-500 bg-green-200",
         rejected: "text-red-500 bg-red-200",
     }
-    
+    const csvData = visitData.map((visiter, index) => ({
+        SL: index + 1,
+        Name: visiter.name,
+        Date: formatDate(visiter.date),
+        Email: visiter.email,
+        Location: visiter.location,
+        Phone: visiter.phone,
+        Purpose: visiter.purpose,
+        Status: visiter.status,
+        Time: visiter.time
+    }))
     return (
         <>
             <div className='w-full'>
@@ -66,10 +78,18 @@ const VisiterRequestedTable = () => {
                             </svg>
                             <input type="email" placeholder="Search visiter name here..." className="w-full outline-none bg-transparent text-slate-600 text-sm" />
                         </div>
-                        <button type='button'
-                            className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer">
-                            Export
-                        </button>
+                        <div>
+                            <div>
+                                <CSVLink
+                                    data={csvData}
+                                    filename={"visitorRequestedtable.csv"}
+                                    className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
+                                    target="_blank"
+                                >Export</CSVLink>;
+                            </div>
+
+                        </div>
+
                     </div>
                     <table className="min-w-full border border-gray-200">
                         <thead className="bg-white whitespace-nowrap">

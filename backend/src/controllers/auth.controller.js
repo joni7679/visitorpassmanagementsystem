@@ -205,11 +205,58 @@ exports.userLogOut = async (req, res) => {
 
 exports.getUserByRole = async (req, res) => {
     try {
-        const users =await userModel.find({ role: { $in: ["employee", "security", "visitor"] } }).select("-password ");
+        const users = await userModel.find({ role: { $in: ["employee", "security", "visitor"] } }).select("-password");
         return res.status(200).json({
             success: false,
             message: "fetch all user data",
             data: users
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "internal server error",
+        })
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    const userId = req.params.id;
+    console.log("userid", userId)
+    try {
+        const user = await userModel.findByIdAndDelete(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "user id not found!"
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "user delete successfully !"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || "internal server error",
+        })
+    }
+}
+
+
+exports.updateUser = async (req, res) => {
+    const userId = req.params.id;
+    const { name, email, role } = req.body;
+    try {
+        const user = await userModel.findByIdAndUpdate(userId, { name, email, role }, { new: true });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "user id not found!"
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: "user data update successfully !"
         })
     } catch (error) {
         return res.status(500).json({

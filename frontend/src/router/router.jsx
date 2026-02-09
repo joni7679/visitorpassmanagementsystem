@@ -22,6 +22,7 @@ import RoleProtectedRoute from "./RoleProtectedRoute.jsx";
 import VisitCardList from "../pages/Visitors/VisitCardList.jsx";
 import PublicRoute from "./PublicRoute.jsx";
 import VisitoryData from "../pages/admin/components/VisitoryData.jsx";
+import VisitorHome from "../pages/Visitors/VisitorHome.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -38,7 +39,6 @@ export const router = createBrowserRouter([
                     <PublicRoute>
                         <Register />
                     </PublicRoute>
-
                 )
             },
             {
@@ -158,7 +158,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <h1>i am visitor</h1>
+                element: <VisitorHome/>
             },
             {
                 path: "createvisitrequested",

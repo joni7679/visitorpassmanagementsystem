@@ -4,6 +4,8 @@ import { Plus } from 'lucide-react'
 import { VisitorContext } from '../../context/DataContext'
 import ShimmEffectTable from '../../components/ShimmEffectTable'
 import { useNavigate } from 'react-router-dom'
+import { CSVLink } from 'react-csv'
+import { formatDate } from '../../data/formatDate'
 const ApprovedvisitsListTable = () => {
     const navigate = useNavigate()
     const { loading, fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
@@ -18,6 +20,19 @@ const ApprovedvisitsListTable = () => {
     const handelInviter = () => {
         navigate(`/dashboard/employee/inviter_visitor`)
     }
+
+    const csvData = approvedVisitorsData.map((visiter, index) => ({
+        SL: index + 1,
+        Name: visiter.name,
+        Date: formatDate(visiter.date),
+        Email: visiter.email,
+        Location: visiter.location,
+        Phone: visiter.phone,
+        Purpose: visiter.purpose,
+        Status: visiter.status,
+        Time: visiter.time
+    }))
+
     return (
         <>
             <div classNameName='w-full '>
@@ -36,11 +51,20 @@ const ApprovedvisitsListTable = () => {
                             </svg>
                             <input type="email" placeholder="Search visiter name here..." className="w-full outline-none bg-transparent text-slate-600 text-sm" />
                         </div>
-                        <button type='button'
-                            className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer">
 
-                            Export
-                        </button>
+                        <div>
+
+                            <CSVLink
+                                data={csvData}
+                                filename={"approved-visitor.csv"}
+                                className=" btn btn-primary text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
+                                target="_blank"
+                            >
+                                Export
+                            </CSVLink>;
+
+                        </div>
+
                     </div>
 
                     <table className="min-w-full border border-gray-200">

@@ -2,17 +2,28 @@ import { Search, Trash } from 'lucide-react'
 import React, { useContext, useEffect } from 'react'
 import { VisitorContext } from '../../context/DataContext'
 import ShimmEffectTable from '../../components/ShimmEffectTable';
+import { CSVLink } from 'react-csv';
+import { formatDate } from '../../data/formatDate';
 
 const VisiterCheckinAndCheckoutTable = () => {
     const { fetchCheckInAndCheckOutVisitor, visitHistory, loading,
     } = useContext(VisitorContext);
-
     useEffect(() => {
         fetchCheckInAndCheckOutVisitor();
     }, [])
     if (loading) {
         return <ShimmEffectTable />
     }
+    // name, phone, checkInTime, checkOutTime, employeeid, status
+    const csvData = visitHistory.map((visiter, index) => ({
+        SL: index + 1,
+        Name: visiter.name,
+        Email: visiter.email,
+        Phone: visiter.phone,
+        checkInTime: formatDate(visiter.checkInTime),
+        checkOutTime: formatDate(visiter.checkOutTime),
+        Status: visiter.status,
+    }))
     return (
         <>
             <div className="overflow-x-auto p-6">
@@ -21,10 +32,16 @@ const VisiterCheckinAndCheckoutTable = () => {
                         <Search />
                         <input type="email" placeholder="Search visiter name here..." className="w-full outline-none bg-transparent text-slate-600 text-sm" />
                     </div>
-                    <button type='button'
-                        className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer">
-                        Export
-                    </button>
+
+                    <div>
+                        <CSVLink
+                            className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
+                            data={csvData}
+                            filename={"visitercheckInAndCheckOut.csv"}
+                            target="_blank"
+                        >Export</CSVLink>;
+                    </div>
+
                 </div>
                 <table className="min-w-full border border-gray-200">
                     <thead className="bg-white whitespace-nowrap">
@@ -59,7 +76,6 @@ const VisiterCheckinAndCheckoutTable = () => {
                                             </div>
                                         </td>
                                     </tr>
-
                                 </>
                             ) :
                                 visitHistory.map((visitor, index) => {

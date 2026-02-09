@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { userRegister, userLogin, userLogOut, userProfile, dashboard, getUserByRole } = require("../controllers/auth.controller");
+const { userRegister, userLogin, userLogOut, userProfile, dashboard, getUserByRole, deleteUser, updateUser } = require("../controllers/auth.controller");
 const authmiddleware = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const loginLimit = require("../middlewares/loginLimit");
@@ -13,4 +13,7 @@ router.get("/security/dashboard", authmiddleware, authorizeRoles("security"), da
 router.get("/visitor/dashboard", authmiddleware, authorizeRoles("visitor"), dashboard);
 router.post("/logout", authmiddleware, userLogOut)
 router.get("/getuserbyrole", authmiddleware, authorizeRoles("admin"), getUserByRole)
+router.delete("/delete-user/:id", authmiddleware, authorizeRoles("admin"), deleteUser)
+router.put("/user/:id", authmiddleware, authorizeRoles("admin"), updateUser)
+
 module.exports = router;

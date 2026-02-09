@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import InputFiled from '../../components/InputField'
-import { Clock } from 'lucide-react'
+import { Clock, ImageMinus } from 'lucide-react'
 import axios from 'axios';
 import Checkbox from '../../components/Checkbox';
 import { useContext } from 'react';
@@ -20,6 +20,13 @@ const CreateVisitRequested = () => {
     const { user, userProfile } = useContext(AuthConext);
     const { getEmpData, empData } = useContext(VisitorContext)
     const [errorSms, setError] = useState(null)
+    const [image, setImage] = useState(null)
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        console.log(file)
+        setImage(file)
+    }
     useEffect(() => {
         userProfile()
         getEmpData()
@@ -41,7 +48,6 @@ const CreateVisitRequested = () => {
         setLoading(true)
         try {
             const visiter = await axios.post(`${backendApi}/visit/create-visit-req`, visiterData, { withCredentials: true })
-            console.log("visiter", visiter);
             toast.success("visit requested send successfully")
             setPhoneNumber("");
             setEmpid("");
@@ -50,8 +56,7 @@ const CreateVisitRequested = () => {
             setPurpose("");
             setLoading(false)
         } catch (error) {
-            console.log(error?.response.data?.message);
-            const msg=error?.response.data?.message
+            const msg = error?.response.data?.message
             setError(msg);
             toast.error(msg)
         } finally {
@@ -61,9 +66,23 @@ const CreateVisitRequested = () => {
 
     return (
         <>
-            <div className='bg-white w-[50rem] p-5 mt-11 shadow-lg rounded-2xl '>
+            <div className='bg-white  p-5 shadow-lg rounded-2xl '>
                 <form onSubmit={createVisitReq} action="" className='mt-3.5'>
-                    <div className='flex items-center justify-between w-full  gap-2.5'>
+                    <div className='w-full bg-gray-200 h-32 rounded-3xl flex items-center justify-center'>
+                        <div className='p-2 rounded-xl bg-gray-100 w-44 flex items-center justify-center h-22 overflow-hidden'>
+                            {
+                                image ? <img src={URL.createObjectURL(image)} alt="" className='w-full h-full object-cover' /> :
+                                    <>
+                                        <label htmlFor="file" className='cursor-pointer'><ImageMinus className='text-3xl' />
+                                            Accent only jpg, png, webp
+                                        </label>
+                                        <input type="file" id='file' accept='image/*' onChange={handleImageUpload} className='hidden' />
+
+                                    </>
+                            }
+                        </div>
+                    </div>
+                    <div className='flex mt-5 items-center justify-between w-full  gap-2.5'>
                         <div className='w-1/2'>
                             <InputFiled label="Full Name" value={user.name} readOnly placeholder="Enter full Name here" />
                         </div>
@@ -114,14 +133,12 @@ const CreateVisitRequested = () => {
                             </select>
                         </div>
                     </div>
-
                     <div className='mt-5 flex items-center gap-1.5'>
                         <Checkbox />
                     </div>
                     <button disabled={loading} className={`px-6 py-2.5 min-w-[200px] rounded-md cursor-pointer text-slate-900 text-sm tracking-wider font-medium border  outline-0  mt-5  ${loading ? "cursor-not-allowed" : " border-blue-600 hover:bg-blue-800 cursor-pointer bg-transparent hover:text-white  duration-200 "}`}>{loading ? "Requesting..." : "Send Request"}</button>
                 </form>
             </div>
-
         </>
     )
 }

@@ -10,11 +10,15 @@ const CreateStaff = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const [role, setRole] = useState("")
-    const { registerUser, loading, error } = useContext(AuthConext);
+    const { registerUser, loading, Error } = useContext(AuthConext);
     const navigate = useNavigate()
     // submit logic
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!name || !email || !password || !role) {
+            toast.error("All Fileds is required")
+        }
         const data = await registerUser({ name, email, password, role })
         if (data) {
             toast.success("Register success-fully");
@@ -23,16 +27,19 @@ const CreateStaff = () => {
             setPassword("");
             setRole("")
         }
+        else {
+            toast.error(Error)
+        }
     }
 
     return (
         <>
-            <section className='w-full min-h-screen flex items-start mt-11 justify-center'>
-                <div className="register-form p-4 bg-white rounded-2xl shadow-lg max-w-md w-full mt-10">
+            <section className='w-full  flex items-start mt-11 justify-center'>
+                <div className="register-form p-4 bg-white rounded-2xl shadow-lg max-w-md w-full ">
                     <form onSubmit={handleSubmit}>
                         <InputFiled type='text' label="Name " value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Your Name Here..." />
                         <InputFiled type='text' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Id Here..." />
-                        <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" error={error} />
+                        <InputFiled type='password' label="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Your Password here" />
                         <select value={role} onChange={(e) => setRole(e.target.value)} id="" className='w-full cursor-pointer capitalize mt-2 pl-10 pr-4 py-3 border shadow-md border-gray-100 rounded-xl focus:ring-2 focus:ring-green-500 focus:outline-none'>
                             <option value="">Slect Any Role</option>
                             <option value="employee">employee</option>

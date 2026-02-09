@@ -4,7 +4,8 @@ const connectToDb = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
 const empRoutes = require("./src/routes/emp.routes");
 const visitRoutes = require("./src/routes/visitor.routes");
-const secutityRoutes = require("./src/routes/pass.routes")
+const secutityRoutes = require("./src/routes/pass.routes");
+const reportRoutes = require("./src/routes/report.routes")
 const cookieParser = require("cookie-parser");
 dotenv.config();
 const cors = require("cors")
@@ -14,7 +15,7 @@ app.set("trust proxy", 1)
 app.use(cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-    methods: ["GET", "PUT", "POST", "DELETE","PUT","PATCH", "OPTIONS"],
+    methods: ["GET", "PUT", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     allowedHeaders: [
         "Content-Type",
         "Authorization",
@@ -30,7 +31,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes)
 app.use("/api/emp", empRoutes)
 app.use("/api/visit", visitRoutes)
-app.use("/api/security", secutityRoutes)
+app.use("/api/security", secutityRoutes);
+app.use("/api/visitor", reportRoutes)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

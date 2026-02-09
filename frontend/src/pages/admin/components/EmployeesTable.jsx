@@ -1,19 +1,62 @@
-import { Calendar, ChartLine, Mail, Pencil, Trash, User, UserCog, Wand } from 'lucide-react'
-import React, { useContext, useEffect } from 'react'
+import { Calendar, ChartLine, Mail, Pencil, Search, Trash, User, UserCog, Wand } from 'lucide-react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthConext } from '../../../context/AuthContext'
 import ShimmEffectTable from '../../../components/ShimmEffectTable';
+import { CSVLink } from 'react-csv';
+import DeleteModel from './DeleteModel';
+import { toast } from 'react-toastify';
+
 
 const EmployeesTable = () => {
-    const { fetchAllUserByRole, userByRole, loading } = useContext(AuthConext);
-
+    const { fetchAllUserByRole, userByRole, loading, handleDeleteVistor } = useContext(AuthConext);
+    const [userid, setUserId] = useState(null)
     useEffect(() => {
         fetchAllUserByRole()
     }, [])
     if (loading) return <ShimmEffectTable />
+
+    const handleEditUser = (id) => {
+        console.log("userid", id);
+        alert(id)
+    }
+
+    const deleteUserId = async (id) => {
+        setUserId(id)
+
+    }
+    const handleCloseModel = () => {
+        setUserId(null)
+    }
+
+    const handleDelete = async () => {
+        await handleDeleteVistor(userid);
+        toast.success("Successfully delete this user");
+        fetchAllUserByRole()
+    }
+
+
+
     return (
         <>
-            <div className="w-full">
+            <div className="w-full relative">
+                {userid && <div onClick={handleCloseModel} className='fixed top-1/2 cursor-pointer left-1/2 -transform -translate-x-1/2  -translate-y-1/2 overly w-full h-full flex items-center justify-center'>
+                    <DeleteModel handleCloseModel={handleCloseModel} handleDelete={handleDelete} loading={loading} />
+                </div>}
                 <div class="overflow-x-auto">
+                    <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
+                        <div className="flex items-center px-4 py-2 rounded-md bg-white border border-gray-300 overflow-hidden max-w-xs w-full">
+                            <Search />
+                            <input type="email" placeholder="Search visiter name here..." className="w-full outline-none bg-transparent text-slate-600 text-sm" />
+                        </div>
+                        <div>
+                            <CSVLink
+                                className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
+                                data={userByRole}
+                                filename={"employee.csv"}
+                                target="_blank"
+                            >Export</CSVLink>;
+                        </div>
+                    </div>
                     <table class="min-w-full bg-white">
                         <thead class="bg-gray-50 whitespace-nowrap">
                             <tr>
@@ -71,7 +114,7 @@ const EmployeesTable = () => {
                                         </td>
                                     </tr>
                                     : userByRole.map((user, index) => {
-                                        const { name, email, role, createdAt } = user
+                                        const { _id, name, email, role, createdAt } = user
                                         return (
                                             <tr key={index}>
 
@@ -98,14 +141,14 @@ const EmployeesTable = () => {
                                                     </span>
                                                 </td>
                                                 <td class="px-4 py-3 text-sm text-slate-600 font-medium">
-                                                  {new Date(createdAt).toLocaleString("en-IN")}
+                                                    {new Date(createdAt).toLocaleString("en-IN")}
                                                 </td>
                                                 <td class="flex gap-3 px-4 py-3 text-sm font-medium">
-                                                    <button type="button" class="flex items-center gap-2 rounded-lg text-blue-600 bg-blue-50 border border-gray-200 px-3 py-1 cursor-pointer">
+                                                    <button onClick={() => handleEditUser(user._id)} type="button" class="flex items-center gap-2 rounded-lg text-blue-600 bg-blue-50 border border-gray-200 px-3 py-1 cursor-pointer">
                                                         <Pencil />
                                                         Edit
                                                     </button>
-                                                    <button type="button" class="flex items-center gap-2 rounded-lg text-red-600 bg-red-50 border border-gray-200 px-3 py-1 cursor-pointer">
+                                                    <button onClick={() => deleteUserId(user._id)} type="button" class="flex items-center gap-2 rounded-lg text-red-600 bg-red-50 border border-gray-200 px-3 py-1 cursor-pointer">
                                                         <Trash />
                                                         Delete
                                                     </button>

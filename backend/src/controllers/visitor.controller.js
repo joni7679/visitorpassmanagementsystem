@@ -18,7 +18,6 @@ const getLocationByPurpose = (purpose) => {
             return "Main Lobby, Ground Floor"
     }
 }
-
 exports.createVisitedRequest = async (req, res) => {
     const { name, email, phone, userid, employeeid, date, time, purpose, } = req.body;
     if (!name || !email || !phone || !userid || !employeeid || !date || !time || !purpose) {
@@ -29,8 +28,6 @@ exports.createVisitedRequest = async (req, res) => {
     }
     try {
         const location = getLocationByPurpose(purpose)
-
-
         const visitUser = await visiterModel.create({ visitorId: nanoid.nanoid(12), name, email, phone, userid, employeeid, date, time, purpose, location: location });
         return res.status(201).json({
             success: true,
@@ -44,7 +41,6 @@ exports.createVisitedRequest = async (req, res) => {
         })
     }
 }
-
 exports.getAllVisitorsRequests = async (req, res) => {
     const employeeid = req.user.id;
     if (!employeeid) {
@@ -67,7 +63,6 @@ exports.getAllVisitorsRequests = async (req, res) => {
         })
     }
 }
-
 exports.visiterRequest = async (req, res) => {
     const userid = req.user.id;
     if (!userid) {
@@ -84,7 +79,7 @@ exports.visiterRequest = async (req, res) => {
             success: true,
             message: "my visit requests fetched succesfully",
             data: data,
-        
+
         })
     } catch (error) {
         return res.status(500).json({
@@ -93,12 +88,13 @@ exports.visiterRequest = async (req, res) => {
         })
     }
 }
-
 exports.approveVisiterRequest = async (req, res) => {
     const id = req.params.id;
     try {
         const upDateVist = await visiterModel.findByIdAndUpdate(id, { status: "approved" }, { new: true })
         const qrCode = await generatedQrCodePass(upDateVist.visitorId);
+        upDateVist.qrCode = qrCode;
+        await upDateVist.save()
         const pdfBuffer = await generateVisitorPdf(qrCode);
         await sendMail({
             to: upDateVist.email,
@@ -131,7 +127,7 @@ exports.rejectVisiterRequest = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "visiter request rejected successfully",
-            data: upDateVist
+            data: upDateVist,
         })
 
 
@@ -142,7 +138,6 @@ exports.rejectVisiterRequest = async (req, res) => {
         })
     }
 }
-
 exports.getAllApprovedVisitors = async (req, res) => {
     try {
         const approvedVisitors = await visiterModel.find({ status: "approved" });
@@ -159,7 +154,6 @@ exports.getAllApprovedVisitors = async (req, res) => {
         })
     }
 }
-
 exports.getAllRejectedVisitors = async (req, res) => {
     try {
         const rejectedVisitor = await visiterModel.find({ status: "rejected" });

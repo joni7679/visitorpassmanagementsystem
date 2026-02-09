@@ -51,10 +51,11 @@ function VisitorContextProvider({ children }) {
         try {
             setLoading(true)
             const res = await axios.get(`${backendApi}/visit/my-visit-req`,);
+            // console.log(res.data.data)
             setMyVisitorsStatus(res.data.data)
         }
         catch (error) {
-            console.log(error.response?.data?.message || "Something is wrong")
+            console.log(error.response?.data?.message)
         }
         finally {
             setLoading(false)

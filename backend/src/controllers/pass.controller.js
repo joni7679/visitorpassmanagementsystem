@@ -132,10 +132,6 @@ exports.rejectVisitor = async (req, res) => {
                 message: "visitor  not found!"
             })
         }
-
-        
-
-
     } catch (error) {
         return res.status(500).json({
             success: false,

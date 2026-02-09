@@ -29,7 +29,7 @@ async function generateVisitorPdf(qrCode) {
         }
         .bage {
             padding: 10px 15px;
-            background-color: rgb(13, 162, 13);
+            background-color: green;
             color: white;
             text-transform: capitalize;
             border-radius: 10px;

@@ -9,6 +9,7 @@ function AuthConextProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [authLoader, setAuthLoader] = useState(true)
     const [userByRole, setUserByRole] = useState([])
+    const [vistercountStatus, setVisitorCountStatus] = useState(null)
     const backendApi = import.meta.env.VITE_BACKEND_URL;
     const registerUser = async ({ name, email, password, role }) => {
         setLoading(true);
@@ -17,7 +18,7 @@ function AuthConextProvider({ children }) {
             const finalRes = res.data.data;
             return finalRes;
         } catch (error) {
-            setError(error.response?.data.message || "server error")
+            setError(error.response?.data.message)
             return null;
         } finally {
             setLoading(false);
@@ -35,7 +36,7 @@ function AuthConextProvider({ children }) {
             setUser(finalRes)
             return finalRes;
         } catch (error) {
-            setError(error.response?.data.message || "server error")
+            setError(error.response?.data.message)
             return null;
         } finally {
             setTimeout(() => {
@@ -84,7 +85,6 @@ function AuthConextProvider({ children }) {
         }
     }
 
-
     const fetchAllUserByRole = async () => {
         try {
             setLoading(true)
@@ -96,6 +96,34 @@ function AuthConextProvider({ children }) {
             setError(error.response?.data?.message)
             return null
         } finally {
+            setLoading(false)
+        }
+    }
+
+    const getVisitorCountStatus = async () => {
+        try {
+            setLoading(true)
+            const user = await axios.get(`${backendApi}/visitor/report`)
+            const finalRes = user.data.data;
+            setVisitorCountStatus(finalRes)
+            console.log("user", finalRes)
+        } catch (error) {
+            setError(error.response?.data?.message)
+            return null
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleDeleteVistor = async (id) => {
+        try {
+            setLoading(true)
+            const user = await axios.delete(`${backendApi}/auth/delete-user/${id}`)
+        } catch (error) {
+            setError(error.response?.data?.message)
+            return null
+        }
+        finally {
             setLoading(false)
         }
     }
@@ -117,7 +145,7 @@ function AuthConextProvider({ children }) {
     }, [])
 
 
-    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole }}>
+    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole, getVisitorCountStatus, vistercountStatus, handleDeleteVistor }}>
         {children}
     </AuthConext.Provider>
 }

@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["admin", "employee", "security", "visitor"],
         default: "visitor"
+    },
+    image: {
+        type: String,
+        required: false,
     }
 }, {
     timestamps: true

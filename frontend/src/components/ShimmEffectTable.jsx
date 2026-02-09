@@ -4,8 +4,8 @@ const ShimmEffectTable = () => {
     const arry = new Array(5).fill(0)
     return (
         <>
-            <div classNameName='w-90'>
-                <div className="max-w-md mt-[20%]">
+            <div className='w-[20vw] md:w-[50vw]'>
+                <div className="w-full">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
                     </div>
                     <table className="min-w-full border border-gray-200">
