@@ -1,6 +1,5 @@
 import { ArrowRight, Bell, BellRing, ChevronsLeft, House, LogOut, Menu, UserPen, UserRound, X } from 'lucide-react'
 import React, { useContext } from 'react'
-import { AuthConext } from '../../../context/AuthContext'
 import UserMenu from '../../../components/UserMenu';
 
 const Header = ({ togglebar, isOpen }) => {

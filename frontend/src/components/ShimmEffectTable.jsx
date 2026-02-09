@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ShimmEffectTable = () => {
-    const arry = new Array(5).fill(0)
+    const arry = new Array(7).fill(0)
     return (
         <>
             <div className='w-[20vw] md:w-[50vw]'>
