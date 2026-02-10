@@ -1,6 +1,6 @@
-require("dotenv").config();
-const nodemailer = require("nodemailer");
 
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 const transporter = nodemailer.createTransport({
     // service: "gmail",
     host: "smtp.gmail.com",
@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
-    connectionTimeout: 60000,
-    greetingTimeout: 30000
+   
+    
 });
 
 // verify once
@@ -60,5 +60,6 @@ const sendMail = async ({ to, status, name, pdfBuffer }) => {
         throw new Error("server error in email",)
     }
 }
+
 
 module.exports = sendMail;
