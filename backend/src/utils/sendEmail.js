@@ -2,13 +2,13 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const transporter = nodemailer.createTransport({
-    service: "gmail",
-    // host: "smtp.gmail.com",
-    // port: 587,
-    // secure: false,
+    // service: "gmail",
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.BREVO_SMTP_USER,
+        pass: process.env.BREVO_SMTP_PASS,
     },
    
     
@@ -17,9 +17,9 @@ const transporter = nodemailer.createTransport({
 // verify once
 transporter.verify((err, success) => {
     if (err) {
-        console.log("SMTP ERROR:", err);
+        console.log("BREVO_SMTP error:", err);
     } else {
-        console.log("GMAIL SMTP READY ");
+        console.log("Brevo SMTP READY ");
     }
 });
 
@@ -42,7 +42,7 @@ const sendMail = async ({ to, status, name, pdfBuffer }) => {
             <p> The Vms Team </p>`
         }
         const info = await transporter.sendMail({
-            from: `VMS TEAM <${process.env.EMAIL_GMAIL}>`,
+            from: `VMS TEAM <${process.env.BREVO_FROM_EMAIL}>`,
             to: to,
             subject: subject,
             html: html,
