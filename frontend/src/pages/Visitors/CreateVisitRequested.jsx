@@ -136,7 +136,7 @@ const CreateVisitRequested = () => {
                     <div className='mt-5 flex items-center gap-1.5'>
                         <Checkbox />
                     </div>
-                    <button disabled={loading} className={`px-6 py-2.5 min-w-[200px] rounded-md cursor-pointer text-slate-900 text-sm tracking-wider font-medium border  outline-0  mt-5  ${loading ? "cursor-not-allowed" : " border-blue-600 hover:bg-blue-800 cursor-pointer bg-transparent hover:text-white  duration-200 "}`}>{loading ? "Requesting..." : "Send Request"}</button>
+                    <button disabled={loading} className={`px-6 py-2.5 min-w-[200px] rounded-md  text-slate-900 text-sm tracking-wider font-medium border  outline-0  mt-5  ${loading ? "cursor-not-allowed" : " border-blue-600 hover:bg-blue-800 cursor-pointer bg-transparent hover:text-white  duration-200 "}`}>{loading ? "Requesting..." : "Send Request"}</button>
                 </form>
             </div>
         </>

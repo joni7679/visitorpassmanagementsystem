@@ -24,7 +24,6 @@ function VisitorContextProvider({ children }) {
     }
 
     const getApprovedVisitor = async (visitorId) => {
-
         try {
             setActionLoadingId(visitorId)
             const res = await axios.patch(`${backendApi}/visit/approve-visit-req/${visitorId}`, {},)
@@ -44,7 +43,6 @@ function VisitorContextProvider({ children }) {
         } finally {
             setrejectActionLoadingId(null)
         }
-
     }
 
     const fetchMyVisitorStatus = async () => {
@@ -61,13 +59,14 @@ function VisitorContextProvider({ children }) {
             setLoading(false)
         }
     }
+
     const getEmpData = async () => {
         try {
             setLoading(true)
             const res = await axios.get(`${backendApi}/emp/employees`,);
             setEmpData(res.data.data)
         } catch (error) {
-            console.log(error.response?.data?.message || "Something is wrong")
+            console.log(error.response?.data?.message)
         } finally {
             setLoading(false)
         }

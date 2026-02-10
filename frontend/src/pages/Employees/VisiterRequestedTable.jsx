@@ -87,9 +87,7 @@ const VisiterRequestedTable = () => {
                                     target="_blank"
                                 >Export</CSVLink>;
                             </div>
-
                         </div>
-
                     </div>
                     <table className="min-w-full border border-gray-200">
                         <thead className="bg-white whitespace-nowrap">
@@ -110,7 +108,7 @@ const VisiterRequestedTable = () => {
                                     status
                                 </th>
                                 <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Accepted
+                                    Action
                                 </th>
                             </tr>
                         </thead>
