@@ -3,13 +3,15 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
     // service: "gmail",
-    host:"smtp.gmail.com",
-    port: 587,
+    host: "smtp.gmail.com",
+    port: 465,
     secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+    connectionTimeout: 60000,
+    greetingTimeout: 30000
 });
 
 // verify once
@@ -46,7 +48,7 @@ const sendMail = async ({ to, status, name, pdfBuffer }) => {
             html: html,
             attachments: status === "approved" ? [
                 {
-                    filename:`${name}-visitor-pass.pdf`,
+                    filename: `${name}-visitor-pass.pdf`,
                     content: pdfBuffer,
                     contentType: "application/pdf"
                 }
