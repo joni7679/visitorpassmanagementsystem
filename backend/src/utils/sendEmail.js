@@ -10,8 +10,6 @@ const transporter = nodemailer.createTransport({
         user: process.env.BREVO_SMTP_USER,
         pass: process.env.BREVO_SMTP_PASS,
     },
-   
-    
 });
 
 // verify once
@@ -22,8 +20,8 @@ transporter.verify((err, success) => {
         console.log("Brevo SMTP READY ");
     }
 });
-
-
+console.log("SMTP USER:", process.env.BREVO_SMTP_USER);
+console.log("SMTP PASS LENGTH:", process.env.BREVO_SMTP_PASS?.length);
 const sendMail = async ({ to, status, name, pdfBuffer }) => {
     try {
         let subject, html;
