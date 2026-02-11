@@ -18,10 +18,11 @@ transporter.verify((err, success) => {
         console.log("BREVO_SMTP error:", err);
     } else {
         console.log("Brevo SMTP READY ");
+        console.log("SMTP USER:", process.env.BREVO_SMTP_USER);
+        console.log("SMTP PASS LENGTH:", process.env.BREVO_SMTP_PASS?.length);
     }
 });
-console.log("SMTP USER:", process.env.BREVO_SMTP_USER);
-console.log("SMTP PASS LENGTH:", process.env.BREVO_SMTP_PASS?.length);
+
 const sendMail = async ({ to, status, name, pdfBuffer }) => {
     try {
         let subject, html;
