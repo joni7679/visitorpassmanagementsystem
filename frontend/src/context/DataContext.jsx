@@ -14,9 +14,9 @@ function VisitorContextProvider({ children }) {
     axios.defaults.withCredentials = true
     const backendApi = import.meta.env.VITE_BACKEND_URL;
 
-    const fetchApprovedVisitors = async () => {
+    const fetchApprovedVisitors = async (employeeid) => {
         try {
-            const res = await axios.get(`${backendApi}/visit/approved-visiters`,);
+            const res = await axios.get(`${backendApi}/visit/approved-visiters/${employeeid}`,);
             setapprovedVisitorsData(res.data.data)
         } catch (error) {
             console.log(error.response?.data?.message || "Something is wrong")

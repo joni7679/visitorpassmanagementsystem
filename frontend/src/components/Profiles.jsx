@@ -3,18 +3,15 @@ import { AuthConext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import userImg from '../assets/user.png'
 import bannerImg from "../assets/banner.avif"
+import useAuthhook from '../hooks/useAuthHook';
 
 const Profiles = () => {
-    const { userProfile, user } = useContext(AuthConext);
-    
-    useEffect(() => {
-        userProfile()
-    }, [])
+    const { user } = useAuthhook()
 
     if (!user) {
         return <h1>loading profile....</h1>
     }
-
+    console.log("user,", user)
     return (
         <>
             <div className='w-full min-h-screen flex items-start  overflow-hidden justify-center '>

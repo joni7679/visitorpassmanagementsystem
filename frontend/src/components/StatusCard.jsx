@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Clock } from 'lucide-react';
+import { Clock ,User} from 'lucide-react';
 import { DiCssTricks } from "react-icons/di";
 import { AuthConext } from '../context/AuthContext';
 
@@ -21,12 +21,12 @@ const StatusCard = () => {
                     <div className='w-56 h-32 p-5 shadow-lg relative rounded-2xl bg-white'>
                         <div className='flex  items-center  gap-1.5' >
                             <div className="w-12 h-12 bg-white shadow-lg rounded-2xl flex items-center justify-center">
-                                <Clock className='text-red-400' />
+                                <User className='text-red-400' />
                             </div>
                             <div className='flex items-center justify-center flex-col'>
                                 <p className=' text-xl'>{vistercountStatus.total}</p>
                                 <div className='flex items-center justify-center gap-2' >
-                                    <p className=' capitalize font-semibold'>total visitor requested</p>
+                                    <p className=' capitalize font-semibold'>total  requested</p>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@ const StatusCard = () => {
                     <div className='w-56 h-32 p-5 shadow-lg relative rounded-2xl bg-white'>
                         <div className='flex items-center  gap-1.5' >
                             <div className="w-12 h-12 bg-white shadow-lg rounded-2xl flex items-center justify-center">
-                                <DiCssTricks />
+                                <User />
                             </div>
                             <div className='flex items-center justify-center flex-col'>
                                 <p className='text-green-500 text-xl'>{vistercountStatus.approved}</p>

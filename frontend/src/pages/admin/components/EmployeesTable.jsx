@@ -5,7 +5,7 @@ import ShimmEffectTable from '../../../components/ShimmEffectTable';
 import { CSVLink } from 'react-csv';
 import DeleteModel from './DeleteModel';
 import { toast } from 'react-toastify';
-
+import userImg from '../../../assets/user.png'
 
 const EmployeesTable = () => {
     const { fetchAllUserByRole, userByRole, loading, handleDeleteVistor } = useContext(AuthConext);
@@ -120,7 +120,7 @@ const EmployeesTable = () => {
 
                                                 <td class="px-4 py-3 text-sm text-slate-900 font-medium">
                                                     <div class="flex items-center cursor-pointer w-max">
-                                                        <img src='https://readymadeui.com/team-1.webp' alt="team-1" class="w-9 h-9 rounded-full shrink-0" />
+                                                        <img src={userImg} alt="team-1" class="w-9 h-9 rounded-full shrink-0" />
                                                         <div class="ml-2 capitalize">
                                                             <p>{name}</p>
                                                         </div>

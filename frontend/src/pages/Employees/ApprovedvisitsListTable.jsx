@@ -3,22 +3,24 @@ import Button from '../../components/Button'
 import { Plus } from 'lucide-react'
 import { VisitorContext } from '../../context/DataContext'
 import ShimmEffectTable from '../../components/ShimmEffectTable'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { CSVLink } from 'react-csv'
 import { formatDate } from '../../data/formatDate'
+import useAuthhook from '../../hooks/useAuthHook'
 const ApprovedvisitsListTable = () => {
     const navigate = useNavigate()
+    const { user } = useAuthhook()
     const { loading, fetchApprovedVisitors, approvedVisitorsData } = useContext(VisitorContext)
-
+    
     useEffect(() => {
-        fetchApprovedVisitors()
+        fetchApprovedVisitors(user._id)
     }, [])
 
 
     if (loading) {
         return <ShimmEffectTable />
     }
-    
+
     const handelInviter = () => {
         navigate(`/dashboard/employee/inviter_visitor`)
     }
@@ -92,11 +94,11 @@ const ApprovedvisitsListTable = () => {
                         <tbody className="whitespace-nowrap divide-y divide-gray-200">
 
                             {
-
                                 approvedVisitorsData.length === 0 ?
                                     <tr className="bg-gray-200">
                                         <td className="px-4 py-3 border-r border-gray-200" colSpan={6}>
                                             <div className="flex items-center w-max">
+
                                                 <div className="ml-2">
                                                     <p className='font-medium capitalize'>not data here</p>
                                                 </div>
@@ -105,11 +107,14 @@ const ApprovedvisitsListTable = () => {
                                     </tr>
                                     :
                                     approvedVisitorsData.map((visiter, index) => {
-                                        const { createdAt, date, email, location, name, phone, purpose, status, time } = visiter
+                                        const { createdAt, date, email, location, name, phone, image, purpose, status, time } = visiter
                                         return (
                                             <tr className="bg-gray-50">
                                                 <td className="px-4 py-3 border-r border-gray-200">
                                                     <div className="flex items-center w-max">
+                                                        <div className=' w-14 h-14 rounded-full  overflow-hidden'>
+                                                            <img src={image} lazy="loading" className='w-full h-full object-cover ' />
+                                                        </div>
                                                         <div className="ml-2">
                                                             <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
                                                         </div>

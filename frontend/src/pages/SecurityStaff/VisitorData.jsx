@@ -47,7 +47,10 @@ const VisitorData = () => {
                     data.status === "check-out" ? <div className=' flex items-center justify-center font-semibold capitalize h-full'>
                         <p className='font-semibold capitalize'>this user alredy check-out invalid pass</p>
                     </div> :
-                        verifyPassUser && <div className='p-5 '>
+                        verifyPassUser && <div className='p-5'>
+                            <div className=' w-20 h-20 rounded-full  overflow-hidden mx-auto'>
+                                <img src={data?.image} lazy="loading" className='w-full h-full object-cover ' />
+                            </div>
                             <p className='text-me font-semibold capitalize'>visitor name {data?.name}</p>
                             <p className='text-me font-semibold capitalize'>visitor email {data?.email}</p>
                             <p className='text-me font-semibold capitalize'>host name</p>

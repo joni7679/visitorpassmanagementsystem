@@ -19,7 +19,11 @@ const Login = () => {
     // submit logic
     const handleLogin = async (e) => {
         e.preventDefault();
-        const data = await LoginUser({ email, password });
+        if (!email || !password){
+            toast.error("Email and Password Is Requried~!")
+        }
+
+            const data = await LoginUser({ email, password });
         if (data) {
             toast.success("Login success fully");
             const role = data.role;

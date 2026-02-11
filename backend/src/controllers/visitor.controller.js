@@ -2,7 +2,8 @@ const visiterModel = require("../models/visitor.model");
 const nanoid = require("nanoid")
 const sendMail = require("../utils/sendEmail");
 const generateVisitorPdf = require("../utils/generateVisitorPdf.js");
-const generatedQrCodePass = require("../utils/generatedQrCodePass")
+const generatedQrCodePass = require("../utils/generatedQrCodePass");
+const cloudinary = require("../config/cloudinary.js")
 
 const getLocationByPurpose = (purpose) => {
     switch (purpose) {
@@ -26,9 +27,33 @@ exports.createVisitedRequest = async (req, res) => {
             message: "All fields are required"
         })
     }
+    if (!req.file) {
+        return res.status(400).json({
+            success: false,
+            message: "visitor img upload is  required"
+        })
+    }
+    const uploadResult = await new Promise((res, rej) => {
+        cloudinary.uploader.upload_stream(
+            {
+                folder: "visiter-images",
+                fetch_format: "auto",
+                quality: "auto"
+            },
+            (error, result) => {
+                if (error) rej(error)
+                else res(result)
+            }
+
+        ).end(req.file.buffer)
+    })
+
+    console.log("img upload", uploadResult.secure_url);
+    const imageUrl = uploadResult.secure_url
+
     try {
         const location = getLocationByPurpose(purpose)
-        const visitUser = await visiterModel.create({ visitorId: nanoid.nanoid(12), name, email, phone, userid, employeeid, date, time, purpose, location: location });
+        const visitUser = await visiterModel.create({ visitorId: nanoid.nanoid(12), name, email, phone, userid, employeeid, date, time, purpose, location: location, image: imageUrl });
         return res.status(201).json({
             success: true,
             message: "visit Requested successfully !",
@@ -139,9 +164,15 @@ exports.rejectVisiterRequest = async (req, res) => {
     }
 }
 exports.getAllApprovedVisitors = async (req, res) => {
+    const employeeid = req.params.employeeid;
     try {
-        const approvedVisitors = await visiterModel.find({ status: "approved" });
+        const approvedVisitors = await visiterModel.find(
+            {
+                status: "approved",
+                employeeid: employeeid
+            }
 
+        );
         return res.status(200).json({
             success: true,
             message: "approved visitors fetched successfully",

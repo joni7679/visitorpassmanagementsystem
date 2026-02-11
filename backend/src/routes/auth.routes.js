@@ -4,6 +4,7 @@ const { userRegister, userLogin, userLogOut, userProfile, dashboard, getUserByRo
 const authmiddleware = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const loginLimit = require("../middlewares/loginLimit");
+const upload = require("../middlewares/multer");
 router.post("/register", userRegister)
 router.post("/login", loginLimit, userLogin)
 router.get("/profile", authmiddleware, userProfile);

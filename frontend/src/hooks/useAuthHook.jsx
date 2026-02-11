@@ -1,9 +1,17 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react";
 import { AuthConext } from "../context/AuthContext";
+import { useEffect } from "react";
 
 function useAuthhook() {
-    const { authLoader, user } = useContext(AuthConext)
-
-
+    const { user, userProfile } = useContext(AuthConext);
+    useEffect(() => {
+        if (!user) {
+            userProfile()
+        }
+    }, [user])
+    return {
+        user,
+        userProfile
+    }
 }
 export default useAuthhook

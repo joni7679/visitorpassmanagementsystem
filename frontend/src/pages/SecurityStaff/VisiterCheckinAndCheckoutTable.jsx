@@ -39,7 +39,7 @@ const VisiterCheckinAndCheckoutTable = () => {
                             data={csvData}
                             filename={"visitercheckInAndCheckOut.csv"}
                             target="_blank"
-                        >Export</CSVLink>;
+                        >Export</CSVLink>
                     </div>
 
                 </div>
@@ -79,11 +79,14 @@ const VisiterCheckinAndCheckoutTable = () => {
                                 </>
                             ) :
                                 visitHistory.map((visitor, index) => {
-                                    const { name, phone, checkInTime, checkOutTime, employeeid, status } = visitor
+                                    const { name, phone, image, checkInTime, checkOutTime, employeeid, status } = visitor
                                     return (
                                         <tr key={index} className="bg-gray-50">
                                             <td className="px-4 py-3 border-r border-gray-100">
                                                 <div className="flex items-center w-max">
+                                                    <div className=' w-14 h-14 rounded-full  overflow-hidden'>
+                                                        <img src={image} lazy="loading" className='w-full h-full object-cover ' />
+                                                    </div>
                                                     <div className="ml-2">
                                                         <p className="text-[13px] text-slate-900 font-medium">{name || "unknow"}</p>
                                                     </div>

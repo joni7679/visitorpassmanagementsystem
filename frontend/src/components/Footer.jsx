@@ -58,7 +58,7 @@ const Footer = () => {
                                     socialLinks.map((s, i) => {
                                         const Icon=s.icon
                                         return (
-                                            <div className='w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-950 duration-200'>
+                                            <div key={i} className='w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-950 duration-200'>
                                                 <Icon className='text-white hover:rotate-45 duration-150' />
                                             </div>
                                         )

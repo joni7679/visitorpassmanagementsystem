@@ -40,12 +40,12 @@ const VisiterRequestedTable = () => {
     const handelapproved = async (id) => {
         await getApprovedVisitor(id);
         toast.success("You Approved this visiters")
-        // fetchVisiterReqData()
+        fetchVisiterReqData()
     }
     const handelRejectedVisitor = async (id) => {
         await rejectedVisitors(id);
         toast.success("You rejected this visiters")
-        // fetchVisiterReqData()
+        fetchVisiterReqData()
     }
 
     const statusColor = {
@@ -120,12 +120,15 @@ const VisiterRequestedTable = () => {
                                     </td>
                                 </tr> :
                                     visitData.map((val, index) => {
-                                        const { _id, date, time, name, phone, purpose, status } = val
+                                        const { _id, date, time, name, image, phone, purpose, status } = val
                                         return (
                                             <tr key={index} className="bg-gray-50">
                                                 <td className="px-4 py-3 border-r border-gray-200">
                                                     <div className="flex items-center w-max">
-                                                        <div className="ml-2">
+                                                        <div className="ml-2 flex items-center gap-1.5">
+                                                            <div className=' w-14 h-14 rounded-full  overflow-hidden'>
+                                                                <img src={image} lazy="loading"  className='w-full h-full object-cover '/>
+                                                            </div>
                                                             <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
                                                         </div>
                                                     </div>

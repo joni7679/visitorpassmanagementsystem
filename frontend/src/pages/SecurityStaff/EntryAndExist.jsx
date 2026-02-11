@@ -14,7 +14,7 @@ function EntryAndExist() {
                         <div className='max-w-md w-full  p-2 overflow-hidden shadow-lg rounded-2xl h-90'>
                             <ScanQRCode />
                         </div>
-                        <div className='max-w-md w-full  shadow-lg rounded-2xl h-90'>
+                        <div className='max-w-md w-full  shadow-lg rounded-2xl '>
                             {/* employeeid */}
                            <VisitorData/>
                         </div>

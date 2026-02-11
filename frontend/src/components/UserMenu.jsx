@@ -4,19 +4,12 @@ import { AuthConext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import userImg from '../assets/user.png'
+import useAuthhook from '../hooks/useAuthHook';
 const UserMenu = () => {
     const [userName, setUserName] = useState(null)
-    const { LogOutuser, user, userProfile } = useContext(AuthConext);
+    const { LogOutuser } = useContext(AuthConext);
     const navigate = useNavigate()
-    useEffect(() => {
-        userProfile()
-    }, [])
-    useEffect(() => {
-        if (user === null) return
-        if (user?.name) {
-            setUserName(user.name)
-        }
-    }, [])
+    const { user } = useAuthhook()
     const handelUserDashboard = () => {
         navigate(`/dashboard/${user.role}`)
     }
@@ -36,7 +29,7 @@ const UserMenu = () => {
         <>
             <div className="dropdown-menu relative flex shrink-0 group">
                 <div className="flex items-center gap-4">
-                    <p className="text-slate-500 text-sm capitalize">Hi, {userName} </p>
+                    <p className="text-slate-500 text-sm capitalize">Hi, {user.name} </p>
                     <img src={userImg} alt="profile-pic"
                         className="w-[38px] h-[38px] rounded-full border-2 border-gray-300 cursor-pointer" />
                 </div>
