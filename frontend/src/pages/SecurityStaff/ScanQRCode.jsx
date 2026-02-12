@@ -71,7 +71,7 @@ const ScanQRCode = () => {
                 }
             </div>
             {
-                loading && <span className='font-medium capitalize text-2xl'>verify or code...</span>
+                loading && <span className='font-medium capitalize text-xl'>verify or code...</span>
             }
             {
                 isScanning &&

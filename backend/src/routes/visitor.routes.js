@@ -8,6 +8,6 @@ router.post("/create-visit-req", authmiddleware, authorizeRoles("employee", "vis
 router.get("/get-all-visit-req", authmiddleware, authorizeRoles("employee"), getAllVisitorsRequests)
 router.get("/my-visit-req", authmiddleware, authorizeRoles("visitor"), visiterRequest);
 router.patch("/approve-visit-req/:id", authmiddleware, authorizeRoles("employee"), approveVisiterRequest)
-router.patch("/reject-visit-req/:id", authmiddleware, authorizeRoles("employee"), rejectVisiterRequest)
+router.patch("/reject-visit-req/:id", authmiddleware, authorizeRoles("employee", "security"), rejectVisiterRequest)
 router.get("/approved-visiters/:employeeid", authmiddleware, authorizeRoles("employee"), getAllApprovedVisitors);
 module.exports = router
