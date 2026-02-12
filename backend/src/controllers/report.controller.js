@@ -1,20 +1,15 @@
 const visiterModel = require("../models/visitor.model");
-
 exports.getVisitorStatusCount = async (req, res) => {
     try {
         const userId = req.user.id;
         const role = req.user.role;
-
         let filter = {};
-
         if (role === "employee") {
-            filter.employeeid = userId;
+            filter.employeeid = userId
         }
-
         if (role === "visitor") {
-            filter.userid = userId;
+            filter.userid = userId
         }
-
         const total = await visiterModel.countDocuments(filter);
         const approved = await visiterModel.countDocuments({ ...filter, status: "approved" });
         const rejected = await visiterModel.countDocuments({ ...filter, status: "rejected" });
@@ -28,12 +23,11 @@ exports.getVisitorStatusCount = async (req, res) => {
                 rejected,
                 pending
             }
-        });
+        })
 
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        });
+
     }
-};
+
+
+}
