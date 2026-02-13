@@ -12,7 +12,8 @@ The Stystem Includes four roles:
 - Security
 - Admin
 ## project Explantoin 
-[view](:https://share.vidyard.com/watch/sySfwzdnJkqbk65UddaViL)
+[View Demo Video](https://share.vidyard.com/watch/sySfwzdnJkqbk65UddaViL)
+
 
 It impleents auhentincation, authorization, Qr Code Validation, and email notification workflows to simulate a real-world visitor approval system..
 
