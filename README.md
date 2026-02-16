@@ -14,7 +14,6 @@ The Stystem Includes four roles:
 ## project Explantoin 
 [View Demo Video](https://share.vidyard.com/watch/sySfwzdnJkqbk65UddaViL)
 
-
 It impleents auhentincation, authorization, Qr Code Validation, and email notification workflows to simulate a real-world visitor approval system..
 
 ## stystem workflow

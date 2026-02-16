@@ -14,20 +14,13 @@ exports.getVisitorStatusCount = async (req, res) => {
         const approved = await visiterModel.countDocuments({ ...filter, status: "approved" });
         const rejected = await visiterModel.countDocuments({ ...filter, status: "rejected" });
         const pending = await visiterModel.countDocuments({ ...filter, status: "pending" });
-
         return res.status(200).json({
             success: true,
             data: {
-                total,
-                approved,
-                rejected,
-                pending
+                total, approved, rejected, pending
             }
         })
-
     } catch (error) {
-
+        console.log("something is wrong");
     }
-
-
 }

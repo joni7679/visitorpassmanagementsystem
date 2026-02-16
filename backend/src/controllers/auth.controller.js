@@ -4,8 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const allowedRole = ["admin", "employee", "security", "visitor"]
 
-const isProduction = process.env.NODE_ENV === "production"
-
 const getExpiryByRole = (role) => {
     switch (role) {
         case "admin":
@@ -79,7 +77,7 @@ exports.userRegister = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message || "internal server error",
+            message: error.message,
         })
     }
 }
@@ -198,7 +196,7 @@ exports.userLogOut = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message || "internal server error",
+            message: error.message,
         })
     }
 }
@@ -214,7 +212,7 @@ exports.getUserByRole = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message || "internal server error",
+            message: error.message,
         })
     }
 }
@@ -237,7 +235,7 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message || "internal server error",
+            message: error.message,
         })
     }
 }
@@ -261,7 +259,7 @@ exports.updateUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message || "internal server error",
+            message: error.message,
         })
     }
 }

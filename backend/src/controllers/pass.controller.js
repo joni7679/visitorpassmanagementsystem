@@ -3,7 +3,6 @@ const visiterModel = require("../models/visitor.model");
 exports.visiterPassVerify = async (req, res) => {
     try {
         const visitorId = req.params.visitorId;
-        console.log("visitorid", visitorId);
         if (!visitorId) {
             return res.status(400).json({
                 success: false,
@@ -51,7 +50,6 @@ exports.checkInVisitor = async (req, res) => {
         visitorData.checkInTime = new Date().toISOString();
         visitorData.status = "check-in";
         await visitorData.save()
-
         return res.status(200).json({
             success: true,
             message: "visitor checked in successfully",
@@ -110,7 +108,7 @@ exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
         }
         return res.status(200).json({
             success: true,
-            message: "fetch all visitor chek-in and check-out data",
+            message: "visitor chck-in and check out data fetch successfully !",
             data: visitorData
         })
     } catch (error) {
