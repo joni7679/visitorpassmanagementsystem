@@ -11,7 +11,7 @@ const CreateStaff = () => {
     const [password, setPassword] = useState("")
     const [role, setRole] = useState("")
     const { registerUser, loading, Error } = useContext(AuthConext);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     // submit logic
     const handleSubmit = async (e) => {
         e.preventDefault();

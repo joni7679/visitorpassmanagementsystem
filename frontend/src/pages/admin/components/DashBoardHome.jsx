@@ -3,12 +3,6 @@ import StatusCard from '../../../components/StatusCard';
 import { CSVLink, CSVDownload } from "react-csv";
 
 const DashBoardHome = () => {
-    const csvData = [
-        ["firstname", "lastname", "email"],
-        ["Ahmed", "Tomi", "ah@smthing.co.com"],
-        ["Raed", "Labes", "rl@smthing.co.com"],
-        ["Yezzi", "Min l3b", "ymin@cocococo.com"]
-    ];
     return (
         <>
             <div className='w-full min-h-screen  bg-gray-100'>

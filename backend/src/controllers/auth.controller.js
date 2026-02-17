@@ -59,14 +59,16 @@ exports.userRegister = async (req, res) => {
         const user = await userModel.create({ name, email, password: hashPassword, role: finalRole });
         const { password: pwd, ...safeuser } = user.toObject();
         const token = generateToken(user._id, user.role);
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-            partitioned: true,
-            maxAge: 2 * 24 * 60 * 60 * 1000,
-            path: "/"
-        })
+        if (finalRole === "visitor") {
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+                partitioned: true,
+                maxAge: 2 * 24 * 60 * 60 * 1000,
+                path: "/"
+            })
+        }
         res.status(201).json({
             success: true,
             message: "user register successfully",

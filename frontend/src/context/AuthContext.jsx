@@ -115,7 +115,7 @@ function AuthConextProvider({ children }) {
         }
     }
 
-    const handleDeleteVistor = async (id) => {
+    const handleDeleteUser = async (id) => {
         try {
             setLoading(true)
             const user = await axios.delete(`${backendApi}/auth/delete-user/${id}`);
@@ -146,7 +146,7 @@ function AuthConextProvider({ children }) {
     }, [])
 
 
-    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole, getVisitorCountStatus, vistercountStatus, handleDeleteVistor }}>
+    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole, getVisitorCountStatus, vistercountStatus, handleDeleteUser }}>
         {children}
     </AuthConext.Provider>
 }
