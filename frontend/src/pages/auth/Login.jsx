@@ -19,26 +19,29 @@ const Login = () => {
     // submit logic
     const handleLogin = async (e) => {
         e.preventDefault();
-        if (!email || !password){
+        if (!email || !password) {
             toast.error("Email and Password Is Requried~!")
         }
 
-            const data = await LoginUser({ email, password });
+        const data = await LoginUser({ email, password });
         if (data) {
             toast.success("Login success fully");
             const role = data.role;
-            if (role === "admin") {
-                navigate(`/dashboard/admin`)
-            }
-            if (role === "security") {
-                navigate(`/dashboard/security`)
-            }
-            if (role === "employee") {
-                navigate(`/dashboard/employee`)
-            }
-            if (role === "visitor") {
-                navigate(`/dashboard/visitor`)
-            }
+            console.log("role", role);
+            navigate(`/dashboard/${role}`)
+            
+            // if (role === "admin") {
+            //     navigate(`/dashboard/admin`)
+            // }
+            // if (role === "security") {
+            //     navigate(`/dashboard/security`)
+            // }
+            // if (role === "employee") {
+            //     navigate(`/dashboard/employee`)
+            // }
+            // if (role === "visitor") {
+            //     navigate(`/dashboard/visitor`)
+            // }
         }
     }
 

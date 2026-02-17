@@ -8,6 +8,7 @@ import ShimmEffectTable from '../../components/ShimmEffectTable';
 import { useNavigate } from 'react-router-dom';
 import { CSVLink } from 'react-csv';
 import { formatDate } from '../../data/formatDate';
+import { Calendar, ChartLine, Search, Timer, Trash, User, Wand } from 'lucide-react';
 
 const VisiterRequestedTable = () => {
     const navigate = useNavigate()
@@ -67,96 +68,107 @@ const VisiterRequestedTable = () => {
     return (
         <>
             <div className='w-full'>
-                <div className="overflow-x-auto  p-6  ">
+                <div class="overflow-x-auto">
                     <div className="flex gap-4 flex-wrap justify-between items-center mb-4">
                         <div className="flex items-center px-4 py-2 rounded-md bg-white border border-gray-300 overflow-hidden max-w-xs w-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904"
-                                className="fill-gray-600 mr-2 w-4 h-4">
-                                <path
-                                    d="m190.707 180.101-47.078-47.077c11.702-14.072 18.752-32.142 18.752-51.831C162.381 36.423 125.959 0 81.191 0 36.422 0 0 36.423 0 81.193c0 44.767 36.422 81.187 81.191 81.187 19.688 0 37.759-7.049 51.831-18.751l47.079 47.078a7.474 7.474 0 0 0 5.303 2.197 7.498 7.498 0 0 0 5.303-12.803zM15 81.193C15 44.694 44.693 15 81.191 15c36.497 0 66.189 29.694 66.189 66.193 0 36.496-29.692 66.187-66.189 66.187C44.693 147.38 15 117.689 15 81.193z">
-                                </path>
-                            </svg>
+                            <Search />
                             <input type="email" placeholder="Search visiter name here..." className="w-full outline-none bg-transparent text-slate-600 text-sm" />
                         </div>
-                        <div>
-                            <div>
-                                <CSVLink
-                                    data={csvData}
-                                    filename={"visitorRequestedtable.csv"}
-                                    className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
-                                    target="_blank"
-                                >Export</CSVLink>;
-                            </div>
+                        <div className='mt-5'>
+                            <CSVLink
+                                className="text-slate-900 font-medium flex items-center px-4 py-2 rounded-md bg-white hover:bg-gray-50 border border-gray-300 overflow-hidden cursor-pointer"
+                                data={csvData}
+                                filename={"approvedenployeedata.csv"}
+                                target="_blank"
+                            >Export</CSVLink>
                         </div>
                     </div>
-                    <table className="min-w-full border border-gray-200">
-                        <thead className="bg-white whitespace-nowrap">
-                            <tr className="border-b border-gray-200">
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Name
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-50 whitespace-nowrap">
+                            <tr>
+
+                                <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
+                                    <div class="flex items-center gap-1.5">
+                                        <User />
+                                        Full Name
+                                    </div>
                                 </th>
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Date
+                                <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
+                                    <div class="flex items-center gap-1.5">
+                                        <Calendar />
+                                        Date
+                                    </div>
                                 </th>
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Phone Number
+                                <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
+                                    <div class="flex items-center gap-1.5">
+                                        <Timer />
+                                        Time & Purpose
+                                    </div>
                                 </th>
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Time & Purpose
+                                <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
+                                    <div class="flex items-center gap-1.5">
+                                        <ChartLine />
+                                        Status
+                                    </div>
                                 </th>
-                                <th className="px-4 capitalize py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    status
-                                </th>
-                                <th className="px-4 py-3 text-left text-[13px] font-medium text-slate-600 border-r border-gray-200">
-                                    Action
+                                <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
+                                    <div class="flex items-center gap-1.5">
+                                        <Wand />
+                                        Action
+                                    </div>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="whitespace-nowrap divide-y bg-gray-200">
+
+                        <tbody class="whitespace-nowrap divide-y divide-gray-200">
+
                             {
-                                visitData.length === 0 ? <tr className="bg-gray-50">
-                                    <td colSpan={6} className="px-4 py-3 border-r border-gray-200 ">
-                                        <h1 className='font-semibold text-center capitalize'>no data here</h1>
-                                    </td>
-                                </tr> :
-                                    visitData.map((val, index) => {
-                                        const { _id, date, time, name, image, phone, purpose, status } = val
+                                visitData.length === 0 ?
+                                    <tr>
+                                        <td class="px-4 py-3 text-sm text-slate-900 font-medium">
+                                            <div class="flex items-center cursor-pointer w-max">
+                                                <p>
+                                                    not data here
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    : visitData.map((user, index) => {
+                                        const { _id, date, email, location, name, phone, image, purpose, status, time } = user
                                         return (
-                                            <tr key={index} className="bg-gray-50">
-                                                <td className="px-4 py-3 border-r border-gray-200">
-                                                    <div className="flex items-center w-max">
-                                                        <div className="ml-2 flex items-center gap-1.5">
-                                                            <div className=' w-14 h-14 rounded-full  overflow-hidden'>
-                                                                <img src={image} lazy="loading"  className='w-full h-full object-cover '/>
-                                                            </div>
-                                                            <p className="text-[13px] text-slate-900 font-medium capitalize">{name}</p>
+                                            <tr key={index}>
+
+                                                <td class="px-4 py-3 text-sm text-slate-900 font-medium">
+                                                    <div class="flex items-center cursor-pointer w-max">
+                                                        <img src={image} alt="team-1" class="w-16 h-16 rounded-full shrink-0" />
+                                                        <div class="ml-2 capitalize">
+                                                            <p>{name}</p>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                <td class="px-4 py-3 text-sm text-slate-600 font-medium">
                                                     {new Date(date).toLocaleDateString("en-IN", {
                                                         day: "2-digit",
                                                         month: "long",
                                                         year: "numeric"
                                                     })}
                                                 </td>
-                                                <td className='px-4 py-3 border-r border-gray-200'>
+                                                <td class="px-4 py-3 text-sm text-slate-600 font-medium capitalize">
                                                     <div className="ml-2">
-                                                        <p className="text-[13px] text-slate-900 font-medium">{phone}</p>
-                                                    </div>
-                                                </td>
-                                                <td className='px-4 py-3 border-r border-gray-200'>
-                                                    <div className="ml-2">
-                                                        <p className="text-[13px] text-slate-900 font-medium">Time :{time}</p>
+                                                        <p className="text-[13px] text-slate-900 font-medium">{time}</p>
                                                     </div>
                                                     <div className="ml-2">
                                                         <p className="text-[13px] text-slate-900 font-medium">{purpose}</p>
                                                     </div>
                                                 </td>
-                                                <td className='px-4 py-3 border-r border-gray-200'>
-                                                    <span className={`px-2 py-1 capitalize text-green-700  bg-green-100  rounded-md ${statusColor[status]}`}>{status}</span>
+                                                <td class="px-4 py-3 text-sm text-slate-600 font-medium">
+
+                                                    <div className="ml-2">
+                                                        <span className={`px-2 py-1 capitalize text-green-700  bg-green-100  rounded-md ${statusColor[status]}`}>{status}</span>
+
+                                                    </div>
                                                 </td>
-                                                <td className="px-4 py-3 text-[13px] text-slate-900 font-medium border-r border-gray-200 flex items-center gap-1.5">
+                                                <td class="flex gap-3 px-4 py-3 text-sm font-medium">
                                                     <StatusSmsRender status={status} _id={_id} actionLoadingId={actionLoadingId} rejectactionLoadingId={rejectactionLoadingId} handelRejectedVisitor={handelRejectedVisitor}
                                                         handelapproved={handelapproved}
                                                     />
@@ -166,7 +178,7 @@ const VisiterRequestedTable = () => {
                                     })}
                         </tbody>
                     </table>
-                </div>
+                </div >
             </div >
         </>
     )

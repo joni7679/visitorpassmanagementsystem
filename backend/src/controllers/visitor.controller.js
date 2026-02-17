@@ -94,7 +94,7 @@ exports.visiterRequest = async (req, res) => {
     }
 
     try {
-        const data = await visiterModel.find({ userid });
+        const data = await visiterModel.find({ userid }).sort({ updatedAt: - 1 });
         return res.status(200).json({
             success: true,
             message: "my visit requests fetched succesfully",
@@ -147,8 +147,6 @@ exports.rejectVisiterRequest = async (req, res) => {
             message: "visiter request rejected successfully",
             data: upDateVist,
         })
-
-
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -159,7 +157,7 @@ exports.rejectVisiterRequest = async (req, res) => {
 exports.getAllApprovedVisitors = async (req, res) => {
     const employeeid = req.params.employeeid;
     try {
-        const approvedVisitors = await visiterModel.find({ status: "approved", employeeid: employeeid});
+        const approvedVisitors = await visiterModel.find({ status: "approved", employeeid: employeeid });
         return res.status(200).json({
             success: true,
             message: "approved visitors fetched successfully",

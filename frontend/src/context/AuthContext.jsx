@@ -118,7 +118,8 @@ function AuthConextProvider({ children }) {
     const handleDeleteVistor = async (id) => {
         try {
             setLoading(true)
-            const user = await axios.delete(`${backendApi}/auth/delete-user/${id}`)
+            const user = await axios.delete(`${backendApi}/auth/delete-user/${id}`);
+            console.log("user",user)
         } catch (error) {
             setError(error.response?.data?.message)
             return null

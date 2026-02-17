@@ -31,6 +31,7 @@ const EmployeesTable = () => {
     const handleDelete = async () => {
         await handleDeleteVistor(userid);
         toast.success("Successfully delete this user");
+        setUserId(null)
         fetchAllUserByRole()
     }
 

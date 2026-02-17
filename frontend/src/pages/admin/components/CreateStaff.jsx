@@ -44,7 +44,6 @@ const CreateStaff = () => {
                             <option value="">Slect Any Role</option>
                             <option value="employee">employee</option>
                             <option value="security">security</option>
-                            <option value="visitor">visitor</option>
                         </select>
                         <button type='submit' className={`px-4 mt-6 py-3 rounded-2xl text-white  w-full ${loading ? "cursor-not-allowed bg-blue-300" : "bg-blue-500 hover:bg-blue-700 duration-150 cursor-pointer"}`} >
                             {
