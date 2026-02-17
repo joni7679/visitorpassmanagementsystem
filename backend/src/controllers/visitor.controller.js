@@ -44,13 +44,9 @@ exports.createVisitedRequest = async (req, res) => {
                 if (error) rej(error)
                 else res(result)
             }
-
         ).end(req.file.buffer)
     })
-
-    console.log("img upload", uploadResult.secure_url);
     const imageUrl = uploadResult.secure_url
-
     try {
         const location = getLocationByPurpose(purpose)
         const visitUser = await visiterModel.create({ visitorId: nanoid.nanoid(12), name, email, phone, userid, employeeid, date, time, purpose, location: location, image: imageUrl });
@@ -99,12 +95,10 @@ exports.visiterRequest = async (req, res) => {
 
     try {
         const data = await visiterModel.find({ userid });
-        // const qrCode = await generatedQrCodePass(data.visitorId);
         return res.status(200).json({
             success: true,
             message: "my visit requests fetched succesfully",
             data: data,
-
         })
     } catch (error) {
         return res.status(500).json({
@@ -131,12 +125,11 @@ exports.approveVisiterRequest = async (req, res) => {
             success: true,
             message: "visiter request approved successfully",
             data: upDateVist,
-
         })
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error !"
         })
     }
 }
@@ -159,20 +152,14 @@ exports.rejectVisiterRequest = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error !"
         })
     }
 }
 exports.getAllApprovedVisitors = async (req, res) => {
     const employeeid = req.params.employeeid;
     try {
-        const approvedVisitors = await visiterModel.find(
-            {
-                status: "approved",
-                employeeid: employeeid
-            }
-
-        );
+        const approvedVisitors = await visiterModel.find({ status: "approved", employeeid: employeeid});
         return res.status(200).json({
             success: true,
             message: "approved visitors fetched successfully",
@@ -181,7 +168,7 @@ exports.getAllApprovedVisitors = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error !"
         })
     }
 }
@@ -196,7 +183,7 @@ exports.getAllRejectedVisitors = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error !"
         })
     }
 }

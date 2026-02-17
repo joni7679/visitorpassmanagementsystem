@@ -23,7 +23,6 @@ exports.userRegister = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
         const finalRole = allowedRole.includes(role) ? role : "visitor";
-
         if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
@@ -70,7 +69,7 @@ exports.userRegister = async (req, res) => {
         })
         res.status(201).json({
             success: true,
-            message: "user registered successfully",
+            message: "user register successfully",
             data: safeuser,
 
         })
