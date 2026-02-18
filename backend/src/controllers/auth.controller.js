@@ -204,7 +204,7 @@ exports.userLogOut = async (req, res) => {
 
 exports.getUserByRole = async (req, res) => {
     try {
-        const users = await userModel.find({ role: { $in: ["employee", "security", "visitor"] } }).select("-password");
+        const users = await userModel.find({ role: { $in: ["employee", "security"] } }).select("-password");
         return res.status(200).json({
             success: false,
             message: "fetch all user data",
@@ -241,6 +241,28 @@ exports.deleteUser = async (req, res) => {
     }
 }
 
+exports.getSingleUserById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (!id) {
+            return res.status(404).json({
+                success: false,
+                message: "id not found please valid id here"
+            })
+        }
+        const user = await userModel.findById(id).select("-password");
+        return res.status(200).json({
+            success: true,
+            message: "single user id fetch successfully",
+            data: user
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
 
 exports.updateUser = async (req, res) => {
     const userId = req.params.id;
@@ -255,7 +277,8 @@ exports.updateUser = async (req, res) => {
         }
         return res.status(200).json({
             success: true,
-            message: "user data update successfully !"
+            message: "user data update successfully !",
+            data: user,
         })
     } catch (error) {
         return res.status(500).json({

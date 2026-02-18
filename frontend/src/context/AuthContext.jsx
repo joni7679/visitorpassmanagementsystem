@@ -10,6 +10,7 @@ function AuthConextProvider({ children }) {
     const [authLoader, setAuthLoader] = useState(true)
     const [userByRole, setUserByRole] = useState([])
     const [vistercountStatus, setVisitorCountStatus] = useState(null)
+    const [editUserData, setEditUserData] = useState(null)
     const backendApi = import.meta.env.VITE_BACKEND_URL;
     const registerUser = async ({ name, email, password, role }) => {
         setLoading(true);
@@ -115,11 +116,41 @@ function AuthConextProvider({ children }) {
         }
     }
 
+    const getFetchSingleByIdUser = async (id) => {
+        try {
+            setLoading(true)
+            const user = await axios.get(`${backendApi}/auth/user/${id}`)
+            const finalRes = user.data.data;
+            setEditUserData(finalRes)
+        } catch (error) {
+            setError(error.response?.data?.message)
+            return null
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const updateUser = async (id, updateuser) => {
+        try {
+            setLoading(true)
+            const user = await axios.put(`${backendApi}/auth/user/${id}`, updateuser)
+            const finalRes = user.data.data;
+            console.log("finalres", finalRes);
+            setEditUserData(finalRes)
+            return finalRes
+        } catch (error) {
+            setError(error.response?.data?.message)
+            return null
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const handleDeleteUser = async (id) => {
         try {
             setLoading(true)
             const user = await axios.delete(`${backendApi}/auth/delete-user/${id}`);
-            console.log("user",user)
+            console.log("user", user)
         } catch (error) {
             setError(error.response?.data?.message)
             return null
@@ -146,7 +177,7 @@ function AuthConextProvider({ children }) {
     }, [])
 
 
-    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole, getVisitorCountStatus, vistercountStatus, handleDeleteUser }}>
+    return <AuthConext.Provider value={{ registerUser, authLoader, loading, Error, LoginUser, userProfile, user, LogOutuser, userDashboard, fetchAllUserByRole, userByRole, getVisitorCountStatus, vistercountStatus, handleDeleteUser, getFetchSingleByIdUser, editUserData, updateUser }}>
         {children}
     </AuthConext.Provider>
 }

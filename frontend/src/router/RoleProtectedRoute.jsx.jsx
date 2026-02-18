@@ -17,7 +17,7 @@ const RoleProtectedRoute = ({ allowRole, children }) => {
         return <Navigate to="/" replace />
     }
     if (allowRole && user.role !== allowRole) {
-        return children
+        return <Navigate to={`/dashboard/${user.role}`} replace />
     }
     return children
 }

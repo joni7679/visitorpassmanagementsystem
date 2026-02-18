@@ -3,12 +3,13 @@ import React, { useContext } from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { VisitorContext } from '../../context/DataContext';
-import { Calendar, ChartLine, Dot, Ellipsis, Eye, FileDown, LocateFixed, Timer, Trash, User, Wand } from 'lucide-react';
+import { Calendar, ChartLine, Dot, Ellipsis, Eye, FileDown, LocateFixed, Timer, Trash, User, Wand, X } from 'lucide-react';
 
 
 const VisitCard = () => {
     const [hostName, setShowHostName] = useState([])
-    const { loading, fetchMyVisitorStatus, myVisitorsStatus } = useContext(VisitorContext)
+    const { loading, fetchMyVisitorStatus, myVisitorsStatus } = useContext(VisitorContext);
+    const [selectPss, setSelectPass] = useState(null)
     const api = import.meta.env.VITE_BACKEND_URL;
     const getEmpData = async () => {
         try {
@@ -26,97 +27,37 @@ const VisitCard = () => {
         pending: "text-yellow-500 bg-yellow-200",
         approved: "text-green-500 bg-green-200",
         rejected: "text-red-500 bg-red-200",
-
     }
 
-    const handleDownoladQrPass = (id) => {
-        {/* <div className='w-44  mt-5 h-44 bg-red-300 rounded-2xl overflow-hidden'>
-                                                                <img src={qrCode} className='w-full h-full object-cover' />
-                                                            </div> */}
+    const handleDownoladQrPass = (pass) => {
+        setSelectPass(pass)
+    }
+
+    const colseModel = () => {
+        setSelectPass(null)
     }
 
 
 
     return (
         <>
-            {/* {
-                myVisitorsStatus.length === 0 ?
-                    <div>
+            <div className='w-full relative'>
+                {selectPss &&
+                    <>
+                        <div className='absolute top-[70%] left-1/2 -transform -translate-x-1/2 -translate-y-1/2'>
 
-                        <p className='text-center capitalize'>
-                            No Data here
-
-                        </p>
-                    </div> :
-
-                    myVisitorsStatus.map((visit, index) => {
-                        const { date, time, purpose, location, employeeid, status, createdAt, qrCode, name } = visit
-                        const host = hostName.find(emp => emp._id === employeeid);
-                        return (
-
-                            <div key={index} className='max-w-md w-full bg-white rounded-2xl shadow-lg space-x-5  p-5  capitalize '>
-                                <div>
-                                    <div className='flex items-center justify-between w-full'>
-                                        <div className="user-info">
-                                            <h2 className='text-lg font-semibold text-gray-800 capitalize'>
-                                                {host?.name || "Unknow Host"}
-                                            </h2>
-                                        </div>
-                                        <div>
-                                            <span className={`px-3 py-1 text-sm font-medium bg-green-500 capitalize text-white rounded-full ${statusColor[status]}`}>
-                                                {status}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className='mt-1.5 border border-gray-300'></div>
-                                    <div className="visit-info grid grid-cols-2 mt-2.5 capitalize">
-                                        <div>
-                                            <p className='font-semibold text-md'>date</p>
-                                            <p>  {new Date(date).toLocaleDateString("en-IN", {
-                                                day: "2-digit",
-                                                month: "long",
-                                                year: "numeric"
-                                            })}</p>
-                                        </div>
-                                        <div>
-                                            <p className='font-semibold text-md'>time</p>
-                                            <p>{time}</p>
-                                        </div>
-                                        <div>
-                                            <p className='font-semibold text-md'>location</p>
-                                            <p>{location}</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p className='font-md text-gray-800 '>purpose of visit</p>
-                                        <p>{purpose}</p>
-                                    </div>
-                                    <span>requested time </span>
-                                    {new Date(createdAt).toLocaleDateString("en-IN", {
-                                        day: "2-digit",
-                                        month: "long",
-                                        year: "numeric"
-                                    })}
-                                </div>
-                                {
-                                    status === "approved" && <div>
-                                        <div className='w-44  mt-5 h-44 bg-red-300 rounded-2xl overflow-hidden'>
-                                            <img src={qrCode} className='w-full h-full object-cover' />
-                                        </div>
-                                        <a href={qrCode} download={`${name}-visitor-pass.png`} className='px-4 py-2 bg-green-500 text-white capitalize mx-auto  cursor-pointer hover:bg-green-700 duration-0 rounded-2xl'>downolad now</a>
-                                    </div>
-                                }
+                            <div className={`w-52  mt-5 h-52 shadow-md p-5 rounded-2xl overflow-hidden bg-white ${selectPss?"scale-[1.2]":"scale-0"} duration-initial transition-all`}>
+                                <X onClick={colseModel} className='text-xl cursor-pointer' />
+                                <img src={selectPss.qrCode} className='w-44 h-44 object-cover' />
                             </div>
-                        )
-                    })
-            } */}
-            <div className='w-full'>
-                <div class="overflow-x-auto">
+                        </div>
+                    </>
+                }
 
+                <div class="overflow-x-auto">
                     <table class="min-w-full bg-white shadow-lg rounded-2xl overflow-hidden">
                         <thead class="bg-gray-50 whitespace-nowrap ">
                             <tr>
-
                                 <th class="px-4 py-3 text-left text-sm font-medium text-slate-600">
                                     <div class="flex items-center gap-1.5">
                                         <User />
@@ -158,7 +99,6 @@ const VisitCard = () => {
                         </thead>
 
                         <tbody class="whitespace-nowrap divide-y divide-gray-200">
-
                             {
                                 myVisitorsStatus.length === 0 ?
                                     <tr>
@@ -171,7 +111,7 @@ const VisitCard = () => {
                                         </td>
                                     </tr>
                                     : myVisitorsStatus.map((user, index) => {
-                                        const { date, email, location, name, employeeid, qrCode, phone, image, purpose, status, time } = user
+                                        const { _id, date, email, location, name, employeeid, qrCode, phone, purpose, status, time } = user
                                         const host = hostName.find(emp => emp._id === employeeid);
                                         return (
                                             <tr key={index}>
@@ -211,7 +151,7 @@ const VisitCard = () => {
                                                     {
                                                         status === "approved" && <div>
                                                             <div className='flex items-center justify-center gap-1.5'>
-                                                                <span className='px-2 py-1 bg-blue-500 text-white capitalize mx-auto  cursor-pointer hover:bg-blue-700 duration-0 rounded-2xl'>
+                                                                <span onClick={() => handleDownoladQrPass(user)} className='px-2 py-1 bg-blue-500 text-white capitalize mx-auto  cursor-pointer hover:bg-blue-700 duration-0 rounded-2xl'>
                                                                     <Eye />
                                                                 </span>
                                                                 <a href={qrCode} download={`${name}-visitor-pass.png`} className='px-2 py-1 bg-green-500 text-white capitalize mx-auto  cursor-pointer hover:bg-green-700 duration-0 rounded-2xl'>

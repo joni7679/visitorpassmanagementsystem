@@ -118,22 +118,3 @@ exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
         })
     }
 }
-
-exports.rejectVisitor = async (req, res) => {
-    try {
-        const visitorId = req.params.visitorId;
-        const visitorData = await visiterModel.findOne({ visitorId })
-
-        if (!visitorData) {
-            return res.status(404).json({
-                success: false,
-                message: "visitor  not found!"
-            })
-        }
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "internal server error"
-        })
-    }
-}

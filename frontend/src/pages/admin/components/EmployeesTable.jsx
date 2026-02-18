@@ -6,46 +6,51 @@ import { CSVLink } from 'react-csv';
 import DeleteModel from './DeleteModel';
 import { toast } from 'react-toastify';
 import userImg from '../../../assets/user.png'
+import EditUser from './EditUser';
 
 const EmployeesTable = () => {
-    const { fetchAllUserByRole, userByRole, loading, handleDeleteUser } = useContext(AuthConext);
-    const [userid, setUserId] = useState(null)
+    const { getFetchSingleByIdUser, fetchAllUserByRole, userByRole, loading, handleDeleteUser } = useContext(AuthConext);
+    const [userid, setUserId] = useState(null);
+    const [editUserid, setEditUserId] = useState(null)
     useEffect(() => {
         fetchAllUserByRole()
     }, [])
     if (loading) return <ShimmEffectTable />
 
-    const handleEditUser = (id) => {
-        console.log("userid", id);
-        alert(id)
+    const handleEditUser = async (id) => {
+        setEditUserId(id)
+        await getFetchSingleByIdUser(id)
     }
 
-    const deleteUserId = async (id) => {
+    const deleteUserId = (id) => {
         setUserId(id)
-
     }
+
     const handleCloseModel = () => {
         setUserId(null)
+        setEditUserId(null)
     }
 
     const handleDelete = async () => {
         await handleDeleteUser(userid);
         toast.success("Successfully delete this user");
         setUserId(null)
-
-        // setTimeout(() => {
-        //     fetchAllUserByRole()
-        // }, 3000)
-
+        setTimeout(() => {
+            fetchAllUserByRole()
+        }, 3000)
     }
 
     return (
         <>
-            <div classNameName="w-full relative">
+            <div className="w-full relative">
                 {userid && <div onClick={handleCloseModel} className='relative w-full h-full'>
                     <div className='fixed top-1/2 cursor-pointer left-1/2 -transform -translate-x-1/2  -translate-y-1/2 overly w-full h-full flex items-center justify-center'>
                         <DeleteModel handleCloseModel={handleCloseModel} handleDelete={handleDelete} loading={loading} />
-
+                    </div>
+                </div>}
+                {editUserid && <div className='relative w-full h-full'>
+                    <div className='fixed top-[60%] cursor-pointer left-1/2 -transform -translate-x-1/2  -translate-y-1/2 overly w-full h-full flex items-center justify-center  '>
+                        <EditUser handleCloseModel={handleCloseModel} />
                     </div>
                 </div>}
                 <div className="overflow-x-auto">
@@ -113,7 +118,7 @@ const EmployeesTable = () => {
                                     <tr>
                                         <td className="px-4 py-3 text-sm text-slate-900 font-medium">
                                             <div className="flex items-center cursor-pointer w-max">
-                                                <p>
+                                                <p className='font-semibold text-xl capitalize'>
                                                     not data here
                                                 </p>
                                             </div>
