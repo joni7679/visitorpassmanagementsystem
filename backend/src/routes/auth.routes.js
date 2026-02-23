@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { userRegister, userLogin, userLogOut, userProfile, dashboard, getUserByRole, deleteUser, updateUser, getSingleUserById } = require("../controllers/auth.controller");
+const { userRegister, userLogin, userLogOut, userProfile, dashboard, getUserByRole, deleteUser, updateUser, getSingleUserById, getUserByEmail, getVisitor } = require("../controllers/auth.controller");
 const authmiddleware = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const loginLimit = require("../middlewares/loginLimit");
@@ -13,6 +13,7 @@ router.get("/employee/dashboard", authmiddleware, authorizeRoles("employee"), da
 router.get("/security/dashboard", authmiddleware, authorizeRoles("security"), dashboard);
 router.get("/visitor/dashboard", authmiddleware, authorizeRoles("visitor"), dashboard);
 router.post("/logout", authmiddleware, userLogOut)
+router.get("/get-visitor", authmiddleware, authorizeRoles("employee"), getVisitor)
 router.get("/getuserbyrole", authmiddleware, authorizeRoles("admin"), getUserByRole)
 router.get("/user/:id", authmiddleware, authorizeRoles("admin"), getSingleUserById)
 router.put("/user/:id", authmiddleware, authorizeRoles("admin"), updateUser)

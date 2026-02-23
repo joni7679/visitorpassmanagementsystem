@@ -8,7 +8,7 @@ const cloudinary = require("../config/cloudinary.js")
 const getLocationByPurpose = (purpose) => {
     switch (purpose) {
         case "Metting":
-            return " Main Office Floor-1";
+            return "Main Office Floor-1";
         case "Interview":
             return "Hr Cabin, 3rd Floor";
         case "Delivery":
@@ -58,7 +58,7 @@ exports.createVisitedRequest = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error",
         })
     }
 }
@@ -80,7 +80,7 @@ exports.getAllVisitorsRequests = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error",
         })
     }
 }
@@ -103,7 +103,7 @@ exports.visiterRequest = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `server error ${error.message}`
+            message: "server error",
         })
     }
 }

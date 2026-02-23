@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken")
 
 async function authmiddleware(req, res, next) {
     try {
-        let token = req.cookies && req.cookies.token;
-    
+        let token = req.cookies.token;
         if (!token) {
             return res.status(401).json({
                 success: false,
@@ -14,7 +13,7 @@ async function authmiddleware(req, res, next) {
         if (!decode) {
             res.status(404).json({
                 success: false,
-                message: "invalid token !"
+                message: "invalid token"
             })
         }
         req.user = decode;

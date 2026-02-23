@@ -78,7 +78,7 @@ exports.userRegister = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
         })
     }
 }
@@ -125,7 +125,6 @@ exports.userLogin = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "internal server error",
-            message: error.message
         })
     }
 }
@@ -148,7 +147,7 @@ exports.userProfile = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "internal server error",
-            message: error.message
+            message: "server error"
         })
     }
 }
@@ -197,7 +196,7 @@ exports.userLogOut = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
         })
     }
 }
@@ -213,7 +212,7 @@ exports.getUserByRole = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
         })
     }
 }
@@ -236,7 +235,7 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
         })
     }
 }
@@ -259,7 +258,7 @@ exports.getSingleUserById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
         })
     }
 }
@@ -283,7 +282,23 @@ exports.updateUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "server error",
+        })
+    }
+}
+
+exports.getVisitor = async (req, res) => {
+    try {
+        const visitorData = await userModel.find({ role: "visitor" }).select("-password  -createdAt -updatedAt");
+        res.status(200).json({
+            success: true,
+            message: "visitor data fetch successfully",
+            data: visitorData
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "server error",
         })
     }
 }

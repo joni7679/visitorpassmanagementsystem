@@ -53,7 +53,7 @@ const DashboardLayout = () => {
                     <div className={` ${isOpen ? "w-0" : "w-[20%]"}  transition-all duration-100 ease-out`}>
                         <Sidebar togglebar={togglebar} isOpen={isOpen} data={getSidebarRoleData(role)} />
                     </div>
-                    <div className={`${isOpen ? "w-[100%]" : "w-[80%]"}  p-5 h-[80vh]  transition-all overflow-scroll work-space  duration-100 ease-out`}>
+                    <div className={`${isOpen ? "w-[100%]" : "w-[80%]"}   h-[80vh]  transition-all overflow-scroll work-space  duration-100 ease-out`}>
                         <Outlet />
                     </div>
                 </div>
