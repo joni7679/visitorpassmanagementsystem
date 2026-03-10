@@ -2,37 +2,21 @@ const validator = require('validator');
 const userModel = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const allowedRole = ["admin", "employee", "security", "visitor"]
 
-const getExpiryByRole = (role) => {
-    switch (role) {
-        case "admin":
-            return "6h";
-        case "employee":
-            return "10h";
-        case "security":
-            return "7h";
-        case "visitor":
-        default: return "48h"
-    }
-}
-const generateToken = (userId, role) => {
-    return jwt.sign({ id: userId, role }, process.env.JWT_SECRET_KEY, { expiresIn: getExpiryByRole(role) })
+const generateToken = (userId) => {
+    return jwt.sign({ id: userId, }, process.env.JWT_SECRET_KEY, { expiresIn: "2d" })
 }
 exports.userRegister = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        const finalRole = allowedRole.includes(role) ? role : "visitor";
         if (!name || !email || !password) {
-            return res.status(400).json({
-                success: false,
+            res.status(400).json({
                 message: "please provided all required fields",
             })
         }
         if (!validator.isEmail(email)) {
-            return res.status(400).json({
-                success: false,
-                message: "this email is invalid, please enter a valid email here",
+            res.status(400).json({
+                message: "invalid email id",
             })
         }
         if (!validator.isStrongPassword(password, {
@@ -42,24 +26,22 @@ exports.userRegister = async (req, res) => {
             minNumbers: 1,
             minSymbols: 1
         })) {
-            return res.status(400).json({
-                success: false,
+            res.status(400).json({
                 message: "password minimum 8 characters must be there, at least one uppercase letter, one lowercase, one number and one symbol",
             })
         }
         const isuseralreadyExist = await userModel.findOne({ email });
         if (isuseralreadyExist) {
-            return res.status(409).json({
-                success: false,
+            res.status(409).json({
                 message: "user already exist please login in"
             })
         }
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
-        const user = await userModel.create({ name, email, password: hashPassword, role: finalRole });
+        const user = await userModel.create({ name, email, password: hashPassword, role });
         const { password: pwd, ...safeuser } = user.toObject();
-        const token = generateToken(user._id, user.role);
-        if (finalRole === "visitor") {
+        const token = generateToken(user._id);
+        if (user.role === "visitor") {
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: true,
@@ -70,15 +52,12 @@ exports.userRegister = async (req, res) => {
             })
         }
         res.status(201).json({
-            success: true,
-            message: "user register successfully",
+            message: "user register successfully...",
             data: safeuser,
-
         })
     } catch (error) {
         res.status(500).json({
-            success: false,
-            message: "server error",
+            message: error.message
         })
     }
 }
@@ -87,27 +66,24 @@ exports.userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).json({
-                success: false,
+            res.status(400).json({
                 message: "please all fields are required",
             })
         }
         const user = await userModel.findOne({ email });
         if (!user) {
-            return res.status(404).json({
-                success: false,
+            res.status(404).json({
                 message: "user not found please register first"
             })
         }
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if (!isPasswordMatch) {
-            return res.status(401).json({
-                success: false,
+            res.status(401).json({
                 message: "Password is incorrect, please try again"
             })
         }
         const { password: pwd, ...safeuser } = user.toObject();
-        const token = generateToken(user._id, user.role);
+        const token = generateToken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
@@ -123,8 +99,7 @@ exports.userLogin = async (req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-            success: false,
-            message: "internal server error",
+            message: error.message
         })
     }
 }
@@ -133,8 +108,7 @@ exports.userProfile = async (req, res) => {
     try {
         const user = await userModel.findById(req.user.id).select("-password");
         if (!user) {
-            return res.status(404).json({
-                success: false,
+            res.status(404).json({
                 message: "user not found"
             })
         }
@@ -145,31 +119,28 @@ exports.userProfile = async (req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-            success: false,
-            message: "internal server error",
-            message: "server error"
+            message: error.message
         })
     }
 }
 
 exports.dashboard = (req, res) => {
     const role = req.user.role;
-
     if (role === "admin") {
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "wellcome admin",
         })
     }
 
     if (role === "employee") {
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "wellcome employee",
         })
     }
     if (role === "security") {
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "wellcome security",
         })
@@ -194,9 +165,8 @@ exports.userLogOut = async (req, res) => {
             message: "User logout successfully !"
         })
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "server error",
+        res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -204,38 +174,33 @@ exports.userLogOut = async (req, res) => {
 exports.getUserByRole = async (req, res) => {
     try {
         const users = await userModel.find({ role: { $in: ["employee", "security"] } }).select("-password");
-        return res.status(200).json({
-            success: false,
+        res.status(200).json({
             message: "fetch all user data",
             data: users
         })
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "server error",
+        res.status(500).json({
+            message: error.message
         })
     }
 }
 
 exports.deleteUser = async (req, res) => {
     const userId = req.params.id;
-    console.log("userid", userId)
     try {
         const user = await userModel.findByIdAndDelete(userId);
         if (!user) {
-            return res.status(404).json({
-                success: false,
+            res.status(404).json({
                 message: "user id not found!"
             })
         }
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "user delete successfully !"
         })
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "server error",
+        res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -244,21 +209,18 @@ exports.getSingleUserById = async (req, res) => {
     const id = req.params.id;
     try {
         if (!id) {
-            return res.status(404).json({
-                success: false,
+            res.status(404).json({
                 message: "id not found please valid id here"
             })
         }
         const user = await userModel.findById(id).select("-password");
-        return res.status(200).json({
-            success: true,
+        res.status(200).json({
             message: "single user id fetch successfully",
             data: user
         })
     } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "server error",
+        res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -269,20 +231,20 @@ exports.updateUser = async (req, res) => {
     try {
         const user = await userModel.findByIdAndUpdate(userId, { name, email, role }, { new: true });
         if (!user) {
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: "user id not found!"
             })
         }
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "user data update successfully !",
             data: user,
         })
     } catch (error) {
-        return res.status(500).json({
+        res.status(500).json({
             success: false,
-            message: "server error",
+            message: error.message
         })
     }
 }
@@ -296,9 +258,9 @@ exports.getVisitor = async (req, res) => {
             data: visitorData
         })
     } catch (error) {
-        return res.status(500).json({
+        res.status(500).json({
             success: false,
-            message: "server error",
+            message: error.message
         })
     }
 }

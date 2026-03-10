@@ -147,11 +147,11 @@ const CreateVisitRequested = () => {
                             <label htmlFor="" className=''>Purpose</label>
                             <select className='px-4   mt-3 py-3 pr-10 bg-[#f0f1f2] focus:bg-transparent w-full text-sm border border-gray-200 focus:border-black outline-0 rounded-md transition-all' value={purpose} onChange={(e) => setPurpose(e.target.value)}>
                                 <option value="">Slect option</option>
-                                <option value="Metting" className='capitalize'>Metting</option>
-                                <option value="Interview" className='capitalize'>Interview</option>
-                                <option value="Delivery" className='capitalize'>Delivery</option>
-                                <option value="Vendor/ Maintence" className='capitalize'>Vendor/ Maintence</option>
-                                <option value="Other" className='capitalize'>Other</option>
+                                <option value="metting" className='capitalize'>Metting</option>
+                                <option value="interview" className='capitalize'>Interview</option>
+                                <option value="delivery" className='capitalize'>Delivery</option>
+                                <option value="vendor/maintence" className='capitalize'>Vendor/ Maintence</option>
+                                <option value="other" className='capitalize'>Other</option>
                             </select>
                         </div>
                     </div>

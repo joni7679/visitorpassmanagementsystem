@@ -5,26 +5,22 @@ exports.visiterPassVerify = async (req, res) => {
         const visitorId = req.params.visitorId;
         if (!visitorId) {
             return res.status(400).json({
-                success: false,
                 message: "visitor is required"
             })
         }
         const visitorData = await visiterModel.findOne({ visitorId });
         if (!visitorData) {
             return res.status(404).json({
-                success: false,
                 message: "visitor id not found "
             })
         }
         return res.status(200).json({
-            success: true,
             message: "visitor pass verified successfully",
             data: visitorData
         })
     } catch (error) {
         return res.status(500).json({
-            success: false,
-            message: "internal server error"
+            message: error.message
         })
     }
 }
@@ -32,7 +28,6 @@ exports.visiterPassVerify = async (req, res) => {
 exports.checkInVisitor = async (req, res) => {
     try {
         const visitorId = req.params.visitorId;
-        console.log("visitorid", visitorId);
         const visitorData = await visiterModel.findOne({ visitorId, status: "approved" })
         if (!visitorData) {
             return res.status(404).json({
@@ -44,21 +39,19 @@ exports.checkInVisitor = async (req, res) => {
         if (visitorData.status === "check-in") {
             return res.status(400).json({
                 success: false,
-                message: "visitor already check in!"
+                message: "visitor already check in"
             })
         }
         visitorData.checkInTime = new Date().toISOString();
         visitorData.status = "check-in";
         await visitorData.save()
         return res.status(200).json({
-            success: true,
             message: "visitor checked in successfully",
             data: visitorData
         })
     } catch (error) {
         return res.status(500).json({
-            success: false,
-            message: "internal server error"
+            message: error.message
         })
     }
 }
@@ -66,18 +59,14 @@ exports.checkInVisitor = async (req, res) => {
 exports.checkOutVisitor = async (req, res) => {
     try {
         const visitorId = req.params.visitorId;
-        console.log("visitorid", visitorId);
         const visitorData = await visiterModel.findOne({ visitorId })
-
         if (!visitorData) {
             return res.status(404).json({
-                success: false,
                 message: "visitor  not found!"
             })
         }
         if (visitorData.status === "check-out") {
             return res.status(400).json({
-                success: false,
                 message: "visitor already check out"
             })
         }
@@ -92,7 +81,7 @@ exports.checkOutVisitor = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "internal server error"
+            message: error.message
         })
     }
 }
@@ -102,19 +91,16 @@ exports.getAllCheckInAndCheckOutVisitor = async (req, res) => {
         const visitorData = await visiterModel.find({ status: { $in: ["check-in", "check-out"] } })
         if (!visitorData) {
             return res.status(400).json({
-                success: false,
                 message: "data not found "
             })
         }
         return res.status(200).json({
-            success: true,
             message: "visitor chck-in and check out data fetch successfully !",
             data: visitorData
         })
     } catch (error) {
         return res.status(500).json({
-            success: false,
-            message: "internal server error"
+            message: error.message
         })
     }
 }
