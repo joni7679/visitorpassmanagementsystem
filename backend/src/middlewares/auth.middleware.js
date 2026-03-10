@@ -11,7 +11,7 @@ async function authmiddleware(req, res, next) {
         }
         const decode = jwt.verify(token, process.env.JWT_SECRET_KEY)
         if (!decode) {
-            res.status(404).json({
+            return res.status(404).json({
                 success: false,
                 message: "invalid token"
             })
@@ -19,7 +19,7 @@ async function authmiddleware(req, res, next) {
         req.user = decode;
         next();
     } catch (error) {
-        res.json({
+        return res.json({
             data: false,
             message: error.message,
         })
