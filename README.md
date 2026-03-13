@@ -131,8 +131,12 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
  ```
  2) install Backend  Dependencies
-  -- cd backend
-  -- npm i 
+ ``` bash
+ cd backend
+ ```
+```bash 
+npm i
+``` 
 3.  start backend server 
 ``` bash
 npm run dev
@@ -141,8 +145,12 @@ the backend server will start on
  http://localhost:3000
 
  4. install frontend depdencies
+ ``` bash
  cd frontend
+ ```
+ ``` bash
  npm i
+ ```
 
  Environment Variables Setup
 
@@ -156,5 +164,6 @@ VITE_BACKEND_URL=http://localhost:3000
   ``` bash
   npm run dev
   ```
-  frontend will run on:
+  frontend will run on
+  
   http://localhost:5173
