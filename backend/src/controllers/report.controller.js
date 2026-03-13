@@ -21,6 +21,8 @@ exports.getVisitorStatusCount = async (req, res) => {
             }
         })
     } catch (error) {
-        console.log("something is wrong");
+        res.status(500).json({
+            message: error.message,
+        })
     }
 }

@@ -15,8 +15,6 @@ const getUserExpRole = (role) => {
             return "48h"
     }
 }
-
-
 const generateToken = (userId, role) => {
     return jwt.sign({ id: userId, role: role }, process.env.JWT_SECRET_KEY, { expiresIn: getUserExpRole(role) })
 }
@@ -25,7 +23,7 @@ exports.userRegister = async (req, res) => {
         const { name, email, password, role } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({
-                message: "please provided all required fields",
+                message: "please provided all required field",
             })
         }
         if (!validator.isEmail(email)) {
@@ -66,7 +64,7 @@ exports.userRegister = async (req, res) => {
             })
         }
         return res.status(201).json({
-            message: "user register successfully...",
+            message: "register successfully",
             data: safeuser,
         })
     } catch (error) {
@@ -87,13 +85,13 @@ exports.userLogin = async (req, res) => {
         const user = await userModel.findOne({ email });
         if (!user) {
             res.status(404).json({
-                message: "user not found please register first"
+                message: "invalid user and password"
             })
         }
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
-        if (!isPasswordMatch) {
+        const matchPassword = await bcrypt.compare(password, user.password);
+        if (!matchPassword) {
             return res.status(401).json({
-                message: "Password is incorrect, please try again"
+                message: "password is incorrect"
             })
         }
         const { password: pwd, ...safeuser } = user.toObject();
@@ -120,7 +118,8 @@ exports.userLogin = async (req, res) => {
 
 exports.userProfile = async (req, res) => {
     try {
-        const user = await userModel.findById(req.user.id).select("-password");
+        const id = req.user.id
+        const user = await userModel.findById(id).select("-password");
         if (!user) {
             return res.status(404).json({
                 message: "user not found"
@@ -176,7 +175,7 @@ exports.userLogOut = async (req, res) => {
         })
         res.status(200).json({
             success: true,
-            message: "User logout successfully !"
+            message: "User logout successfully"
         })
     } catch (error) {
         res.status(500).json({
@@ -188,7 +187,7 @@ exports.userLogOut = async (req, res) => {
 exports.getUserByRole = async (req, res) => {
     try {
         const users = await userModel.find({ role: { $in: ["employee", "security"] } }).select("-password");
-        res.status(200).json({
+        return res.status(200).json({
             message: "fetch all user data",
             data: users
         })
@@ -205,12 +204,12 @@ exports.deleteUser = async (req, res) => {
         const user = await userModel.findByIdAndDelete(userId);
         if (!user) {
             res.status(404).json({
-                message: "user id not found!"
+                message: "user id not found"
             })
         }
         res.status(200).json({
             success: true,
-            message: "user delete successfully !"
+            message: "user delete successfully"
         })
     } catch (error) {
         res.status(500).json({
@@ -222,11 +221,6 @@ exports.deleteUser = async (req, res) => {
 exports.getSingleUserById = async (req, res) => {
     const id = req.params.id;
     try {
-        if (!id) {
-            res.status(404).json({
-                message: "id not found please valid id here"
-            })
-        }
         const user = await userModel.findById(id).select("-password");
         res.status(200).json({
             message: "single user id fetch successfully",
@@ -240,9 +234,9 @@ exports.getSingleUserById = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-    const userId = req.params.id;
-    const { name, email, role } = req.body;
     try {
+        const userId = req.params.id;
+        const { name, email, role } = req.body;
         const user = await userModel.findByIdAndUpdate(userId, { name, email, role }, { new: true });
         if (!user) {
             res.status(404).json({

@@ -1,27 +1,22 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-async function authmiddleware(req, res, next) {
+const authmiddleware = (req, res, next) => {
     try {
-        let token = req.cookies.token;
+        // jwt token form cookie
+        const token = req.cookies.token;
+        // if token is missing so error 401 unathorize user
         if (!token) {
             return res.status(401).json({
-                success: false,
-                message: "Unauthorized..."
+                message: "unathorized user"
             })
         }
-        const decode = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        if (!decode) {
-            return res.status(404).json({
-                success: false,
-                message: "invalid token"
-            })
-        }
+        // verify token jwt secretkey
+        const decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.user = decode;
-        next();
+        next()
     } catch (error) {
-        return res.json({
-            data: false,
-            message: error.message,
+        return res.status(500).json({
+            message: error.message
         })
     }
 }

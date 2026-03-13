@@ -11,9 +11,4 @@ export const securityData = [
         label: "Entry Logs",
         path: "Entry-Logs"
     },
-    {
-        icon: AlertTriangle,
-        label: "Alerts",
-        path: "Alerts"
-    }
 ]

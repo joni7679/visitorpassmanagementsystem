@@ -21,20 +21,6 @@ export const adminData = [
         label: "visiter",
         path: "visiter",
     },
-    {
-        icon: BrickWallShield,
-        label: "security staff",
-        path: "security-staff",
-    },
-    {
-        icon: LayoutDashboard,
-        label: "reports",
-        path: "reports",
-
-    }, {
-        icon: LayoutDashboard,
-        label: "setting",
-        path: "setting",
-
-    },
+  
+  
 ]

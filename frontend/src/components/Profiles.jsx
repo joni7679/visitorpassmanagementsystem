@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthConext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import userImg from '../assets/user.png'
 import bannerImg from "../assets/banner.avif"
 import useAuthhook from '../hooks/useAuthHook';
 
 const Profiles = () => {
     const { user } = useAuthhook()
-
     if (!user) {
         return <h1>loading profile....</h1>
     }
-    console.log("user,", user)
     return (
         <>
             <div className='w-full min-h-screen flex items-start  overflow-hidden justify-center '>
@@ -25,8 +22,6 @@ const Profiles = () => {
                     <div className="user info p-5 mt-14">
                         <p className='text-center font-md capitalize'>{user.name}</p>
                         <p className='text-center font-md capitalize'>{user.role}</p>
-                        <p className='text-center font-semibold '>About me</p>
-                        <p className='mt-5'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto amet quidem autem accusantium sit soluta. Inventore mollitia fugiat corrupti quae? Quam, doloribus odio?</p>
                     </div>
                 </div>
             </div>

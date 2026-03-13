@@ -1,15 +1,11 @@
 const mongoose = require("mongoose");
-
-async function connectToDb() {
+const connectToDb = async () => {
     try {
-        if (!process.env.MONGO_URL) {
-            console.log("mongodb url is mismatch in env file ")
-        }
         await mongoose.connect(process.env.MONGO_URL);
-        console.log("connected to the database successfully!")
+        console.log("database connected to successfully");
     } catch (error) {
-        console.log(`data base not connected please try again leater, ${error.message}`);
+        console.log(`database not connected ${error.message}`);
     }
 }
 
-module.exports = connectToDb;
+module.exports = connectToDb

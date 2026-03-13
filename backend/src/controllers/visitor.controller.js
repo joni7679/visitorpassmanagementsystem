@@ -8,11 +8,11 @@ const cloudinary = require("../config/cloudinary.js")
 const getLocationByPurpose = (purpose) => {
     switch (purpose) {
         case "metting":
-            return "main office floor-1";
+            return "main office 1st floor";
         case "interview":
             return "hr cabin, 3rd floor";
         case "delivery":
-            return "reaception area,ground floor";
+            return "ground floor";
         case "vendor/maintence":
             return "basement";
         default:
@@ -20,7 +20,7 @@ const getLocationByPurpose = (purpose) => {
     }
 }
 exports.createVisitedRequest = async (req, res) => {
-    const { name, email, phone, userid, employeeid, date, time, purpose, } = req.body;
+    const { name, email, phone, userid, employeeid, date, time, purpose } = req.body;
     if (!name || !email || !phone || !userid || !employeeid || !date || !time || !purpose) {
         return res.status(400).json({
             message: "All fields are required"
@@ -49,7 +49,7 @@ exports.createVisitedRequest = async (req, res) => {
         const location = getLocationByPurpose(purpose)
         const visitUser = await visiterModel.create({ visitorId: nanoid.nanoid(12), name, email, phone, userid, employeeid, date, time, purpose, location: location, image: imageUrl });
         return res.status(201).json({
-            message: "visit Requested successfully.",
+            message: "visit Requested successfully",
             data: visitUser
         })
     } catch (error) {
@@ -84,7 +84,6 @@ exports.visiterRequest = async (req, res) => {
             message: "userid id not found"
         })
     }
-
     try {
         const data = await visiterModel.find({ userid }).sort({ updatedAt: - 1 });
         return res.status(200).json({

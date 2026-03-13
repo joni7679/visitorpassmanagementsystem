@@ -5,7 +5,6 @@ const authorizeRoles = (...roles) => {
                 message: `not allowed ${req.user.role}`
             })
         }
-        console.log("role", req.user.role)
         if (!roles.includes(req.user.role)) {
             return res.status(403).json({
                 message: "access denided"
