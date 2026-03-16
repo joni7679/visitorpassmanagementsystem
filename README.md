@@ -167,3 +167,15 @@ VITE_BACKEND_URL=http://localhost:3000
   frontend will run on
   
   http://localhost:5173
+---
+# Api Explantion:
+
+Method | End-Point | Description|
+------------------------------------
+Post | api/register | create new account|
+---------------------------------------
+Post | api/login   | login account|
+------------------------------------
+Post | api/logout | logout user|
+----------------------------------
+Get | api/profile | get user profile|
