@@ -169,13 +169,19 @@ VITE_BACKEND_URL=http://localhost:3000
   http://localhost:5173
 ---
 # Api Explantion:
-
-Method | End-Point | Description|
-------------------------------------
-Post | api/register | create new account|
----------------------------------------
-Post | api/login   | login account|
-------------------------------------
-Post | api/logout | logout user|
-----------------------------------
-Get | api/profile | get user profile|
+- Method:-  Post 
+- apiendpoint:- api/auth/register 
+- Description:-  create new account
+---
+- Method:-  Post 
+- apiendpoint:- api/auth/login 
+- Description:-  login user
+---
+- Method:-  Post 
+- apiendpoint:- api/auth/logout 
+- Description:-  login user
+---
+- Method:-  Get 
+- apiendpoint:- api/auth/profile
+- Description:-  get user profile
+---
