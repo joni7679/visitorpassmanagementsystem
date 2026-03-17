@@ -14,7 +14,7 @@ The Stystem Includes four roles:
 ** Each role has different permissions and responsibilities in the system.
 ---
 ## project Explantoin 
--[Watch The demo video](https://share.vidyard.com/watch/RH411g6kMjnq9cpan2yE3B)
+-[Watch The demo video](https://share.vidyard.com/watch/ukY5erFV76qckYfyV9qo6B)
 
 ---
 ## Project demonstarates:
@@ -144,6 +144,25 @@ npm run dev
 the backend server will start on
  http://localhost:3000
 
+ # Api Explantion:
+- Method:-  Post 
+- apiendpoint:- api/auth/register 
+- Description:-  create new account
+---
+- Method:-  Post 
+- apiendpoint:- api/auth/login 
+- Description:-  login user
+---
+- Method:-  Post 
+- apiendpoint:- api/auth/logout 
+- Description:-  logout  the user
+---
+- Method:-  Get 
+- apiendpoint:- api/auth/profile
+- Description:-  get user profile
+---
+
+
  4. install frontend depdencies
  ``` bash
  cd frontend
@@ -167,21 +186,4 @@ VITE_BACKEND_URL=http://localhost:3000
   frontend will run on
   
   http://localhost:5173
----
-# Api Explantion:
-- Method:-  Post 
-- apiendpoint:- api/auth/register 
-- Description:-  create new account
----
-- Method:-  Post 
-- apiendpoint:- api/auth/login 
-- Description:-  login user
----
-- Method:-  Post 
-- apiendpoint:- api/auth/logout 
-- Description:-  logout  the user
----
-- Method:-  Get 
-- apiendpoint:- api/auth/profile
-- Description:-  get user profile
 ---

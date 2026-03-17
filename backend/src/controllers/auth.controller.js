@@ -21,7 +21,6 @@ exports.userRegister = async (req, res) => {
                 message: "invalid email id",
             })
         }
-
         if (!validator.isStrongPassword(password,
             {
                 minLength: 8,
@@ -35,18 +34,15 @@ exports.userRegister = async (req, res) => {
                 message: "please enter password must 8 charters at lest one Upeercae , One Number , One symbols"
             })
         }
-
         const exitUser = await userModel.findOne({ email });
         if (exitUser) {
             return res.json({
                 message: "user exit, please login.",
             })
         }
-
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
         const user = await userModel.create({ name, email, password: hashPassword, role });
-
         const token = generateToekn(user._id, user.role)
         if (user.role === "visitor") {
             res.cookie("token", token, {
