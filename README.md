@@ -179,7 +179,7 @@ VITE_BACKEND_URL=http://localhost:3000
 ---
 - Method:-  Post 
 - apiendpoint:- api/auth/logout 
-- Description:-  login user
+- Description:-  logout  the user
 ---
 - Method:-  Get 
 - apiendpoint:- api/auth/profile

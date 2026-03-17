@@ -16,7 +16,8 @@ function AuthConextProvider({ children }) {
         setLoading(true);
         try {
             const res = await axios.post(`${backendApi}/auth/register`, { name, email, password, role });
-            const finalRes = res.data.data;
+            const finalRes = res.data;
+            console.log("res", finalRes)
             return finalRes;
         } catch (error) {
             setError(error.response?.data.message)
@@ -33,7 +34,8 @@ function AuthConextProvider({ children }) {
         setLoading(true);
         try {
             const res = await axios.post(`${backendApi}/auth/login`, { email, password });
-            const finalRes = res.data.data;
+            const finalRes = res.data;
+            console.log("res", finalRes)
             setUser(finalRes)
             return finalRes;
         } catch (error) {
@@ -63,7 +65,7 @@ function AuthConextProvider({ children }) {
     const userProfile = async () => {
         try {
             const res = await axios.get(`${backendApi}/auth/profile`);
-            const finalRes = res.data.data;
+            const finalRes = res.data;
             setUser(finalRes);
             return finalRes
         } catch (error) {
@@ -105,7 +107,7 @@ function AuthConextProvider({ children }) {
         try {
             setLoading(true)
             const user = await axios.get(`${backendApi}/visitor/report`)
-            const finalRes = user.data.data;
+            const finalRes = user.data;
             setVisitorCountStatus(finalRes)
             console.log("user", finalRes)
         } catch (error) {
@@ -134,7 +136,7 @@ function AuthConextProvider({ children }) {
         try {
             setLoading(true)
             const user = await axios.put(`${backendApi}/auth/user/${id}`, updateuser)
-            const finalRes = user.data.data;
+            const finalRes = user.data;
             console.log("finalres", finalRes);
             setEditUserData(finalRes)
             return finalRes
