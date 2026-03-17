@@ -27,15 +27,35 @@ The Stystem Includes four roles:
 ## stystem workflow
 Visitor :
 -> create visit request.
+- visitor dashboard home page
+![img](./frontend/src/assets/imges/visitorhome.png)
+- visitor dashboard create visitor requested page
+![img](./frontend/src/assets/imges/visitorreq.png)
+- visitor dashboard visitor status page
+![img](./frontend/src/assets/imges/visitorstatus.png)
 ...
 Employee reviews request
 -> Employee approves or rejects request .
--> Qr code generated for approved visitor. 
+-> Qr code generated for approved visitor.
+- Employee dashboard All visitor request page
+![img](./frontend/src/assets/imges/allvisitorreq.png) 
+- Employee dashboard approved visitor  page
+![img](./frontend/src/assets/imges/approvevisitor.png) 
 ...
 security scan Qr code at entry gate
 -> Visitor check-in and check-out recorded.
+- security dashboard scan qr code page
+![img](./frontend/src/assets/imges/scan.png) 
+- security dashboard visitor check-in and check-out page
+![img](./frontend/src/assets/imges/visitorcheckinandcheckout.png) 
 ...
 Admin monitors system activity.
+- Admin dashboard create Employee/security page
+![img](./frontend/src/assets/imges/create.png) 
+- Admin dashboard all Employee/security page
+![img](./frontend/src/assets/imges/allemp.png) 
+- Admin dashboard visitor checkin and checkout time data table
+![img](./frontend/src/assets/imges/visitorcheckinandcheckout.png) 
 ## user Roles & Featues 
 
 ## Visitor Features

@@ -30,7 +30,7 @@ exports.userRegister = async (req, res) => {
                 minSymbols: 1,
             }
         )) {
-            return res.json({
+            return res.status(400).json({
                 message: "please enter password must 8 charters at lest one Upeercae , One Number , One symbols"
             })
         }
